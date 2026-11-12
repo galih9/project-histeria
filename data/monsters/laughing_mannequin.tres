@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="CombatantData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/combatant_data.gd" id="1_3c0hp"]
+[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="2_n47fa"]
+[ext_resource type="Resource" path="res://data/skills/mannequin_point_and_laugh.tres" id="3_np851"]
+[ext_resource type="Script" path="res://data/definitions/stat_block.gd" id="4_ovkp6"]
+[ext_resource type="Script" path="res://data/definitions/traits/trait_data.gd" id="5_jt5t4"]
+[ext_resource type="Resource" path="res://data/statuses/attack_up.tres" id="6_llr00"]
+[ext_resource type="Script" path="res://data/definitions/traits/laugh_boost_trait.gd" id="7_k3ok7"]
+[ext_resource type="Resource" path="res://data/skills/mannequin_slap.tres" id="8_48s7c"]
+
+[sub_resource type="Resource" id="Resource_kke14"]
+script = ExtResource("4_ovkp6")
+max_hp = 42
+defense = 4.0
+resistance = 9.0
+speed = 9.0
+accuracy = 90.0
+
+[sub_resource type="Resource" id="Resource_3kprr"]
+script = ExtResource("7_k3ok7")
+boost = ExtResource("6_llr00")
+display_name = "Laugh Boost"
+description = "Gets pumped up after landing a debuff."
+
+[resource]
+script = ExtResource("1_3c0hp")
+display_name = "Laughing Mannequin"
+short_name = "Mannequin"
+article = "the "
+races = Array[StringName]([&"Wares"])
+stats = SubResource("Resource_kke14")
+weapons = Array[ExtResource("2_n47fa")]([ExtResource("8_48s7c")])
+skills = Array[ExtResource("2_n47fa")]([ExtResource("3_np851")])
+traits = Array[ExtResource("5_jt5t4")]([SubResource("Resource_3kprr")])
+temperament = 0.5
+negotiation_lines = PackedStringArray("{target} giggles. \"Join you? HA! Hee hee... maybe?\"", "{target} laughs so hard its arm falls off. It puts it back.")
+recruit_success_lines = PackedStringArray("\"HA HA HA! Okay!\"", "{target} laughs a yes.")
+recruit_fail_lines = PackedStringArray("\"HAAAA. No.\"", "{target} laughs at the idea.")
+humiliate_lines = PackedStringArray()
+color = Color(0.9137255, 0.7882353, 0.627451, 1)
+battle_size = Vector2i(32, 64)

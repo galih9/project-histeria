@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/effects/effect_data.gd" id="1_0qcxj"]
+[ext_resource type="Script" path="res://data/definitions/effects/damage_effect.gd" id="2_r60w6"]
+[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="3_8x2dl"]
+
+[sub_resource type="Resource" id="Resource_ejyyn"]
+script = ExtResource("2_r60w6")
+damage_type = 0
+power = 9.0
+hits = 1
+accuracy_bonus = 0.0
+crit_bonus = 0.0
+hit_fx = 0
+
+[resource]
+script = ExtResource("3_8x2dl")
+mp_cost = 8
+display_name = "Belly Flop"
+target = 1
+effects = Array[ExtResource("1_0qcxj")]([SubResource("Resource_ejyyn")])
+use_text = "{user} belly flops! The ground jiggles!"
+ai_weight = 0.8

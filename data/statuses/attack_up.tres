@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="StatusData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/status_data.gd" id="1_x358a"]
+
+[resource]
+script = ExtResource("1_x358a")
+id = &"attack_up"
+display_name = "Attack Up"
+color = Color(1, 0.84705883, 0.2901961, 1)
+multiplier = 1.3
+apply_text = "{target}'s Attack went up!"
+trigger_text = ""
+expire_text = "{target}'s Attack is back to normal."

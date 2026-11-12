@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StatusData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/status_data.gd" id="1_225xl"]
+
+[resource]
+script = ExtResource("1_225xl")
+id = &"accuracy_down"
+display_name = "Accuracy Down"
+is_debuff = true
+color = Color(0.7254902, 0.54901963, 1, 1)
+stat = "accuracy"
+flat_bonus = -20.0
+apply_text = "{target}'s Accuracy went down!"
+trigger_text = ""
+expire_text = "{target}'s Accuracy is back to normal."

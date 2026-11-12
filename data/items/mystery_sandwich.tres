@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/effects/effect_data.gd" id="1_0hvl8"]
+[ext_resource type="Script" path="res://data/definitions/effects/heal_effect.gd" id="2_rddu4"]
+[ext_resource type="Script" path="res://data/definitions/item_data.gd" id="3_fv1ua"]
+
+[sub_resource type="Resource" id="Resource_cfbpp"]
+script = ExtResource("2_rddu4")
+amount = 25
+
+[resource]
+script = ExtResource("3_fv1ua")
+display_name = "Mystery Sandwich"
+description = "Heals the whole party 25 HP. Don't ask what's inside."
+target = 3
+effects = Array[ExtResource("1_0hvl8")]([SubResource("Resource_cfbpp")])
+use_text = "{user} hands out the {action}. Nobody asks."

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/effects/effect_data.gd" id="1_65kfo"]
+[ext_resource type="Script" path="res://data/definitions/effects/apply_status_effect.gd" id="2_1jbsp"]
+[ext_resource type="Resource" path="res://data/statuses/accuracy_down.tres" id="3_lwshu"]
+[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="4_nj530"]
+
+[sub_resource type="Resource" id="Resource_04iri"]
+script = ExtResource("2_1jbsp")
+status = ExtResource("3_lwshu")
+
+[resource]
+script = ExtResource("4_nj530")
+mp_cost = 3
+display_name = "Long Stare"
+effects = Array[ExtResource("1_65kfo")]([SubResource("Resource_04iri")])
+use_text = "{user} stares without blinking. It has no eyelids."
+ai_weight = 1.2
+ai_hint = 3

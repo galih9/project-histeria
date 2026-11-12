@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://world/ui/encounter_transition.gd" id="1_script"]
+[ext_resource type="Shader" path="res://shaders/encounter_swirl.gdshader" id="2_swirl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_swirl"]
+shader = ExtResource("2_swirl")
+shader_parameter/progress = 0.0
+shader_parameter/tint = Color(0.54902, 0.4, 0.94902, 1)
+shader_parameter/resolution = Vector2(256, 224)
+
+[node name="EncounterTransition" type="CanvasLayer"]
+layer = 50
+script = ExtResource("1_script")
+
+[node name="Swirl" type="ColorRect" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_swirl")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

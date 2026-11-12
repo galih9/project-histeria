@@ -1,0 +1,73 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scenes/menu/main_menu.gd" id="1_script"]
+[ext_resource type="Shader" path="res://shaders/battle_background.gdshader" id="2_bg"]
+[ext_resource type="Script" path="res://ui/components/menu_list.gd" id="3_list"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bg"]
+shader = ExtResource("2_bg")
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_bg")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 34.0
+offset_right = 256.0
+offset_bottom = 62.0
+theme_override_colors/font_color = Color(1, 0.827451, 0.372549, 1)
+theme_override_colors/font_outline_color = Color(0.101961, 0.0745098, 0.188235, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 22
+text = "TURNBASED"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="."]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 64.0
+offset_right = 256.0
+offset_bottom = 78.0
+theme_override_colors/font_outline_color = Color(0.101961, 0.0745098, 0.188235, 1)
+theme_override_constants/outline_size = 2
+text = "a wacky little prototype"
+horizontal_alignment = 1
+
+[node name="Menu" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(132, 0)
+layout_mode = 0
+offset_left = 62.0
+offset_top = 104.0
+offset_right = 194.0
+offset_bottom = 160.0
+script = ExtResource("3_list")
+
+[node name="Controls" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0.75)
+layout_mode = 0
+offset_left = 0.0
+offset_top = 200.0
+offset_right = 256.0
+offset_bottom = 214.0
+theme_override_colors/font_outline_color = Color(0.101961, 0.0745098, 0.188235, 1)
+theme_override_constants/outline_size = 2
+text = "Arrows/WASD move   Z/Enter OK   X back"
+horizontal_alignment = 1

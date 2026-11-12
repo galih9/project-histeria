@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StatusData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/status_data.gd" id="1_a35bk"]
+
+[resource]
+script = ExtResource("1_a35bk")
+id = &"poison"
+display_name = "Poison"
+kind = 1
+is_debuff = true
+color = Color(0.54509807, 0.8901961, 0.41960785, 1)
+damage_per_trigger = 8
+apply_text = "{target} is poisoned! Gross!"
+trigger_text = "{target} takes {amount} poison damage!"
+expire_text = "{target} isn't poisoned anymore."

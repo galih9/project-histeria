@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="CombatantData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/combatant_data.gd" id="1_ky3m7"]
+[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="2_njokl"]
+[ext_resource type="Resource" path="res://data/skills/frog_toxic_spit.tres" id="3_lp8m4"]
+[ext_resource type="Resource" path="res://data/skills/frog_belly_flop.tres" id="4_w1tnn"]
+[ext_resource type="Script" path="res://data/definitions/stat_block.gd" id="5_n2g5v"]
+[ext_resource type="Script" path="res://data/definitions/traits/trait_data.gd" id="6_ob11l"]
+[ext_resource type="Resource" path="res://data/skills/frog_tongue_lash.tres" id="7_r1h8i"]
+
+[sub_resource type="Resource" id="Resource_jmjl3"]
+script = ExtResource("5_n2g5v")
+max_hp = 240
+max_mp = 40
+attack = 15.0
+defense = 12.0
+resistance = 4.0
+speed = 9.0
+accuracy = 92.0
+evasion = 2.0
+crit_chance = 6.0
+luck = 6.0
+
+[resource]
+script = ExtResource("1_ky3m7")
+display_name = "Big Frog"
+short_name = "Big Frog"
+article = "the "
+races = Array[StringName]([&"Ferral"])
+stats = SubResource("Resource_jmjl3")
+weapons = Array[ExtResource("2_njokl")]([ExtResource("7_r1h8i")])
+skills = Array[ExtResource("2_njokl")]([ExtResource("3_lp8m4"), ExtResource("4_w1tnn")])
+recruitable = false
+temperament = 0.0
+negotiation_lines = PackedStringArray("\"RIBBIT.\" It sounds like a threat.")
+recruit_success_lines = PackedStringArray()
+recruit_fail_lines = PackedStringArray("{target} croaks a deep, insulting croak.")
+humiliate_lines = PackedStringArray()
+color = Color(0.37254903, 0.68235296, 0.30588236, 1)
+placeholder_shape = 3
+battle_size = Vector2i(128, 128)
+overworld_size = Vector2i(32, 32)

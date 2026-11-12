@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EncounterData" format=3]
+
+[ext_resource type="Resource" path="res://data/backgrounds/frog_swamp.tres" id="1_leocu"]
+[ext_resource type="Script" path="res://data/definitions/combatant_data.gd" id="2_xnv5x"]
+[ext_resource type="Resource" path="res://data/monsters/big_frog.tres" id="3_8todk"]
+[ext_resource type="Script" path="res://data/definitions/encounter_data.gd" id="4_gdku7"]
+
+[resource]
+script = ExtResource("4_gdku7")
+enemies = Array[ExtResource("2_xnv5x")]([ExtResource("3_8todk")])
+is_boss = true
+background = ExtResource("1_leocu")
+intro_text = "{target} hops out of the pond! The ground shakes!"
+drive_drop_chance = 1.0

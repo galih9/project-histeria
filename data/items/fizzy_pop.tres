@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/effects/effect_data.gd" id="1_ar16m"]
+[ext_resource type="Script" path="res://data/definitions/effects/restore_mp_effect.gd" id="2_0edx0"]
+[ext_resource type="Script" path="res://data/definitions/item_data.gd" id="3_13klu"]
+
+[sub_resource type="Resource" id="Resource_uvhjm"]
+script = ExtResource("2_0edx0")
+amount = 15
+
+[resource]
+script = ExtResource("3_13klu")
+display_name = "Fizzy Pop"
+description = "Restores 15 MP. Very fizzy."
+target = 2
+effects = Array[ExtResource("1_ar16m")]([SubResource("Resource_uvhjm")])
+use_text = "{user} uses the {action}!"

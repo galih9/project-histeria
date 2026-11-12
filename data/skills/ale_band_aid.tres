@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/effects/effect_data.gd" id="1_cgjxk"]
+[ext_resource type="Script" path="res://data/definitions/effects/heal_effect.gd" id="2_h2mxr"]
+[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="3_pvv5j"]
+
+[sub_resource type="Resource" id="Resource_6fjam"]
+script = ExtResource("2_h2mxr")
+amount = 28
+attack_scaling = 0.5
+
+[resource]
+script = ExtResource("3_pvv5j")
+mp_cost = 4
+display_name = "Band-Aid"
+description = "Heals one ally."
+target = 2
+effects = Array[ExtResource("1_cgjxk")]([SubResource("Resource_6fjam")])
+use_text = "{user} applies a band-aid. Upside down."
+ai_weight = 2.0
+ai_hint = 1

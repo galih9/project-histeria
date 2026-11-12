@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StatusData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/status_data.gd" id="1_spf8w"]
+
+[resource]
+script = ExtResource("1_spf8w")
+id = &"crit_down"
+display_name = "Critical Down"
+is_debuff = true
+color = Color(0.7254902, 0.54901963, 1, 1)
+stat = "crit_chance"
+flat_bonus = -5.0
+apply_text = "{target}'s Critical chance went down!"
+trigger_text = ""
+expire_text = "{target}'s Critical chance is back to normal."

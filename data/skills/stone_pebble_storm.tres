@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/effects/effect_data.gd" id="1_nud0s"]
+[ext_resource type="Script" path="res://data/definitions/effects/damage_effect.gd" id="2_ts8yo"]
+[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="3_4a1he"]
+
+[sub_resource type="Resource" id="Resource_5lm4l"]
+script = ExtResource("2_ts8yo")
+damage_type = 0
+power = 7.0
+hits = 1
+accuracy_bonus = 0.0
+crit_bonus = 0.0
+hit_fx = 0
+
+[resource]
+script = ExtResource("3_4a1he")
+display_name = "Pebble Storm"
+target = 1
+effects = Array[ExtResource("1_nud0s")]([SubResource("Resource_5lm4l")])
+use_text = "{user} sheds a storm of pebbles!"
+ai_weight = 0.7

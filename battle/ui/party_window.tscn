@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://battle/ui/party_window.gd" id="1_script"]
+
+[node name="PartyWindow" type="Control"]
+custom_minimum_size = Vector2(62, 48)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 62.0
+offset_bottom = 48.0
+script = ExtResource("1_script")
+
+[node name="Panel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+theme_type_variation = &"PartyPanel"
+layout_mode = 0
+offset_right = 62.0
+offset_bottom = 48.0
+
+[node name="Lines" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="NameLabel" type="Label" parent="Panel/Lines"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Name"
+clip_text = true
+
+[node name="HpLabel" type="Label" parent="Panel/Lines"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "HP 100"
+
+[node name="MpLabel" type="Label" parent="Panel/Lines"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "MP 10"
+
+[node name="StatusPips" type="Control" parent="Panel"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2

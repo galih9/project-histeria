@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/effects/effect_data.gd" id="1_yot8t"]
+[ext_resource type="Script" path="res://data/definitions/effects/damage_effect.gd" id="2_r6byb"]
+[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="3_gt046"]
+
+[sub_resource type="Resource" id="Resource_1g8m5"]
+script = ExtResource("2_r6byb")
+damage_type = 0
+power = 12.0
+hits = 1
+accuracy_bonus = 0.0
+crit_bonus = 0.0
+hit_fx = 0
+
+[resource]
+script = ExtResource("3_gt046")
+display_name = "Hover Bonk"
+menu_label = "Melee"
+effects = Array[ExtResource("1_yot8t")]([SubResource("Resource_1g8m5")])
+use_text = "{user} floats into {target}. Hard."
+ai_weight = 2.0

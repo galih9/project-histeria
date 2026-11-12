@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/effects/effect_data.gd" id="1_k22fi"]
+[ext_resource type="Script" path="res://data/definitions/effects/damage_effect.gd" id="2_vo1h5"]
+[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="3_uesnb"]
+
+[sub_resource type="Resource" id="Resource_6w7c6"]
+script = ExtResource("2_vo1h5")
+damage_type = 0
+power = 10.0
+hits = 1
+accuracy_bonus = 0.0
+crit_bonus = 0.0
+hit_fx = 0
+
+[resource]
+script = ExtResource("3_uesnb")
+display_name = "Slap"
+menu_label = "Melee"
+effects = Array[ExtResource("1_k22fi")]([SubResource("Resource_6w7c6")])
+use_text = "{user} slaps {target} with a stiff plastic hand!"
+ai_weight = 2.0

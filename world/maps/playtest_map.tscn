@@ -1,0 +1,268 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://world/maps/world_map.gd" id="1_map"]
+[ext_resource type="Script" path="res://world/maps/ground.gd" id="2_ground"]
+[ext_resource type="PackedScene" path="res://world/player/player.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://world/holograms/hologram.tscn" id="4_holo"]
+[ext_resource type="Script" path="res://world/props/placeholder_block.gd" id="5_block"]
+[ext_resource type="Script" path="res://world/props/interactable.gd" id="6_inter"]
+[ext_resource type="Resource" path="res://data/encounters/mannequin.tres" id="7_e1"]
+[ext_resource type="Resource" path="res://data/encounters/mannequin_pair.tres" id="8_e2"]
+[ext_resource type="Resource" path="res://data/encounters/orb_and_mannequin.tres" id="9_e3"]
+[ext_resource type="Resource" path="res://data/encounters/stone_thing.tres" id="10_e4"]
+[ext_resource type="Resource" path="res://data/encounters/machinist_crew.tres" id="11_e5"]
+[ext_resource type="Resource" path="res://data/encounters/big_frog_boss.tres" id="12_e6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_talk"]
+size = Vector2(24, 24)
+
+[node name="PlaytestMap" type="Node2D"]
+script = ExtResource("1_map")
+
+[node name="Ground" type="Node2D" parent="."]
+script = ExtResource("2_ground")
+paths = Array[Rect2i]([Rect2i(48, 392, 544, 24), Rect2i(296, 104, 24, 312), Rect2i(296, 104, 240, 24)])
+
+[node name="Spawn" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(80, 408)
+
+[node name="Entities" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="Entities" instance=ExtResource("3_player")]
+unique_name_in_owner = true
+position = Vector2(80, 408)
+
+[node name="WelcomeSign" type="StaticBody2D" parent="Entities"]
+position = Vector2(112, 384)
+script = ExtResource("5_block")
+footprint = Vector2i(16, 8)
+height = 10
+style = 6
+color = Color(0.7882, 0.6353, 0.4196, 1)
+
+[node name="Check" type="Area2D" parent="Entities/WelcomeSign"]
+position = Vector2(8.0, -4.0)
+script = ExtResource("6_inter")
+lines = PackedStringArray("WELCOME TO THE PLAYTEST ZONE.", "Holograms chase you when you get close. Touch one to fight it.", "Press Z near one to bonk it first. A first strike makes the party speedy!", "Get caught from behind and THEY get the jump on you. Rude.")
+heals_party = false
+
+[node name="Shape" type="CollisionShape2D" parent="Entities/WelcomeSign/Check"]
+shape = SubResource("RectangleShape2D_talk")
+
+[node name="SnackStand" type="StaticBody2D" parent="Entities"]
+position = Vector2(152, 368)
+script = ExtResource("5_block")
+footprint = Vector2i(40, 16)
+height = 14
+style = 5
+color = Color(1, 0.6235, 0.4196, 1)
+
+[node name="Check" type="Area2D" parent="Entities/SnackStand"]
+position = Vector2(20.0, -8.0)
+script = ExtResource("6_inter")
+lines = PackedStringArray("Hot Dog Stand: \"Free hot dogs for brave weirdos!\"", "The party munches. HP and MP are fully restored!")
+heals_party = true
+
+[node name="Shape" type="CollisionShape2D" parent="Entities/SnackStand/Check"]
+shape = SubResource("RectangleShape2D_talk")
+
+[node name="FrogSign" type="StaticBody2D" parent="Entities"]
+position = Vector2(504, 176)
+script = ExtResource("5_block")
+footprint = Vector2i(16, 8)
+height = 10
+style = 6
+color = Color(0.7882, 0.6353, 0.4196, 1)
+
+[node name="Check" type="Area2D" parent="Entities/FrogSign"]
+position = Vector2(8.0, -4.0)
+script = ExtResource("6_inter")
+lines = PackedStringArray("DANGER: BIG FROG AHEAD. PROBABLY A FROG.", "Please do not lick the frog.")
+heals_party = false
+
+[node name="Shape" type="CollisionShape2D" parent="Entities/FrogSign/Check"]
+shape = SubResource("RectangleShape2D_talk")
+
+[node name="HouseRed" type="StaticBody2D" parent="Entities"]
+position = Vector2(24, 316)
+script = ExtResource("5_block")
+footprint = Vector2i(64, 24)
+height = 28
+style = 2
+color = Color(0.7529, 0.3137, 0.302, 1)
+
+[node name="HouseBlue" type="StaticBody2D" parent="Entities"]
+position = Vector2(520, 272)
+script = ExtResource("5_block")
+footprint = Vector2i(64, 24)
+height = 28
+style = 2
+color = Color(0.302, 0.4784, 0.7529, 1)
+
+[node name="Rock1" type="StaticBody2D" parent="Entities"]
+position = Vector2(360, 248)
+script = ExtResource("5_block")
+footprint = Vector2i(24, 12)
+height = 10
+style = 3
+color = Color(0.5412, 0.5608, 0.6, 1)
+
+[node name="Rock2" type="StaticBody2D" parent="Entities"]
+position = Vector2(216, 296)
+script = ExtResource("5_block")
+footprint = Vector2i(16, 8)
+height = 8
+style = 3
+color = Color(0.5412, 0.5608, 0.6, 1)
+
+[node name="Pond" type="StaticBody2D" parent="Entities"]
+position = Vector2(456, 136)
+script = ExtResource("5_block")
+footprint = Vector2i(48, 40)
+height = 0
+style = 4
+color = Color(0.2471, 0.498, 0.749, 1)
+
+[node name="Tree1" type="StaticBody2D" parent="Entities"]
+position = Vector2(16, 128)
+script = ExtResource("5_block")
+footprint = Vector2i(16, 8)
+height = 12
+style = 1
+color = Color(0.1843, 0.4196, 0.2275, 1)
+
+[node name="Tree2" type="StaticBody2D" parent="Entities"]
+position = Vector2(56, 96)
+script = ExtResource("5_block")
+footprint = Vector2i(16, 8)
+height = 12
+style = 1
+color = Color(0.1843, 0.4196, 0.2275, 1)
+
+[node name="Tree3" type="StaticBody2D" parent="Entities"]
+position = Vector2(112, 152)
+script = ExtResource("5_block")
+footprint = Vector2i(16, 8)
+height = 12
+style = 1
+color = Color(0.1843, 0.4196, 0.2275, 1)
+
+[node name="Tree4" type="StaticBody2D" parent="Entities"]
+position = Vector2(200, 352)
+script = ExtResource("5_block")
+footprint = Vector2i(16, 8)
+height = 12
+style = 1
+color = Color(0.1843, 0.4196, 0.2275, 1)
+
+[node name="Tree5" type="StaticBody2D" parent="Entities"]
+position = Vector2(232, 112)
+script = ExtResource("5_block")
+footprint = Vector2i(16, 8)
+height = 12
+style = 1
+color = Color(0.1843, 0.4196, 0.2275, 1)
+
+[node name="Tree6" type="StaticBody2D" parent="Entities"]
+position = Vector2(448, 224)
+script = ExtResource("5_block")
+footprint = Vector2i(16, 8)
+height = 12
+style = 1
+color = Color(0.1843, 0.4196, 0.2275, 1)
+
+[node name="Tree7" type="StaticBody2D" parent="Entities"]
+position = Vector2(600, 336)
+script = ExtResource("5_block")
+footprint = Vector2i(16, 8)
+height = 12
+style = 1
+color = Color(0.1843, 0.4196, 0.2275, 1)
+
+[node name="Tree8" type="StaticBody2D" parent="Entities"]
+position = Vector2(592, 472)
+script = ExtResource("5_block")
+footprint = Vector2i(16, 8)
+height = 12
+style = 1
+color = Color(0.1843, 0.4196, 0.2275, 1)
+
+[node name="Tree9" type="StaticBody2D" parent="Entities"]
+position = Vector2(368, 472)
+script = ExtResource("5_block")
+footprint = Vector2i(16, 8)
+height = 12
+style = 1
+color = Color(0.1843, 0.4196, 0.2275, 1)
+
+[node name="Tree10" type="StaticBody2D" parent="Entities"]
+position = Vector2(24, 472)
+script = ExtResource("5_block")
+footprint = Vector2i(16, 8)
+height = 12
+style = 1
+color = Color(0.1843, 0.4196, 0.2275, 1)
+
+[node name="Tree11" type="StaticBody2D" parent="Entities"]
+position = Vector2(144, 40)
+script = ExtResource("5_block")
+footprint = Vector2i(16, 8)
+height = 12
+style = 1
+color = Color(0.1843, 0.4196, 0.2275, 1)
+
+[node name="Tree12" type="StaticBody2D" parent="Entities"]
+position = Vector2(400, 64)
+script = ExtResource("5_block")
+footprint = Vector2i(16, 8)
+height = 12
+style = 1
+color = Color(0.1843, 0.4196, 0.2275, 1)
+
+[node name="Tree13" type="StaticBody2D" parent="Entities"]
+position = Vector2(616, 200)
+script = ExtResource("5_block")
+footprint = Vector2i(16, 8)
+height = 12
+style = 1
+color = Color(0.1843, 0.4196, 0.2275, 1)
+
+[node name="Tree14" type="StaticBody2D" parent="Entities"]
+position = Vector2(248, 40)
+script = ExtResource("5_block")
+footprint = Vector2i(16, 8)
+height = 12
+style = 1
+color = Color(0.1843, 0.4196, 0.2275, 1)
+
+[node name="Mannequin" parent="Entities" instance=ExtResource("4_holo")]
+position = Vector2(248, 408)
+encounter = ExtResource("7_e1")
+
+[node name="MannequinPair" parent="Entities" instance=ExtResource("4_holo")]
+position = Vector2(432, 336)
+encounter = ExtResource("8_e2")
+
+[node name="OrbGang" parent="Entities" instance=ExtResource("4_holo")]
+position = Vector2(176, 232)
+encounter = ExtResource("9_e3")
+
+[node name="StoneThing" parent="Entities" instance=ExtResource("4_holo")]
+position = Vector2(368, 176)
+encounter = ExtResource("10_e4")
+detect_radius = 56.0
+chase_speed = 34.0
+
+[node name="MachinistCrew" parent="Entities" instance=ExtResource("4_holo")]
+position = Vector2(560, 416)
+encounter = ExtResource("11_e5")
+
+[node name="BigFrog" parent="Entities" instance=ExtResource("4_holo")]
+position = Vector2(560, 128)
+encounter = ExtResource("12_e6")
+detect_radius = 44.0
+give_up_radius = 90.0
+chase_speed = 30.0
+stationary = true

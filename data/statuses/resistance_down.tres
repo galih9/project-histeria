@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StatusData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/status_data.gd" id="1_yxs2t"]
+
+[resource]
+script = ExtResource("1_yxs2t")
+id = &"resistance_down"
+display_name = "Resistance Down"
+is_debuff = true
+color = Color(0.7254902, 0.54901963, 1, 1)
+stat = "resistance"
+multiplier = 0.65
+apply_text = "{target}'s Resistance went down!"
+trigger_text = ""
+expire_text = "{target}'s Resistance is back to normal."

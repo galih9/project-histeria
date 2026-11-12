@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://world/ui/world_hud.gd" id="1_script"]
+[ext_resource type="Script" path="res://ui/components/text_box.gd" id="2_text"]
+[ext_resource type="Script" path="res://ui/components/menu_list.gd" id="3_list"]
+
+[node name="WorldHud" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_script")
+
+[node name="MessageBox" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+offset_left = 6.0
+offset_top = 170.0
+offset_right = 250.0
+offset_bottom = 218.0
+script = ExtResource("2_text")
+wait_for_confirm = true
+
+[node name="PauseMenu" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 0)
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 76.0
+offset_bottom = 46.0
+script = ExtResource("3_list")
+
+[node name="StatusPanel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+offset_left = 82.0
+offset_top = 6.0
+offset_right = 250.0
+offset_bottom = 46.0
+
+[node name="StatusLabel" type="Label" parent="StatusPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Party"

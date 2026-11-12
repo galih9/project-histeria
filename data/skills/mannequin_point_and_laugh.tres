@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/effects/effect_data.gd" id="1_rwk07"]
+[ext_resource type="Script" path="res://data/definitions/effects/apply_status_effect.gd" id="2_2gpbj"]
+[ext_resource type="Resource" path="res://data/statuses/defense_down.tres" id="3_kh07n"]
+[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="4_sbiua"]
+
+[sub_resource type="Resource" id="Resource_ue8dc"]
+script = ExtResource("2_2gpbj")
+status = ExtResource("3_kh07n")
+stacks = 2
+
+[resource]
+script = ExtResource("4_sbiua")
+mp_cost = 2
+display_name = "Point and Laugh"
+description = "Lowers Defense."
+effects = Array[ExtResource("1_rwk07")]([SubResource("Resource_ue8dc")])
+use_text = "{user} points at {target} and laughs. And laughs."
+ai_hint = 3

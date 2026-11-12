@@ -1,0 +1,125 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://battle/battle_controller.gd" id="1_controller"]
+[ext_resource type="Script" path="res://battle/ui/battle_view.gd" id="2_view"]
+[ext_resource type="Shader" path="res://shaders/battle_background.gdshader" id="3_bg"]
+[ext_resource type="Script" path="res://ui/components/text_box.gd" id="4_text"]
+[ext_resource type="Script" path="res://battle/ui/command_menu.gd" id="5_menu"]
+[ext_resource type="Script" path="res://ui/components/menu_list.gd" id="6_list"]
+[ext_resource type="Script" path="res://battle/ui/dialogue_bubble.gd" id="7_bubble"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bg"]
+shader = ExtResource("3_bg")
+
+[node name="Battle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_controller")
+
+[node name="View" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_view")
+
+[node name="Background" type="ColorRect" parent="View"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_bg")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Enemies" type="Control" parent="View"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PartyHud" type="HBoxContainer" parent="View"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -54.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="Fx" type="Control" parent="View"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextBox" type="PanelContainer" parent="View"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 250.0
+offset_bottom = 54.0
+script = ExtResource("4_text")
+
+[node name="CommandMenu" type="Control" parent="View"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("5_menu")
+
+[node name="MainList" type="PanelContainer" parent="View/CommandMenu"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(66, 0)
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 72.0
+offset_bottom = 40.0
+script = ExtResource("6_list")
+
+[node name="SubList" type="PanelContainer" parent="View/CommandMenu"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(174, 0)
+layout_mode = 0
+offset_left = 76.0
+offset_top = 6.0
+offset_right = 250.0
+offset_bottom = 40.0
+script = ExtResource("6_list")
+
+[node name="Dialogue" type="PanelContainer" parent="View"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("7_bubble")

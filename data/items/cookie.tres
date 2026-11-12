@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/effects/effect_data.gd" id="1_co5d1"]
+[ext_resource type="Script" path="res://data/definitions/effects/heal_effect.gd" id="2_4tf86"]
+[ext_resource type="Script" path="res://data/definitions/item_data.gd" id="3_vwaie"]
+
+[sub_resource type="Resource" id="Resource_6wvu2"]
+script = ExtResource("2_4tf86")
+
+[resource]
+script = ExtResource("3_vwaie")
+display_name = "Cookie"
+description = "Heals 30 HP. Slightly crumbly."
+target = 2
+effects = Array[ExtResource("1_co5d1")]([SubResource("Resource_6wvu2")])
+use_text = "{user} uses the {action}!"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BattleBackgroundPreset" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/battle_background_preset.gd" id="1_kje3y"]
+
+[resource]
+script = ExtResource("1_kje3y")
+color_a = Color(0.05490196, 0.12156863, 0.101960786, 1)
+color_b = Color(0.18431373, 0.3647059, 0.22745098, 1)
+color_c = Color(0.49803922, 0.7490196, 0.3019608, 1)
+color_d = Color(0.84705883, 0.9411765, 0.47843137, 1)
+pattern_scale = 4.0
+palette_cycle_speed = 0.25
+wave_x_amplitude = 0.05
+wave_x_frequency = 12.0
+wave_speed = 2.0

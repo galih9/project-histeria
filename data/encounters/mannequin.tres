@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EncounterData" format=3]
+
+[ext_resource type="Resource" path="res://data/backgrounds/sunset_beach.tres" id="1_jexqj"]
+[ext_resource type="Script" path="res://data/definitions/combatant_data.gd" id="2_skj2c"]
+[ext_resource type="Resource" path="res://data/monsters/laughing_mannequin.tres" id="3_78bnw"]
+[ext_resource type="Script" path="res://data/definitions/encounter_data.gd" id="4_uafhx"]
+
+[resource]
+script = ExtResource("4_uafhx")
+enemies = Array[ExtResource("2_skj2c")]([ExtResource("3_78bnw")])
+background = ExtResource("1_jexqj")

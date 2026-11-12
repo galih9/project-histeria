@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="StatusData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/status_data.gd" id="1_ykj6h"]
+
+[resource]
+script = ExtResource("1_ykj6h")
+id = &"defense_up"
+display_name = "Defense Up"
+color = Color(1, 0.84705883, 0.2901961, 1)
+stat = "defense"
+multiplier = 1.4
+apply_text = "{target}'s Defense went up!"
+trigger_text = ""
+expire_text = "{target}'s Defense is back to normal."

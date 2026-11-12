@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EncounterData" format=3]
+
+[ext_resource type="Resource" path="res://data/backgrounds/sunset_beach.tres" id="1_4m4kr"]
+[ext_resource type="Script" path="res://data/definitions/combatant_data.gd" id="2_loa3i"]
+[ext_resource type="Resource" path="res://data/monsters/laughing_mannequin.tres" id="3_mbrye"]
+[ext_resource type="Script" path="res://data/definitions/encounter_data.gd" id="4_jt4ap"]
+
+[resource]
+script = ExtResource("4_jt4ap")
+enemies = Array[ExtResource("2_loa3i")]([ExtResource("3_mbrye"), ExtResource("3_mbrye")])
+background = ExtResource("1_4m4kr")
+drive_drop_chance = 0.6

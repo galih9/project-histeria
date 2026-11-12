@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/effects/effect_data.gd" id="1_wwa0v"]
+[ext_resource type="Script" path="res://data/definitions/effects/damage_effect.gd" id="2_xgmh7"]
+[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="3_y47vg"]
+
+[sub_resource type="Resource" id="Resource_uyjxl"]
+script = ExtResource("2_xgmh7")
+damage_type = 1
+power = 14.0
+hits = 1
+accuracy_bonus = 0.0
+crit_bonus = 0.0
+hit_fx = 2
+
+[resource]
+script = ExtResource("3_y47vg")
+mp_cost = 6
+display_name = "Gloom Ray"
+description = "Magical damage."
+effects = Array[ExtResource("1_wwa0v")]([SubResource("Resource_uyjxl")])
+use_text = "{user} radiates pure boredom at {target}!"

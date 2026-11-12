@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/effects/effect_data.gd" id="1_3pdea"]
+[ext_resource type="Script" path="res://data/definitions/effects/apply_status_effect.gd" id="2_k4b2p"]
+[ext_resource type="Resource" path="res://data/statuses/speed_up.tres" id="3_xd2n7"]
+[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="4_gyi7n"]
+
+[sub_resource type="Resource" id="Resource_re83j"]
+script = ExtResource("2_k4b2p")
+status = ExtResource("3_xd2n7")
+
+[resource]
+script = ExtResource("4_gyi7n")
+mp_cost = 4
+display_name = "Speed Read"
+description = "Raises one ally's Speed."
+target = 2
+effects = Array[ExtResource("1_3pdea")]([SubResource("Resource_re83j")])
+use_text = "{user} reads {target} a book about running. Very fast."
+ai_weight = 0.4
+ai_hint = 3

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/effects/effect_data.gd" id="1_htl5r"]
+[ext_resource type="Script" path="res://data/definitions/effects/damage_effect.gd" id="2_mv2mh"]
+[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="3_w7tvk"]
+
+[sub_resource type="Resource" id="Resource_dsdu1"]
+script = ExtResource("2_mv2mh")
+damage_type = 0
+power = 10.0
+hits = 1
+accuracy_bonus = 0.0
+crit_bonus = 0.0
+hit_fx = 0
+
+[resource]
+script = ExtResource("3_w7tvk")
+display_name = "Horn Bonk"
+menu_label = "Melee"
+description = "A basic headbutt."
+effects = Array[ExtResource("1_htl5r")]([SubResource("Resource_dsdu1")])
+use_text = "{user} bonks {target} with her horns!"
+ai_weight = 2.0

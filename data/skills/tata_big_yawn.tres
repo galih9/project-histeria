@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/effects/effect_data.gd" id="1_pdgyi"]
+[ext_resource type="Script" path="res://data/definitions/effects/apply_status_effect.gd" id="2_1lgfx"]
+[ext_resource type="Resource" path="res://data/statuses/attack_down.tres" id="3_qvo85"]
+[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="4_ekten"]
+
+[sub_resource type="Resource" id="Resource_rmq30"]
+script = ExtResource("2_1lgfx")
+status = ExtResource("3_qvo85")
+stacks = 2
+
+[resource]
+script = ExtResource("4_ekten")
+mp_cost = 5
+display_name = "Big Yawn"
+description = "Lowers every enemy's Attack."
+target = 1
+effects = Array[ExtResource("1_pdgyi")]([SubResource("Resource_rmq30")])
+use_text = "{user} yawns. It's contagious!"
+ai_weight = 0.6
+ai_hint = 3

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/effects/effect_data.gd" id="1_1c4gb"]
+[ext_resource type="Script" path="res://data/definitions/effects/apply_status_effect.gd" id="2_jjg60"]
+[ext_resource type="Resource" path="res://data/statuses/speed_down.tres" id="3_6mivd"]
+[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="4_infcs"]
+
+[sub_resource type="Resource" id="Resource_h8a27"]
+script = ExtResource("2_jjg60")
+status = ExtResource("3_6mivd")
+
+[resource]
+script = ExtResource("4_infcs")
+mp_cost = 5
+display_name = "Droning Hum"
+target = 1
+effects = Array[ExtResource("1_1c4gb")]([SubResource("Resource_h8a27")])
+use_text = "{user} hums one very long note."
+ai_weight = 1.2
+ai_hint = 3

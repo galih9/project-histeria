@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/effects/effect_data.gd" id="1_hf1u0"]
+[ext_resource type="Script" path="res://data/definitions/effects/damage_effect.gd" id="2_ptbkt"]
+[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="3_4nx04"]
+
+[sub_resource type="Resource" id="Resource_3jxxk"]
+script = ExtResource("2_ptbkt")
+damage_type = 0
+power = 8.0
+hits = 1
+accuracy_bonus = 0.0
+crit_bonus = 0.0
+hit_fx = 0
+
+[resource]
+script = ExtResource("3_4nx04")
+display_name = "Bump"
+menu_label = "Melee"
+effects = Array[ExtResource("1_hf1u0")]([SubResource("Resource_3jxxk")])
+use_text = "{user} bumps into {target}."

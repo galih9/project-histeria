@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EncounterData" format=3]
+
+[ext_resource type="Resource" path="res://data/backgrounds/sunset_beach.tres" id="1_1ovji"]
+[ext_resource type="Script" path="res://data/definitions/combatant_data.gd" id="2_jhsck"]
+[ext_resource type="Resource" path="res://data/monsters/funny_looking_orb.tres" id="3_35loj"]
+[ext_resource type="Resource" path="res://data/monsters/laughing_mannequin.tres" id="4_o843t"]
+[ext_resource type="Script" path="res://data/definitions/encounter_data.gd" id="5_qmdqs"]
+
+[resource]
+script = ExtResource("5_qmdqs")
+enemies = Array[ExtResource("2_jhsck")]([ExtResource("3_35loj"), ExtResource("4_o843t")])
+background = ExtResource("1_1ovji")
+drive_drop_chance = 0.6

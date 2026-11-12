@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://d033xga0cjqq"]
+
+[ext_resource type="Script" path="res://game/game.gd" id="1_game"]
+[ext_resource type="PackedScene" path="res://world/maps/playtest_map.tscn" id="2_map"]
+[ext_resource type="PackedScene" path="res://world/ui/world_hud.tscn" id="3_hud"]
+[ext_resource type="PackedScene" path="res://world/ui/encounter_transition.tscn" id="4_transition"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_game")
+
+[node name="WorldRoot" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="PlaytestMap" parent="WorldRoot" instance=ExtResource("2_map")]
+
+[node name="BattleLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+layer = 5
+
+[node name="WorldHud" parent="." instance=ExtResource("3_hud")]
+unique_name_in_owner = true
+
+[node name="Transition" parent="." instance=ExtResource("4_transition")]
+unique_name_in_owner = true

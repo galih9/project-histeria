@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://world/player/player.gd" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_feet"]
+size = Vector2(12, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_swing"]
+size = Vector2(18, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_talk"]
+size = Vector2(12, 12)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+motion_mode = 1
+script = ExtResource("1_script")
+
+[node name="Feet" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_feet")
+
+[node name="SwingArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 4
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="SwingArea"]
+shape = SubResource("RectangleShape2D_swing")
+
+[node name="InteractArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="InteractArea"]
+shape = SubResource("RectangleShape2D_talk")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -12)
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0

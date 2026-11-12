@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SubActionData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/status_data.gd" id="1_tw3yq"]
+[ext_resource type="Resource" path="res://data/statuses/attack_down.tres" id="2_wkeyg"]
+[ext_resource type="Resource" path="res://data/statuses/defense_down.tres" id="3_aadca"]
+[ext_resource type="Resource" path="res://data/statuses/resistance_down.tres" id="4_co2jj"]
+[ext_resource type="Resource" path="res://data/statuses/speed_down.tres" id="5_oj5ca"]
+[ext_resource type="Resource" path="res://data/statuses/accuracy_down.tres" id="6_th2dk"]
+[ext_resource type="Resource" path="res://data/statuses/evasion_down.tres" id="7_sg0ov"]
+[ext_resource type="Resource" path="res://data/statuses/crit_down.tres" id="8_hkvfu"]
+[ext_resource type="Script" path="res://data/definitions/sub_action_data.gd" id="9_m4vs3"]
+
+[resource]
+script = ExtResource("9_m4vs3")
+base_chance = 0.45
+debuff_pool = Array[ExtResource("1_tw3yq")]([ExtResource("2_wkeyg"), ExtResource("3_aadca"), ExtResource("4_co2jj"), ExtResource("5_oj5ca"), ExtResource("6_th2dk"), ExtResource("7_sg0ov"), ExtResource("8_hkvfu")])
