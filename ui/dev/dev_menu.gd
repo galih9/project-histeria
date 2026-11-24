@@ -4,10 +4,10 @@ extends CanvasLayer
 ## Open it with the DEV button in the top-right corner, F1, or the ` key.
 ## Close it the same way, or with X / Esc.
 ##
-## Right now it drives the map's Wind: direction, strength and gustiness, plus
-## Calm / Breeze / Gale presets, and how thick the grass folds are. The world keeps running while the menu is open,
-## so every change shows on the grass live; the player stands still until the
-## menu closes. With the menu open, Up/Down picks a slider and Left/Right moves it.
+## Right now it drives the map's Wind & CloudShadows: direction, strength and
+## gustiness, plus Calm / Breeze / Gale presets. The world keeps running while
+## the menu is open; the player stands still until the menu closes. With the
+## menu open, Up/Down picks a slider and Left/Right moves it.
 ## The Lang button opens the Souls and Electronics languages for the recruit talk.
 
 const COMPASS_POINTS: PackedStringArray = ["E", "SE", "S", "SW", "W", "NW", "N", "NE"]
@@ -15,8 +15,6 @@ const INK := Color("f2e8cc")
 const GOLD := Color("ffd35f")
 const NIGHT := Color("100d26")
 const DUSK := Color("24184a")
-## Thinnest folds, as a share of the Fold slider (the thickest folds).
-const FOLD_MIN_SHARE := 0.4
 
 var _button: Button
 var _panel: PanelContainer
@@ -25,11 +23,9 @@ var _note: Label
 var _direction: HSlider
 var _strength: HSlider
 var _gustiness: HSlider
-var _fold: HSlider
 var _direction_value: Label
 var _strength_value: Label
 var _gustiness_value: Label
-var _fold_value: Label
 var _languages: Button
 var _player_input_before := true
 
@@ -92,9 +88,6 @@ func _process(_delta: float) -> void:
 # --- Wind -------------------------------------------------------------------
 
 func _sync_from_wind() -> void:
-	var fold_max := _fold_thickness().y
-	_fold.set_value_no_signal(fold_max)
-	_fold_value.text = "%d px" % roundi(fold_max)
 	var wind := Wind.current
 	var has_wind := is_instance_valid(wind)
 	for slider in [_direction, _strength, _gustiness]:
@@ -126,21 +119,6 @@ func _on_gustiness_changed(value: float) -> void:
 	if is_instance_valid(Wind.current):
 		Wind.current.gustiness = value
 		_sync_from_wind()
-
-
-## Sets the widest point of the thickest grass folds; the thinnest scale along.
-func _on_fold_changed(value: float) -> void:
-	var thinnest := maxf(1.0, roundf(value * FOLD_MIN_SHARE))
-	Wind.STREAK_MATERIAL.set_shader_parameter(&"thickness_px", Vector2(thinnest, value))
-	_sync_from_wind()
-
-
-## (thinnest, thickest) fold thickness in px, read from the fold material.
-func _fold_thickness() -> Vector2:
-	var value: Variant = Wind.STREAK_MATERIAL.get_shader_parameter(&"thickness_px")
-	if value is Vector2:
-		return value
-	return Vector2(3.0, 8.0)  # the shader's default
 
 
 func _apply_preset(new_strength: float, new_gustiness: float) -> void:
@@ -189,7 +167,7 @@ func _build() -> void:
 	var header := HBoxContainer.new()
 	rows.add_child(header)
 	var title := Label.new()
-	title.text = "WIND"
+	title.text = "WIND & CLOUDS"
 	title.add_theme_color_override("font_color", GOLD)
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	header.add_child(title)
@@ -217,11 +195,6 @@ func _build() -> void:
 	_gustiness_value = gust_row[1]
 	_gustiness.value_changed.connect(_on_gustiness_changed)
 
-	var fold_row := _add_slider_row(rows, "Fold", 1.0, 12.0, 1.0, 1.0)
-	_fold = fold_row[0]
-	_fold_value = fold_row[1]
-	_fold.value_changed.connect(_on_fold_changed)
-
 	var presets := HBoxContainer.new()
 	presets.add_theme_constant_override("separation", 3)
 	rows.add_child(presets)
@@ -237,7 +210,7 @@ func _build() -> void:
 	_update_languages_label()
 
 	# Up/Down walks between the sliders (and wraps around).
-	var order: Array[HSlider] = [_direction, _strength, _gustiness, _fold]
+	var order: Array[HSlider] = [_direction, _strength, _gustiness]
 	for i in order.size():
 		var slider := order[i]
 		slider.focus_neighbor_top = slider.get_path_to(order[i - 1])

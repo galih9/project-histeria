@@ -3,50 +3,88 @@
 [ext_resource type="Script" path="res://battle/ui/party_window.gd" id="1_script"]
 
 [node name="PartyWindow" type="Control"]
-custom_minimum_size = Vector2(72, 48)
+custom_minimum_size = Vector2(82, 56)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 72.0
-offset_bottom = 48.0
+offset_right = 82.0
+offset_bottom = 56.0
 script = ExtResource("1_script")
 
 [node name="Panel" type="PanelContainer" parent="."]
 unique_name_in_owner = true
 theme_type_variation = &"PartyPanel"
+custom_minimum_size = Vector2(82, 56)
 layout_mode = 0
-offset_right = 72.0
-offset_bottom = 48.0
+offset_right = 82.0
+offset_bottom = 56.0
 
 [node name="Lines" type="VBoxContainer" parent="Panel"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="NameLabel" type="Label" parent="Panel/Lines"]
+[node name="HeaderRow" type="HBoxContainer" parent="Panel/Lines"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="NameLabel" type="Label" parent="Panel/Lines/HeaderRow"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Name"
 clip_text = true
 
+[node name="StatusPips" type="Control" parent="Panel/Lines/HeaderRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+
 [node name="HpRow" type="HBoxContainer" parent="Panel/Lines"]
 layout_mode = 2
-theme_override_constants/separation = 1
+theme_override_constants/separation = 2
+
+[node name="HpTag" type="Label" parent="Panel/Lines/HpRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.909804, 0.768627, 0.627451, 1)
+text = "HP"
 
 [node name="HpLabel" type="Label" parent="Panel/Lines/HpRow"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "HP 100"
+size_flags_horizontal = 3
+text = "100"
+horizontal_alignment = 2
 
 [node name="ShieldLabel" type="Label" parent="Panel/Lines/HpRow"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.5019608, 0.9019608, 1, 1)
 
-[node name="MpLabel" type="Label" parent="Panel/Lines"]
+[node name="HpBar" type="Control" parent="Panel/Lines"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 3)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MpRow" type="HBoxContainer" parent="Panel/Lines"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="MpTag" type="Label" parent="Panel/Lines/MpRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.560784, 0.827451, 1, 1)
+text = "MP"
+
+[node name="MpLabel" type="Label" parent="Panel/Lines/MpRow"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "MP 10"
+size_flags_horizontal = 3
+text = "10"
+horizontal_alignment = 2
 
-[node name="StatusPips" type="Control" parent="Panel"]
+[node name="MpBar" type="Control" parent="Panel/Lines"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 3)
 layout_mode = 2
 mouse_filter = 2

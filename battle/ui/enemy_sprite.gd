@@ -6,6 +6,8 @@ extends Control
 
 const SHADER := preload("res://shaders/battle_sprite.gdshader")
 const SHIELD_COLOR := Color("8fe3ff")
+const TARGET_GOLD := Color("ffd35f")
+const TARGET_OUTLINE := Color("090717")
 
 var battler: Battler
 
@@ -55,7 +57,8 @@ func _process(delta: float) -> void:
 	var bob := roundf(sin(_time * 2.2) * 1.0)
 	_visual.position = Vector2(roundf(_wiggle_x), bob + roundf(_hop_y))
 	if _targeted:
-		_visual.visible = fmod(_time, 0.4) < 0.28
+		_visual.modulate = Color(1.18, 1.14, 1.0) if fmod(_time, 0.5) < 0.25 else Color.WHITE
+		queue_redraw()
 	if battler.has_shield():
 		_visual.queue_redraw()
 
@@ -67,6 +70,25 @@ func anchor_point() -> Vector2:
 func set_targeted(targeted: bool) -> void:
 	_targeted = targeted
 	_visual.visible = true
+	_visual.modulate = Color.WHITE
+	queue_redraw()
+
+
+func _draw() -> void:
+	if not _targeted:
+		return
+	var bob := 1 if fmod(_time, 0.7) >= 0.35 else 0
+	var cx := int(floorf(size.x * 0.5))
+	var top := -8 + bob
+	draw_rect(Rect2(cx - 4, top - 1, 9, 2), TARGET_OUTLINE)
+	draw_rect(Rect2(cx - 3, top + 1, 7, 1), TARGET_OUTLINE)
+	draw_rect(Rect2(cx - 2, top + 2, 5, 1), TARGET_OUTLINE)
+	draw_rect(Rect2(cx - 1, top + 3, 3, 1), TARGET_OUTLINE)
+	draw_rect(Rect2(cx, top + 4, 1, 1), TARGET_OUTLINE)
+	draw_rect(Rect2(cx - 3, top, 7, 1), TARGET_GOLD)
+	draw_rect(Rect2(cx - 2, top + 1, 5, 1), TARGET_GOLD)
+	draw_rect(Rect2(cx - 1, top + 2, 3, 1), TARGET_GOLD)
+	draw_rect(Rect2(cx, top + 3, 1, 1), TARGET_GOLD)
 
 
 func refresh() -> void:

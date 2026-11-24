@@ -11,7 +11,7 @@ script = ExtResource("1_script")
 [node name="MessageBox" type="PanelContainer" parent="."]
 unique_name_in_owner = true
 offset_left = 6.0
-offset_top = 170.0
+offset_top = 164.0
 offset_right = 394.0
 offset_bottom = 218.0
 script = ExtResource("2_text")
@@ -19,19 +19,19 @@ wait_for_confirm = true
 
 [node name="PauseMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(70, 0)
+custom_minimum_size = Vector2(78, 0)
 offset_left = 6.0
 offset_top = 6.0
-offset_right = 76.0
+offset_right = 84.0
 offset_bottom = 46.0
 script = ExtResource("3_list")
 
 [node name="StatusPanel" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-offset_left = 82.0
+offset_left = 88.0
 offset_top = 6.0
 offset_right = 394.0
-offset_bottom = 46.0
+offset_bottom = 52.0
 
 [node name="StatusLabel" type="Label" parent="StatusPanel"]
 unique_name_in_owner = true

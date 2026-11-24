@@ -5,7 +5,7 @@ extends Control
 ## bottom. It reads Battler signals and plays effects; it holds no rules.
 
 const PARTY_WINDOW := preload("res://battle/ui/party_window.tscn")
-const ENEMY_BASELINE := 164.0
+const ENEMY_BASELINE := 152.0
 const ENEMY_GAP := 8.0
 const DAMAGE_COLOR := Color("fff2b0")
 const HEAL_COLOR := Color("8be36b")
@@ -15,8 +15,8 @@ const LUCKY_COLOR := Color("ffd84a")
 const MOOD_COLOR := Color("ff7a6b")
 const COIN_COLOR := Color("ffe08a")
 ## Recruit talk answer list: under the text box, at the left.
-const ANSWER_LIST_POSITION := Vector2(6, 58)
-const ANSWER_LIST_WIDTH := 200.0
+const ANSWER_LIST_POSITION := Vector2(6, 64)
+const ANSWER_LIST_WIDTH := 220.0
 
 ## Every battle text line, for logs and tests.
 signal narrated(text: String)

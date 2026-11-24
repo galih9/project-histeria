@@ -24,6 +24,7 @@ func _ready() -> void:
 	_text_box.hide()
 	_status_panel.hide()
 	_pause_menu.add_cancel_entry = false
+	_pause_menu.keep_visible_on_select = true
 	EventBus.world_message_requested.connect(show_message)
 
 
@@ -61,10 +62,12 @@ func _open_pause_menu() -> void:
 		if index == PauseChoice.PARTY:
 			await _show_party_status()
 		elif index == PauseChoice.TITLE:
+			_pause_menu.close()
 			SceneRouter.change_scene(TITLE_SCENE)
 			return
 		else:
 			break # Resume or Cancel
+	_pause_menu.close()
 	_end()
 
 
@@ -87,6 +90,7 @@ func _show_party_status() -> void:
 	for drive in GameState.drives.slice(-3):
 		lines.append("  " + drive.display_name())
 	_status_label.text = "\n".join(lines)
+	_status_panel.reset_size()
 	_status_panel.show()
 	while true:
 		await get_tree().process_frame

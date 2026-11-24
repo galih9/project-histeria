@@ -26,6 +26,7 @@ var _main_index := 0
 func _ready() -> void:
 	_main_list.add_cancel_entry = false
 	_main_list.allow_cancel = false
+	_main_list.keep_visible_on_select = true
 	hide()
 
 

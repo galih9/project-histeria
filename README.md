@@ -68,7 +68,7 @@ The hot dog stand restores the party. The Big Frog boss waits by the pond in the
 | `scenes/` | Splash, title menu, loading screen |
 | `game/` | `Game` (main.tscn): swaps between the world and the battle and applies the result |
 | `world/` | Player box, holograms (wander → chase → give up), map section, placeholder blocks, interactables, world HUD, encounter swirl |
-| `world/grass/` | `Wind` (the map's wind direction + strength), the grass sway shader, `GrassTuft` (one set of blades) and `GrassArea` (a shape you draw that fills with tufts) |
+| `world/grass/` | `GrassTerrain` (Valdrin-style sub-tile mask + noise-eaten edge shader terrain) and `Wind` (direction + strength driving `CloudShadows`) |
 | `battle/core/` | The rules, with zero visuals: `BattleRules` (every tunable number), `TurnQueue` (SP gauge), `CombatMath` (hit, Luck, crit, damage), `BattleContext` (the battle API: statuses, Shield, control check, own-turn countdown), `BattleText` (narration lookup), `BattleDialogue` (Raider lines and conversations), `RecruitBank` (the recruit talk's question bank) |
 | `battle/actions/` | Command objects: ability (weapon/skill/item), defend, recruit talk, run, Humiliate |
 | `battle/ai/` | Data-driven move picker (weights and hints live in each skill's `.tres`) |
@@ -100,53 +100,14 @@ The hot dog stand restores the party. The Big Frog boss waits by the pond in the
 - **Battle background:** make a `BattleBackgroundPreset` (4 colors + wave numbers) and assign it to an encounter.
 - **Balance:** every combat number is in `battle/core/battle_rules.gd`.
 
-## Grass and wind
+## Grass and weather
 
-Grass is built from the white blade mask `assets/grassblade.png` (32x32, straight, root at column 16 of the bottom row).
-If you redraw the blade with a different root, update `BLADE_ROOT` in `grass_tuft.gd` and `blade_root` / `blade_height`
-in `grass_sway.gdshader`.
+Grass and dirt paths are rendered by `GrassTerrain` (`world/grass/grass_terrain.gd`) and `world/grass/grass_terrain.gdshader` using a Valdrin-style fine sub-tile mask:
 
-- **`GrassTuft`** = one set: 1–3 layers, each with 2–5 blades. Back layers sit 2 px higher and use darker colors;
-  the front layer always uses the last, lightest color in `layer_colors`. Blades are mirrored at random (`flip_chance`).
-- **`GrassArea`** (a Polygon2D) is the way to place grass: a shape you draw in the 2D editor that fills itself.
-  Select `Entities`, Add Child Node → `GrassArea` (it starts as a small square), then drag the area to move it and
-  drag its corner points to reshape it. The polygon toolbar above the 2D view adds and deletes points. The grass
-  refills a moment after each edit. Ctrl+D duplicates an area. The pale green fill shows only in the editor.
-  Settings: `density` (tufts per 32x32 block), `patchiness` (clumps), `edge_fade` (soft borders), `pattern_seed`,
-  plus the tuft settings above. Areas keep clear of `PlaceholderBlock` footprints and the `Ground` paths; press
-  **Rebuild grass** after moving those. Tufts are rebuilt on load, so they stay out of the `.tscn`.
-  Keep areas inside the Y-sorted `Entities` node so the player walks through the grass.
-- **`GrassField`** is the older rectangle version (size typed in as numbers). The playtest map now uses
-  `GrassArea`, so `grass_field.gd` is free to delete.
-- **`Wind`** (one per map) holds the wind data and drives the shader each frame.
-  `direction_degrees` is where the wind blows TO (0 = east, 90 = south, 180 = west, 270 = north).
-  Gameplay code can read `Wind.get_direction()`, `Wind.get_strength()`, `Wind.gust_at(pos)` and
-  `Wind.force_at(pos)`, and change it with `Wind.current.blow(degrees, strength, seconds)`.
-- **Shader** (`world/grass/grass_sway.gdshader`): steady lean + gust waves that roll across the map in the wind
-  direction + a back-and-forth sway that travels downwind (blades swing to both sides of upright) + per-blade
-  flutter. Strength 0 = every blade straight and still. Each pixel row shifts by whole pixels (more at the tip), so blades curve and stay
-  crisp. Bent blades shorten a little, blades inside a gust get a pale shine, and the player parts the grass
-  around their feet. Look settings (curve, droop, shading, shine) live on `world/grass/grass_material.tres`.
-  In the editor the grass shows a still lean; the motion starts when the game runs.
-
-### Flat grass tiles + wind folds
-
-`resources/grass-flat-tilemap.tres` is the grass TileSet in one flat light green (`#9fdc6c`), with the same
-layout as `grass-tilemap.tres`, so a painted map switches by changing the layer's `tile_set`. The playtest map's
-`Grass` layer uses it, with `world/grass/wind_streaks_material.tres` as its Material.
-
-The shader (`world/grass/wind_streaks.gdshader`) draws long, thin dark bands lying across the field at a right angle
-to the wind, rolling downwind like the folds a gust pushes through a sea of grass in 3D. Each band tapers toward its
-ends (lens or wedge), has a lit line on its downwind side and a mid-green back edge, fades in, rolls for a while,
-fades out, and swells inside gusts. The `Wind` node drives it (gusts follow `wind_dir`, the band layout follows the
-set `direction_degrees`), so the DEV menu sliders change it live. Bands only cover opaque tile pixels and swap whole
-colors, so they stay on the palette.
-Ordered (Bayer) dither softens each fold: a light glow ahead of it and a mid-green trail behind it.
-Settings live on the material: colors (`fold_color`, `back_color`, `shine_color`), dither (`glow_color`,
-`glow_px`, `trail_px`, `dither_strength`; 0 turns the soft edges off), shape (`length_px`,
-`thickness_px`, `taper_skew`, `wave_px`, `tilt_degrees`) and amount (`spacing_px`, `lane_px`, `density`,
-`calm_share`, `life_px`, `speed_scale`). In the editor the bands show as a frozen snapshot; the motion starts when
-the game runs. To return to the detailed tiles, set the `Grass` layer's `tile_set` back to `grass-tilemap.tres`.
+- **`GrassTerrain`** builds an RGBA8 sub-tile mask (`sub_cell_px = 2`, i.e., `8×8 = 64` sub-cells per `16×16` tile) from `paths`, `natural_dirt_spots`, `dirt_patches`, and sibling `PlaceholderBlock` footprints (`wear_under_props`).
+- **`grass_terrain.gdshader`** samples that mask bilinearly and erodes edges with multi-scale pixel-snapped noise so grass tufts and blades poke organically into sandy paths and worn earth around houses, signs, rocks, trees, and ponds.
+- **Runtime brush API:** `paint_circle(world_pos, radius_px)` and `paint_rect(rect)` modify the sub-tile mask live.
+- **`Wind`** (one per map) holds wind direction and strength (`Wind.get_direction()`, `Wind.get_strength()`, `Wind.gust_at(pos)`, `Wind.force_at(pos)`, `Wind.current.blow(...)`) and drives `CloudShadows`.
 
 ### Cloud shadows
 

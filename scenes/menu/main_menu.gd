@@ -24,6 +24,7 @@ func _ready() -> void:
 	_controls.text = GameText.text("boot_and_title.title.controls_hint", _controls.text)
 	_menu.add_cancel_entry = false
 	_menu.allow_cancel = false
+	_menu.keep_visible_on_select = true
 	_run_menu()
 
 
@@ -32,6 +33,7 @@ func _run_menu() -> void:
 		_index = await _menu.choose(_entries(), _index)
 		match _index:
 			Choice.PLAY:
+				_menu.close()
 				GameText.reload()
 				GameState.new_game()
 				SceneRouter.change_scene(GAME_SCENE, true)
@@ -41,6 +43,7 @@ func _run_menu() -> void:
 			Choice.DAMAGE_NUMBERS:
 				UserSettings.toggle_damage_numbers()
 			Choice.QUIT:
+				_menu.close()
 				get_tree().quit()
 				return
 

@@ -59,12 +59,12 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -54.0
-offset_bottom = -6.0
+offset_top = -61.0
+offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
-theme_override_constants/separation = 2
+theme_override_constants/separation = 4
 alignment = 1
 
 [node name="Fx" type="Control" parent="View"]
@@ -83,7 +83,7 @@ layout_mode = 0
 offset_left = 6.0
 offset_top = 6.0
 offset_right = 394.0
-offset_bottom = 54.0
+offset_bottom = 60.0
 script = ExtResource("4_text")
 
 [node name="CommandMenu" type="Control" parent="View"]
@@ -99,22 +99,22 @@ script = ExtResource("5_menu")
 
 [node name="MainList" type="PanelContainer" parent="View/CommandMenu"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(66, 0)
+custom_minimum_size = Vector2(74, 0)
 layout_mode = 0
 offset_left = 6.0
 offset_top = 6.0
-offset_right = 72.0
+offset_right = 80.0
 offset_bottom = 40.0
 script = ExtResource("6_list")
 max_visible_rows = 5
 
 [node name="SubList" type="PanelContainer" parent="View/CommandMenu"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(218, 0)
+custom_minimum_size = Vector2(216, 0)
 layout_mode = 0
-offset_left = 76.0
+offset_left = 84.0
 offset_top = 6.0
-offset_right = 294.0
+offset_right = 300.0
 offset_bottom = 40.0
 script = ExtResource("6_list")
 

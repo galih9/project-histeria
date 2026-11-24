@@ -1,13 +1,12 @@
 class_name Wind
 extends Node
-## The wind for one map section: a direction and a strength that the grass
-## shader follows and that any gameplay code can read. Put one Wind node in
-## each map scene.
+## The wind for one map section: a direction and a strength that CloudShadows
+## follows and that any gameplay code can read. Put one Wind node in each map scene.
 ##
 ## Read it from anywhere:
 ##   Wind.get_direction()        unit Vector2, where the wind blows TO
 ##   Wind.get_strength()         0..1
-##   Wind.gust_at(world_pos)     0..1, the same gust wave the grass shows there
+##   Wind.gust_at(world_pos)     0..1, wind gust wave at this position
 ##   Wind.force_at(world_pos)    direction * (steady + gust), handy for leaves,
 ##                               particles, smoke, cloth
 ## Change it from anywhere:
@@ -15,15 +14,11 @@ extends Node
 
 signal wind_changed(direction: Vector2, strength: float)
 
-const GRASS_MATERIAL := preload("res://world/grass/grass_material.tres")
-## Darker strokes that slide over flat grass tiles (see wind_streaks.gdshader).
-const STREAK_MATERIAL := preload("res://world/grass/wind_streaks_material.tres")
 ## Cloud shadows over the map (see world/weather/cloud_shadows.gd).
 const CLOUD_MATERIAL := preload("res://world/weather/cloud_shadows_material.tres")
-## How the bend splits up: steady lean, gusts, and the back-and-forth sway.
+## How the force splits up: steady lean and gusts.
 const STEADY_SHARE := 0.25
 const GUST_SHARE := 0.75
-const SWAY_SHARE := 0.5
 
 static var current: Wind
 
@@ -51,17 +46,6 @@ static var current: Wind
 @export_range(0.0, 90.0, 1.0) var wander_degrees := 10.0
 ## Seconds for one full swing.
 @export var wander_seconds := 30.0
-
-@export_group("Grass")
-## How far a blade tip leans at full strength in a full gust, in px.
-@export_range(0.0, 13.0, 0.5) var max_bend_px := 12.0
-## Speed of the left-right sway, in radians per second (2.6 = one swing every ~2.4 s).
-@export var sway_speed := 2.6
-@export var flutter_px := 0.8
-@export var flutter_speed := 6.0
-## The player parts the grass inside this radius (px, measured from the feet).
-@export var push_radius := 14.0
-@export var push_bend_px := 6.0
 
 @export_group("Clouds")
 ## How fast cloud shadows drift downwind at full strength, in px per second.
@@ -123,8 +107,7 @@ static func get_strength() -> float:
 	return current.strength if is_instance_valid(current) else 0.0
 
 
-## 0 = calm, 1 = full gust at this world position. Mirrors gust_at() in
-## grass_sway.gdshader, so what you read here matches what the grass shows.
+## 0 = calm, 1 = full gust at this world position.
 static func gust_at(world_pos: Vector2) -> float:
 	if not is_instance_valid(current):
 		return 0.0
@@ -153,34 +136,6 @@ func _update_direction() -> void:
 
 
 func _push_to_shader() -> void:
-	var m := GRASS_MATERIAL
-	m.set_shader_parameter(&"wind_dir", _dir)
-	m.set_shader_parameter(&"wind_phase", _phase)
-	m.set_shader_parameter(&"wind_time", _time)
-	m.set_shader_parameter(&"wind_strength", strength)
-	m.set_shader_parameter(&"gust_size", gust_size)
-	m.set_shader_parameter(&"base_bend", max_bend_px * strength * STEADY_SHARE)
-	m.set_shader_parameter(&"gust_bend", max_bend_px * strength * GUST_SHARE * gustiness)
-	m.set_shader_parameter(&"sway_px", max_bend_px * strength * SWAY_SHARE)
-	m.set_shader_parameter(&"sway_speed", sway_speed)
-	# Flutter fades out with the wind, so strength 0 means perfectly still grass.
-	m.set_shader_parameter(&"flutter_px", flutter_px * clampf(strength * 2.0, 0.0, 1.0))
-	m.set_shader_parameter(&"flutter_speed", flutter_speed)
-	m.set_shader_parameter(&"push_radius", push_radius)
-	m.set_shader_parameter(&"push_bend", push_bend_px)
-	var player := get_tree().get_first_node_in_group(&"player") as Node2D
-	var feet := player.global_position if player else Vector2(-100000.0, -100000.0)
-	m.set_shader_parameter(&"pusher_pos", feet)
-
-	var s := STREAK_MATERIAL
-	s.set_shader_parameter(&"wind_dir", _dir)
-	s.set_shader_parameter(&"band_dir", Vector2.from_angle(deg_to_rad(direction_degrees)))
-	s.set_shader_parameter(&"wind_phase", _phase)
-	s.set_shader_parameter(&"wind_time", _time)
-	s.set_shader_parameter(&"wind_strength", strength)
-	s.set_shader_parameter(&"gust_size", gust_size)
-	s.set_shader_parameter(&"gustiness", gustiness)
-
 	var c := CLOUD_MATERIAL
 	c.set_shader_parameter(&"cloud_offset", _cloud_offset)
 	c.set_shader_parameter(&"cloud_time", _time)

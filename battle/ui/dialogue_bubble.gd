@@ -59,7 +59,7 @@ func present(speaker: Battler, text: String, expression: StringName, as_thought:
 	if as_thought:
 		target = Vector2(anchor.x - bubble_size.x / 2.0, anchor.y - bubble_size.y - 10.0)
 	else:
-		target = Vector2(screen.x - bubble_size.x - SCREEN_MARGIN, 64.0)
+		target = Vector2(screen.x - bubble_size.x - SCREEN_MARGIN, 84.0)
 	position = target.clamp(Vector2.ONE * SCREEN_MARGIN, screen - bubble_size - Vector2.ONE * SCREEN_MARGIN).round()
 	modulate.a = 0.0
 	show()
