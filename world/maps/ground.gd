@@ -2,7 +2,9 @@
 class_name Ground
 extends Node2D
 ## Placeholder floor painted in 32x32 blocks (4x4 tiles of 8x8), the
-## EarthBound map unit. Replace with a TileMapLayer when the tileset arrives.
+## EarthBound map unit. With `draw_grass` off, the grass comes from a
+## TileMapLayer above this node and Ground only lays the sand underneath
+## (it shows through the paths and the soft edges of the grass tiles).
 
 const BLOCK := 32
 
@@ -16,9 +18,17 @@ const BLOCK := 32
 ## Rectangles (in pixels) painted as sandy paths.
 @export var paths: Array[Rect2i] = []
 @export var flower_seed := 7
+## Off when a grass TileMapLayer covers the map: Ground then fills with sand.
+@export var draw_grass := true:
+	set(value):
+		draw_grass = value
+		queue_redraw()
 
 
 func _draw() -> void:
+	if not draw_grass:
+		draw_rect(Rect2(Vector2.ZERO, Vector2(size)), sand)
+		return
 	for by in range(0, size.y, BLOCK):
 		for bx in range(0, size.x, BLOCK):
 			var tint := grass if (bx / BLOCK + by / BLOCK) % 2 == 0 else grass_alt

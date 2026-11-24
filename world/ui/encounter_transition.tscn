@@ -7,7 +7,7 @@
 shader = ExtResource("2_swirl")
 shader_parameter/progress = 0.0
 shader_parameter/tint = Color(0.54902, 0.4, 0.94902, 1)
-shader_parameter/resolution = Vector2(256, 224)
+shader_parameter/resolution = Vector2(400, 224)
 
 [node name="EncounterTransition" type="CanvasLayer"]
 layer = 50

@@ -9,6 +9,3 @@ display_name = "Speed Up"
 color = Color(0.49411765, 0.78431374, 1, 1)
 stat = "speed"
 multiplier = 1.5
-apply_text = "{target}'s Speed went up!"
-trigger_text = ""
-expire_text = "{target}'s Speed is back to normal."

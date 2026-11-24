@@ -1,27 +1,20 @@
 class_name LoadingScreen
 extends Control
 ## Shown by SceneRouter while the next scene streams in. Shows a progress bar,
-## a bouncing placeholder box and a wacky tip.
-
-const TIPS: Array[String] = [
-	"Tip: The Big Frog is probably not a frog.",
-	"Tip: Holograms hate being bonked first.",
-	"Tip: Laughing Mannequins laugh. That's the whole tip.",
-	"Tip: Nobody knows what the Funny Looking Orb wants.",
-	"Tip: Missed attacks can be very humiliating.",
-	"Tip: The Machinist just wants to go home.",
-	"Tip: Luck is unreliable. Like a cat.",
-]
+## a bouncing placeholder box and a tip from game_text.json.
 
 @onready var _bar: ProgressBar = %Bar
 @onready var _tip: Label = %Tip
 @onready var _box: Control = %Box
+@onready var _title: Label = %Title
 
 var _time := 0.0
 
 
 func _ready() -> void:
-	_tip.text = TIPS.pick_random()
+	var tips := GameText.lines("boot_and_title.loading_tips")
+	_tip.text = tips[randi() % tips.size()] if not tips.is_empty() else ""
+	_title.text = GameText.text("boot_and_title.loading.label", _title.text)
 	_box.draw.connect(_draw_box)
 
 

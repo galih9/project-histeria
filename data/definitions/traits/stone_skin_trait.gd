@@ -28,3 +28,8 @@ func after_damage_taken(ctx: BattleContext, owner: Battler, old_hp: int) -> void
 
 func has_shield(owner: Battler) -> bool:
 	return is_active(owner)
+
+
+func set_battle_text(text: String) -> void:
+	if not text.is_empty():
+		break_text = text

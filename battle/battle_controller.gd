@@ -3,9 +3,10 @@ extends Control
 ## Runs one battle from start to finish (GDD 05, "Order of one turn"):
 ##   0. battle start: intro text and pre-action effects (first strike)
 ##   1. the next actor reaches SP 1, their window rises
-##   2. optional sub action (free)
-##   3. action
-##   4. post-action step: statuses trigger and lose a stack
+##   2. control check: Stun or a Paralyze roll can take the turn away
+##   3. optional sub action (free)
+##   4. action
+##   5. post-action step: damage over time ticks; the actor's timed effects lose a stack
 ## Emits `finished` with a BattleResult. Rules live in BattleContext and friends.
 
 signal finished(result: BattleResult)
@@ -15,6 +16,8 @@ const SUFFIXES := ["A", "B", "C", "D"]
 
 ## Dev switch: the AI plays the party too. Handy for balance checks.
 @export var auto_battle := false
+## Test switch: every battle started from the world runs on auto.
+static var force_auto := false
 
 @onready var view: BattleView = %View
 
@@ -32,6 +35,7 @@ func start(encounter: EncounterData, party: Array[PartyMember], inventory: Inven
 	ctx.inventory = inventory
 	ctx.party_limit = party_limit
 	ctx.view = view
+	ctx.auto_play = auto_battle or force_auto
 	for member in party:
 		ctx.battlers.append(Battler.from_party_member(member))
 	_spawn_enemies(encounter)
@@ -51,7 +55,7 @@ func _run(advantage: EncounterData.Advantage) -> void:
 		await _take_turn(actor)
 		outcome = _check_outcome()
 		if outcome < 0:
-			await ctx.post_action_step()
+			await ctx.post_action_step(actor)
 			outcome = _check_outcome()
 		ctx.dialogue.on_turn_passed()
 	finished.emit(await _finish(outcome as BattleResult.Outcome))
@@ -75,11 +79,13 @@ func _spawn_enemies(encounter: EncounterData) -> void:
 func _battle_start(advantage: EncounterData.Advantage) -> void:
 	var foes := ctx.enemies()
 	var leader := foes[0].label()
-	var template := BattleText.BATTLE_START_MANY if foes.size() > 1 else BattleText.BATTLE_START
+	var template := BattleText.line("BATTLE_START_MANY") if foes.size() > 1 else BattleText.line("BATTLE_START")
 	if ctx.is_boss_battle():
-		template = BattleText.BOSS_START
+		template = BattleText.line("BOSS_START")
 	if not ctx.encounter.intro_text.is_empty():
 		template = ctx.encounter.intro_text
+	if not foes[0].data.battle_intro.is_empty():
+		template = foes[0].data.battle_intro # the critter's own entrance (game_text.json)
 	await ctx.say(BattleText.fill(template, {"target": leader}))
 
 	# Pre-action effects run once, before the first turn.
@@ -89,12 +95,20 @@ func _battle_start(advantage: EncounterData.Advantage) -> void:
 		EncounterData.Advantage.PARTY:
 			_queue.first_strike_side = Battler.Side.PARTY
 			_boost_side(Battler.Side.PARTY)
-			await ctx.say(BattleText.FIRST_STRIKE_PARTY)
+			await ctx.say(BattleText.line("FIRST_STRIKE_PARTY"))
 		EncounterData.Advantage.ENEMY:
 			_queue.first_strike_side = Battler.Side.ENEMY
 			_boost_side(Battler.Side.ENEMY)
-			await ctx.say(BattleText.FIRST_STRIKE_ENEMY)
-	ctx.dialogue.trigger_any(BattleDialogue.BOSS_START if ctx.is_boss_battle() else BattleDialogue.BATTLE_START)
+			await ctx.say(BattleText.line("FIRST_STRIKE_ENEMY"))
+	var event := BattleDialogue.BATTLE_START
+	match advantage:
+		EncounterData.Advantage.PARTY:
+			event = BattleDialogue.BATTLE_START_PLAYER
+		EncounterData.Advantage.ENEMY:
+			event = BattleDialogue.BATTLE_START_ENEMY
+	if ctx.is_boss_battle():
+		event = BattleDialogue.BOSS_START
+	ctx.dialogue.trigger_any(event)
 
 
 func _boost_side(side: int) -> void:
@@ -102,18 +116,26 @@ func _boost_side(side: int) -> void:
 		battler.sp = minf(battler.sp + BattleRules.FIRST_STRIKE_SP, 0.99)
 
 
-# --- Steps 1 to 3: one turn ---------------------------------------------------
+# --- Steps 1 to 4: one turn ---------------------------------------------------
 
 func _take_turn(actor: Battler) -> void:
 	ctx.current_actor = actor
 	actor.is_defending = false # Defend lasts until the character's next turn
-	_open_sub_actions(actor)
 	view.set_active(actor)
 	view.clear_text()
+	if await ctx.control_check(actor):
+		actor.pending_sub_action_offers.clear()
+		view.set_active(null)
+		ctx.current_actor = null
+		return
+	_open_sub_actions(actor)
+	for offer in actor.sub_action_offers:
+		var open_line := offer.data.open_text if not offer.data.open_text.is_empty() else BattleText.line("SUB_ACTION_OPEN")
+		await ctx.say(BattleText.fill(open_line, {"user": actor.label(), "action": offer.data.display_name}))
 	ctx.dialogue.trigger(BattleDialogue.TURN_START, actor)
 
 	var action: BattleAction
-	if actor.is_player_controlled() and not auto_battle:
+	if actor.is_player_controlled() and not (auto_battle or force_auto):
 		action = await _player_action(actor)
 	else:
 		action = _ai.choose(ctx, actor)
@@ -141,7 +163,8 @@ func _player_action(actor: Battler) -> BattleAction:
 func _open_sub_actions(actor: Battler) -> void:
 	actor.sub_action_offers.clear()
 	for offer in actor.pending_sub_action_offers:
-		if offer.target.is_alive() and offer.target.side != actor.side and (offer.data.boss_safe or not ctx.is_boss_battle()):
+		if offer.target.is_alive() and ctx.battlers.has(offer.target) and offer.target.side != actor.side \
+				and (offer.data.boss_safe or not ctx.is_boss_battle()):
 			actor.sub_action_offers.append(offer)
 	actor.pending_sub_action_offers.clear()
 	if actor.sub_action_offers.size() > 1:
@@ -162,20 +185,21 @@ func _check_outcome() -> int:
 
 func _finish(outcome: BattleResult.Outcome) -> BattleResult:
 	view.set_active(null)
-	view.dismiss_dialogue()
+	view.dismiss_dialogue(true)
 	var result := BattleResult.new()
 	result.outcome = outcome
 	result.party = ctx.party(false)
 	result.recruited = ctx.recruited
+	result.coins = ctx.coins_gained
 
 	match outcome:
 		BattleResult.Outcome.VICTORY:
-			await ctx.say(BattleText.VICTORY)
+			await ctx.say(BattleText.line("VICTORY"))
 			result.drives = DropRoller.roll(ctx.rng, ctx.encounter, _party_luck())
 			for drive in result.drives:
-				await ctx.say(BattleText.fill(BattleText.DROP, {"item": drive.display_name()}))
+				await ctx.say(BattleText.fill(BattleText.line("DROP"), {"item": drive.display_name()}))
 		BattleResult.Outcome.DEFEAT:
-			await ctx.say(BattleText.DEFEAT)
+			await ctx.say(BattleText.line("DEFEAT"))
 
 	for battler in result.party:
 		battler.write_back()
@@ -209,11 +233,13 @@ func _on_attack_resolved(user: Battler, target: Battler, result: HitResult) -> v
 		var lucky_one := target if (result.lucky_dodge or result.lucky_guard) else user
 		ctx.dialogue.trigger(BattleDialogue.LUCKY, lucky_one)
 	if target.side == Battler.Side.PARTY and result.hit and target.is_alive() and target.hp_ratio() < 0.3:
-		ctx.dialogue.trigger_any(BattleDialogue.ALLY_LOW_HP, target)
+		var event := BattleDialogue.ALLY_LOW_HP if target.data.is_raider() else BattleDialogue.ALLY_CRITTER_LOW_HP
+		ctx.dialogue.trigger_any(event, target, target)
 
 
 func _on_knocked_out(battler: Battler) -> void:
 	if battler.side == Battler.Side.PARTY:
-		ctx.dialogue.trigger_any(BattleDialogue.ALLY_KO, battler)
+		var event := BattleDialogue.ALLY_DOWNED if battler.data.is_raider() else BattleDialogue.ALLY_CRITTER_DOWNED
+		ctx.dialogue.trigger_any(event, battler, battler)
 	else:
-		ctx.dialogue.trigger_any(BattleDialogue.ENEMY_DEFEATED)
+		ctx.dialogue.trigger_any(BattleDialogue.ENEMY_DEFEATED, null, battler, ctx.current_actor)

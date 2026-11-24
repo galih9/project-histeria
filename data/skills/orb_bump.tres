@@ -1,21 +1,16 @@
-[gd_resource type="Resource" script_class="SkillData" format=3]
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://cvp1o5hkruov3"]
 
-[ext_resource type="Script" path="res://data/definitions/effects/effect_data.gd" id="1_hf1u0"]
-[ext_resource type="Script" path="res://data/definitions/effects/damage_effect.gd" id="2_ptbkt"]
-[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="3_4nx04"]
+[ext_resource type="Script" uid="uid://cph3hjy53p3i8" path="res://data/definitions/effects/effect_data.gd" id="1_hf1u0"]
+[ext_resource type="Script" uid="uid://dkifw7qduusnr" path="res://data/definitions/effects/damage_effect.gd" id="2_ptbkt"]
+[ext_resource type="Script" uid="uid://mki1fy6466g5" path="res://data/definitions/skill_data.gd" id="3_4nx04"]
 
 [sub_resource type="Resource" id="Resource_3jxxk"]
 script = ExtResource("2_ptbkt")
-damage_type = 0
 power = 8.0
-hits = 1
-accuracy_bonus = 0.0
-crit_bonus = 0.0
-hit_fx = 0
 
 [resource]
 script = ExtResource("3_4nx04")
+text_id = &"bump"
 display_name = "Bump"
 menu_label = "Melee"
 effects = Array[ExtResource("1_hf1u0")]([SubResource("Resource_3jxxk")])
-use_text = "{user} bumps into {target}."

@@ -71,11 +71,16 @@ static func roll_luck(rng: RandomNumberGenerator, battler: Battler) -> bool:
 	return rng.randf() < BattleRules.lucky_chance(battler.get_stat(StatBlock.LUCK))
 
 
-static func recruit_chance(recruiter: Battler, target: Battler) -> float:
-	var missing_hp := 1.0 - target.hp_ratio()
-	var share := BattleRules.RECRUIT_FULL_HP_SHARE + (1.0 - BattleRules.RECRUIT_FULL_HP_SHARE) * missing_hp
-	var chance := target.data.temperament * share + recruiter.get_stat(StatBlock.LUCK) * BattleRules.RECRUIT_LUCK_PER_POINT
-	return clampf(chance, BattleRules.RECRUIT_MIN_CHANCE, BattleRules.RECRUIT_MAX_CHANCE)
+## Recruit talk (GDD 18): the chance that the recruiter's Luck turns a hostile
+## reaction ("attack", "leave") into "ask another question". Luck must reach the
+## threshold first, then each answer rolls; every mood stack on the critter
+## lowers the chance.
+static func talk_soften_chance(recruiter: Battler, critter: Battler) -> float:
+	var luck := recruiter.get_stat(StatBlock.LUCK)
+	if luck < BattleRules.TALK_SOFTEN_LUCK_THRESHOLD:
+		return 0.0
+	var chance := minf(luck * BattleRules.TALK_SOFTEN_PER_LUCK, BattleRules.TALK_SOFTEN_MAX_CHANCE)
+	return maxf(chance - critter.mood * BattleRules.TALK_SOFTEN_MOOD_PENALTY, 0.0)
 
 
 static func run_chance(runner: Battler, enemies: Array[Battler]) -> float:

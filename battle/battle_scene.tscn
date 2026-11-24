@@ -82,7 +82,7 @@ unique_name_in_owner = true
 layout_mode = 0
 offset_left = 6.0
 offset_top = 6.0
-offset_right = 250.0
+offset_right = 394.0
 offset_bottom = 54.0
 script = ExtResource("4_text")
 
@@ -106,14 +106,15 @@ offset_top = 6.0
 offset_right = 72.0
 offset_bottom = 40.0
 script = ExtResource("6_list")
+max_visible_rows = 5
 
 [node name="SubList" type="PanelContainer" parent="View/CommandMenu"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(174, 0)
+custom_minimum_size = Vector2(218, 0)
 layout_mode = 0
 offset_left = 76.0
 offset_top = 6.0
-offset_right = 250.0
+offset_right = 294.0
 offset_bottom = 40.0
 script = ExtResource("6_list")
 

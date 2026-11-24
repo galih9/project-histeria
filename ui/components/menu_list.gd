@@ -56,7 +56,7 @@ func choose(entries: Array[MenuEntry], start_index := 0) -> int:
 func open(entries: Array[MenuEntry], start_index := 0) -> void:
 	_entries = entries.duplicate()
 	if add_cancel_entry and allow_cancel:
-		_entries.append(MenuEntry.new(CANCEL_TEXT, null))
+		_entries.append(MenuEntry.new(GameText.text("ui_text.cancel_entry", CANCEL_TEXT), null))
 	_index = clampi(start_index, 0, maxi(_entries.size() - 1, 0))
 	_scroll = 0
 	_ensure_visible()

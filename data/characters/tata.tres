@@ -1,14 +1,14 @@
-[gd_resource type="Resource" script_class="CombatantData" format=3]
+[gd_resource type="Resource" script_class="CombatantData" format=3 uid="uid://dpk8i32c42yc3"]
 
-[ext_resource type="Script" path="res://data/definitions/combatant_data.gd" id="1_57p0q"]
-[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="2_jolre"]
-[ext_resource type="Resource" path="res://data/skills/tata_bored_stare.tres" id="3_71itc"]
-[ext_resource type="Resource" path="res://data/skills/tata_big_yawn.tres" id="4_rho72"]
-[ext_resource type="Resource" path="res://data/skills/tata_quick_jab.tres" id="5_7fs85"]
-[ext_resource type="Resource" path="res://data/skills/tata_gloom_ray.tres" id="6_lp2so"]
-[ext_resource type="Script" path="res://data/definitions/stat_block.gd" id="7_dp01q"]
-[ext_resource type="Script" path="res://data/definitions/traits/trait_data.gd" id="8_7f4cm"]
-[ext_resource type="Resource" path="res://data/skills/tata_horn_bonk.tres" id="9_heodp"]
+[ext_resource type="Script" uid="uid://c6qrhrqtao5q6" path="res://data/definitions/combatant_data.gd" id="1_57p0q"]
+[ext_resource type="Script" uid="uid://mki1fy6466g5" path="res://data/definitions/skill_data.gd" id="2_jolre"]
+[ext_resource type="Resource" uid="uid://dp3uotwe2w8aq" path="res://data/skills/tata_bored_stare.tres" id="3_71itc"]
+[ext_resource type="Resource" uid="uid://gdguo6ld1v1u" path="res://data/skills/tata_big_yawn.tres" id="4_rho72"]
+[ext_resource type="Resource" uid="uid://dbp26xkq5vjtv" path="res://data/skills/tata_quick_jab.tres" id="5_7fs85"]
+[ext_resource type="Resource" uid="uid://dxv3ughscrusl" path="res://data/skills/tata_gloom_ray.tres" id="6_lp2so"]
+[ext_resource type="Script" uid="uid://brrgoft8wow6" path="res://data/definitions/stat_block.gd" id="7_dp01q"]
+[ext_resource type="Script" uid="uid://fs5pw8c66qwk" path="res://data/definitions/traits/trait_data.gd" id="8_7f4cm"]
+[ext_resource type="Resource" uid="uid://ctarm8b1wl75a" path="res://data/skills/tata_horn_bonk.tres" id="9_heodp"]
 
 [sub_resource type="Resource" id="Resource_nb4ou"]
 script = ExtResource("7_dp01q")
@@ -30,9 +30,6 @@ stats = SubResource("Resource_nb4ou")
 weapons = Array[ExtResource("2_jolre")]([ExtResource("9_heodp")])
 skills = Array[ExtResource("2_jolre")]([ExtResource("3_71itc"), ExtResource("4_rho72"), ExtResource("5_7fs85"), ExtResource("6_lp2so")])
 recruitable = false
-negotiation_lines = PackedStringArray()
-recruit_success_lines = PackedStringArray()
-recruit_fail_lines = PackedStringArray()
 battle_lines = {
 "ally_ko": PackedStringArray("[worried] ...Ale? Get up. Please."),
 "ally_low_hp": PackedStringArray("[worried] Ale. Maybe don\'t fall over?"),

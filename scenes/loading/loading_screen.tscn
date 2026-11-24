@@ -22,9 +22,9 @@ color = Color(0.054902, 0.047059, 0.105882, 1)
 
 [node name="BoxHolder" type="Control" parent="."]
 layout_mode = 0
-offset_left = 120.0
+offset_left = 192.0
 offset_top = 76.0
-offset_right = 136.0
+offset_right = 208.0
 offset_bottom = 100.0
 
 [node name="Box" type="Control" parent="BoxHolder"]
@@ -34,10 +34,11 @@ offset_right = 16.0
 offset_bottom = 24.0
 
 [node name="Title" type="Label" parent="."]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 0.0
 offset_top = 110.0
-offset_right = 256.0
+offset_right = 400.0
 offset_bottom = 124.0
 text = "Loading..."
 horizontal_alignment = 1
@@ -45,9 +46,9 @@ horizontal_alignment = 1
 [node name="Bar" type="ProgressBar" parent="."]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 64.0
+offset_left = 136.0
 offset_top = 130.0
-offset_right = 192.0
+offset_right = 264.0
 offset_bottom = 138.0
 show_percentage = false
 
@@ -57,7 +58,7 @@ modulate = Color(1, 1, 1, 0.7)
 layout_mode = 0
 offset_left = 16.0
 offset_top = 180.0
-offset_right = 240.0
+offset_right = 384.0
 offset_bottom = 210.0
 text = "Tip"
 horizontal_alignment = 1

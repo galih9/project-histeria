@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+GameText="*res://autoload/game_text.gd"
 UserSettings="*res://autoload/user_settings.gd"
 EventBus="*res://autoload/event_bus.gd"
 GameState="*res://autoload/game_state.gd"
@@ -24,9 +25,9 @@ SceneRouter="*res://autoload/scene_router.gd"
 
 [display]
 
-window/size/viewport_width=256
+window/size/viewport_width=400
 window/size/viewport_height=224
-window/size/window_width_override=768
+window/size/window_width_override=1200
 window/size/window_height_override=672
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"

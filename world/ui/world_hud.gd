@@ -69,15 +69,21 @@ func _open_pause_menu() -> void:
 
 
 func _pause_entries() -> Array[MenuEntry]:
-	return [MenuEntry.new("Resume"), MenuEntry.new("Party"), MenuEntry.new("Title")]
+	var path := "ui_text.pause_menu"
+	return [
+		MenuEntry.new(GameText.list_item(path, 0, "Resume")),
+		MenuEntry.new(GameText.list_item(path, 1, "Party")),
+		MenuEntry.new(GameText.list_item(path, 2, "Title")),
+	]
 
 
 func _show_party_status() -> void:
 	var lines: PackedStringArray = []
+	var row := GameText.text("ui_text.party_screen_row", "{name}   HP x/y   MP x/y")
 	for member in GameState.party:
-		lines.append("%s   HP %d/%d   MP %d/%d" % [member.data.display_name, member.hp,
-			member.data.stats.max_hp, member.mp, member.data.stats.max_mp])
-	lines.append("Drives found: %d" % GameState.drives.size())
+		lines.append(_party_row(row, member))
+	lines.append(GameText.text("ui_text.party_screen_coins", "Coins: {count}").format({"count": GameState.coins}))
+	lines.append(GameText.text("ui_text.party_screen_drives", "Drives: {count}").format({"count": GameState.drives.size()}))
 	for drive in GameState.drives.slice(-3):
 		lines.append("  " + drive.display_name())
 	_status_label.text = "\n".join(lines)
@@ -87,6 +93,19 @@ func _show_party_status() -> void:
 		if Input.is_action_just_pressed("confirm") or Input.is_action_just_pressed("cancel") or Input.is_action_just_pressed("menu"):
 			break
 	_status_panel.hide()
+
+
+## Fills the party row template: {name}, plus {hp} {max_hp} {mp} {max_mp}, or
+## the two "x/y" spots in the order HP, MP.
+static func _party_row(template: String, member: PartyMember) -> String:
+	var values := {"name": member.data.display_name, "hp": member.hp, "max_hp": member.data.stats.max_hp,
+		"mp": member.mp, "max_mp": member.data.stats.max_mp}
+	var row := template.format(values)
+	for pair in ["%d/%d" % [member.hp, member.data.stats.max_hp], "%d/%d" % [member.mp, member.data.stats.max_mp]]:
+		var at := row.find("x/y")
+		if at >= 0:
+			row = row.substr(0, at) + pair + row.substr(at + 3)
+	return row
 
 
 func _begin() -> void:

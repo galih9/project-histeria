@@ -8,8 +8,12 @@ enum DamageType {
 	UNIVERSAL, ## ignores both
 }
 
+## Element tags on Magical damage (GDD 04, decided Nov 19). They use the Magical
+## math and pick the hit effect. Weaknesses per tag come in the critter pass.
+enum Element { NONE, FIRE, ELECTRIC, ICE }
+
 ## Which hit effect plays on the target. Flavor only, the math stays the same.
-enum HitFx { BLUNT, SLASH, MAGIC, POISON }
+enum HitFx { BLUNT, SLASH, MAGIC, POISON, FIRE, ELECTRIC, ICE }
 
 @export var damage_type := DamageType.PHYSICAL
 ## Damage before defenses = Attack x power / 10.
@@ -18,6 +22,19 @@ enum HitFx { BLUNT, SLASH, MAGIC, POISON }
 @export var accuracy_bonus := 0.0
 @export var crit_bonus := 0.0
 @export var hit_fx := HitFx.BLUNT
+@export var element := Element.NONE
+
+
+## The effect sprite to play: an element tag picks its own.
+func fx_kind() -> DamageEffect.HitFx:
+	match element:
+		Element.FIRE:
+			return HitFx.FIRE
+		Element.ELECTRIC:
+			return HitFx.ELECTRIC
+		Element.ICE:
+			return HitFx.ICE
+	return hit_fx
 
 
 func apply(ctx: BattleContext, user: Battler, target: Battler) -> void:

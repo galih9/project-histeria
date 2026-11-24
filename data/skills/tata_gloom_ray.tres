@@ -1,16 +1,13 @@
-[gd_resource type="Resource" script_class="SkillData" format=3]
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://dxv3ughscrusl"]
 
-[ext_resource type="Script" path="res://data/definitions/effects/effect_data.gd" id="1_wwa0v"]
-[ext_resource type="Script" path="res://data/definitions/effects/damage_effect.gd" id="2_xgmh7"]
-[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="3_y47vg"]
+[ext_resource type="Script" uid="uid://cph3hjy53p3i8" path="res://data/definitions/effects/effect_data.gd" id="1_wwa0v"]
+[ext_resource type="Script" uid="uid://dkifw7qduusnr" path="res://data/definitions/effects/damage_effect.gd" id="2_xgmh7"]
+[ext_resource type="Script" uid="uid://mki1fy6466g5" path="res://data/definitions/skill_data.gd" id="3_y47vg"]
 
 [sub_resource type="Resource" id="Resource_uyjxl"]
 script = ExtResource("2_xgmh7")
 damage_type = 1
 power = 14.0
-hits = 1
-accuracy_bonus = 0.0
-crit_bonus = 0.0
 hit_fx = 2
 
 [resource]

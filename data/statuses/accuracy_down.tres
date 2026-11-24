@@ -10,6 +10,3 @@ is_debuff = true
 color = Color(0.7254902, 0.54901963, 1, 1)
 stat = "accuracy"
 flat_bonus = -20.0
-apply_text = "{target}'s Accuracy went down!"
-trigger_text = ""
-expire_text = "{target}'s Accuracy is back to normal."

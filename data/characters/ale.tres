@@ -1,18 +1,19 @@
-[gd_resource type="Resource" script_class="CombatantData" format=3]
+[gd_resource type="Resource" script_class="CombatantData" format=3 uid="uid://cbojit7tg11bk"]
 
-[ext_resource type="Script" path="res://data/definitions/combatant_data.gd" id="1_o3tqi"]
-[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="2_adxhb"]
-[ext_resource type="Resource" path="res://data/skills/ale_pep_talk.tres" id="3_abnj3"]
-[ext_resource type="Resource" path="res://data/skills/ale_band_aid.tres" id="4_3hh4y"]
-[ext_resource type="Resource" path="res://data/skills/ale_speed_read.tres" id="5_n3aps"]
-[ext_resource type="Resource" path="res://data/skills/ale_encyclopedia_drop.tres" id="6_7nvbb"]
-[ext_resource type="Script" path="res://data/definitions/stat_block.gd" id="7_otqio"]
-[ext_resource type="Script" path="res://data/definitions/traits/trait_data.gd" id="8_g4c6v"]
-[ext_resource type="Resource" path="res://data/skills/ale_book_bonk.tres" id="9_s1gv8"]
-[ext_resource type="Resource" path="res://data/skills/ale_slingshot.tres" id="10_qh0aw"]
+[ext_resource type="Script" path="res://data/definitions/combatant_data.gd" id="1_data"]
+[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="2_skill"]
+[ext_resource type="Resource" path="res://data/skills/ale_book_throw.tres" id="3_book_throw"]
+[ext_resource type="Resource" path="res://data/skills/ale_collect_book.tres" id="4_collect_book"]
+[ext_resource type="Resource" path="res://data/skills/ale_fire_incantation.tres" id="5_fire"]
+[ext_resource type="Resource" path="res://data/skills/ale_electro_incantation.tres" id="6_electro"]
+[ext_resource type="Resource" path="res://data/skills/ale_frost_incantation.tres" id="7_frost"]
+[ext_resource type="Resource" path="res://data/skills/ale_band_aid.tres" id="8_band_aid"]
+[ext_resource type="Script" path="res://data/definitions/stat_block.gd" id="9_stats"]
+[ext_resource type="Script" path="res://data/definitions/traits/trait_data.gd" id="10_trait"]
+[ext_resource type="Script" path="res://data/definitions/traits/overheal_trait.gd" id="11_overheal"]
 
-[sub_resource type="Resource" id="Resource_munua"]
-script = ExtResource("7_otqio")
+[sub_resource type="Resource" id="Resource_stats"]
+script = ExtResource("9_stats")
 max_hp = 80
 max_mp = 45
 attack = 12.0
@@ -21,30 +22,19 @@ resistance = 11.0
 accuracy = 92.0
 luck = 18.0
 
+[sub_resource type="Resource" id="Resource_overheal"]
+script = ExtResource("11_overheal")
+display_name = "Overheal"
+description = "Healing past max HP from Ale's skills becomes a Shield for the rest of the battle."
+
 [resource]
-script = ExtResource("1_o3tqi")
+script = ExtResource("1_data")
+text_id = &"ale"
 display_name = "Ale"
-races = Array[StringName]([&"Raiders", &"Look-Human"])
-stats = SubResource("Resource_munua")
-weapons = Array[ExtResource("2_adxhb")]([ExtResource("9_s1gv8"), ExtResource("10_qh0aw")])
-skills = Array[ExtResource("2_adxhb")]([ExtResource("3_abnj3"), ExtResource("4_3hh4y"), ExtResource("5_n3aps"), ExtResource("6_7nvbb")])
+races = Array[StringName]([&"Raiders", &"Hofflers"])
+stats = SubResource("Resource_stats")
+weapons = Array[ExtResource("2_skill")]([ExtResource("3_book_throw"), ExtResource("4_collect_book")])
+skills = Array[ExtResource("2_skill")]([ExtResource("5_fire"), ExtResource("6_electro"), ExtResource("7_frost"), ExtResource("8_band_aid")])
+traits = Array[ExtResource("10_trait")]([SubResource("Resource_overheal")])
 recruitable = false
-negotiation_lines = PackedStringArray()
-recruit_success_lines = PackedStringArray()
-recruit_fail_lines = PackedStringArray()
-battle_lines = {
-"ally_ko": PackedStringArray("[worried] TATA! Nooo!"),
-"ally_low_hp": PackedStringArray("[worried] Tata! Hang in there!"),
-"battle_start": PackedStringArray("[happy] Ooh! A new specimen!", "[surprised] Whoa, what IS that?"),
-"boss_start": PackedStringArray("[surprised] A FROG! A BIG ONE! Tata, LOOK!"),
-"crit": PackedStringArray("[happy] Did you SEE that?!"),
-"enemy_defeated": PackedStringArray("[happy] Bye-bye!"),
-"humiliate": PackedStringArray("[smug] Ha! Take that!"),
-"lucky": PackedStringArray("[happy] Science! ...Or luck!"),
-"miss": PackedStringArray("[worried] Wait, the book said that works!"),
-"recruit_fail": PackedStringArray("[worried] Aww..."),
-"recruit_success": PackedStringArray("[happy] Yay! A new friend!"),
-"turn_start": PackedStringArray("[happy] My turn! My turn!", "[happy] I read about this!", "Okay okay okay!")
-}
-humiliate_lines = PackedStringArray("{user} trips, then pretends {target} did it.", "{user} reads {target} a very mean book review.")
 color = Color(0.9490196, 0.7882353, 0.29803923, 1)

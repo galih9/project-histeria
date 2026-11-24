@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="SkillData" format=3]
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://cw0uld4imwevh"]
 
-[ext_resource type="Script" path="res://data/definitions/effects/effect_data.gd" id="1_3pdea"]
-[ext_resource type="Script" path="res://data/definitions/effects/apply_status_effect.gd" id="2_k4b2p"]
+[ext_resource type="Script" uid="uid://cph3hjy53p3i8" path="res://data/definitions/effects/effect_data.gd" id="1_3pdea"]
+[ext_resource type="Script" uid="uid://b2l52ilfr5t4b" path="res://data/definitions/effects/apply_status_effect.gd" id="2_k4b2p"]
 [ext_resource type="Resource" path="res://data/statuses/speed_up.tres" id="3_xd2n7"]
-[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="4_gyi7n"]
+[ext_resource type="Script" uid="uid://mki1fy6466g5" path="res://data/definitions/skill_data.gd" id="4_gyi7n"]
 
 [sub_resource type="Resource" id="Resource_re83j"]
 script = ExtResource("2_k4b2p")

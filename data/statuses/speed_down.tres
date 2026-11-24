@@ -10,6 +10,3 @@ is_debuff = true
 color = Color(0.7254902, 0.54901963, 1, 1)
 stat = "speed"
 multiplier = 0.7
-apply_text = "{target}'s Speed went down!"
-trigger_text = ""
-expire_text = "{target}'s Speed is back to normal."

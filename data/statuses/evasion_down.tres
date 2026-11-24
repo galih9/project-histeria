@@ -10,6 +10,3 @@ is_debuff = true
 color = Color(0.7254902, 0.54901963, 1, 1)
 stat = "evasion"
 flat_bonus = -10.0
-apply_text = "{target}'s Evasion went down!"
-trigger_text = ""
-expire_text = "{target}'s Evasion is back to normal."

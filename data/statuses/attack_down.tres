@@ -9,6 +9,3 @@ display_name = "Attack Down"
 is_debuff = true
 color = Color(0.7254902, 0.54901963, 1, 1)
 multiplier = 0.75
-apply_text = "{target}'s Attack went down!"
-trigger_text = ""
-expire_text = "{target}'s Attack is back to normal."

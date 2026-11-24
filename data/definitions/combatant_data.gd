@@ -1,38 +1,49 @@
 class_name CombatantData
 extends Resource
-## Sheet for a playable character or a monster (GDD 02). Recruited monsters
-## join the party with this same sheet.
+## Sheet for a playable character or a critter (GDD 02). Recruited critters
+## join the party with this same sheet. Names and every line of text come from
+## game_text.json (matched by text_id); this file holds the rules and numbers.
 
 enum PlaceholderShape { BOX, ROUND, DIAMOND, BLOB }
 
+## The character or critter "id" in game_text.json ("bo", "big_frog").
+@export var text_id: StringName
 @export var display_name := ""
 ## Shorter name for the small party window. Empty = display_name.
 @export var short_name := ""
-## "the " for monsters, so the text reads "Tata bonks the Big Frog!".
+## "the " for critters, so the text reads "Bo bonks the Big Frog!".
 ## BattleText.fill() capitalizes it at the start of a line.
 @export var article := ""
 ## Race labels from GDD 02 (see Races). A character can carry several.
 @export var races: Array[StringName] = []
 @export var level := 1
 @export var stats: StatBlock
-## Entries in the Attack list (Melee, Gun...). Enemies also pick from these.
+## Entries in the Attack list (Melee, Throw Book...). Enemies also pick from these.
 @export var weapons: Array[SkillData] = []
 ## Entries in the Skill list. Defend is added at the bottom automatically.
 @export var skills: Array[SkillData] = []
 @export var traits: Array[TraitData] = []
 
+@export_group("Perks")
+## Yawn + (GDD 13): every debuff this character applies is this much stronger.
+## 0.5 = 50% stronger. Set by the skill tree later; 0 for now.
+@export var debuff_strength_bonus := 0.0
+## Yawn ++ (GDD 13): every debuff this character applies lasts this many turns longer.
+@export var debuff_extra_stacks := 0
+
+## Filled from game_text.json.
+var signature_weapon := ""
+var battle_intro := ""
+var defend_text := ""
+
 @export_group("Recruiting")
+## Can be asked to join with Action > Recruit. The talk itself (questions and
+## race reactions) lives in game_text.json, recruiting.negotiation (GDD 18).
 @export var recruitable := true
-## 0 = stubborn, 1 = joins happily. Lower HP makes any monster easier.
-@export_range(0.0, 1.0) var temperament := 0.4
-## The monster's reply when asked to join ({target} = its name).
-@export var negotiation_lines := PackedStringArray()
-@export var recruit_success_lines := PackedStringArray()
-@export var recruit_fail_lines := PackedStringArray()
 
 @export_group("Raider voice")
-## Event name -> lines. Start a line with [happy], [worried], [smug] or
-## [surprised] to pick the portrait expression. Events: see BattleDialogue.
+## Event name -> lines, filled from game_text.json. A line can start with an
+## expression tag like [happy] to pick the portrait face. Events: see BattleDialogue.
 @export var battle_lines: Dictionary = {}
 ## Taunts used by the Humiliate sub action. {target} = the enemy.
 @export var humiliate_lines := PackedStringArray()
@@ -49,7 +60,8 @@ enum PlaceholderShape { BOX, ROUND, DIAMOND, BLOB }
 ## Battle animations: "idle", "hurt", "attack". Overworld: "idle", "walk".
 @export var battle_frames: SpriteFrames
 @export var overworld_frames: SpriteFrames
-## 32x32 portrait for dialogue. One animation per expression: neutral, happy, worried, smug, surprised.
+## 32x32 portrait for dialogue. One animation per expression tag in game_text.json
+## (neutral, happy, worried, smug, surprised, bored, angry, sad, ridicule).
 @export var portrait_frames: SpriteFrames
 
 

@@ -12,6 +12,10 @@ var _leaving := false
 
 
 func _ready() -> void:
+	var labels := _content.get_children()
+	var texts := GameText.lines("boot_and_title.splash")
+	for i in mini(labels.size(), texts.size()):
+		(labels[i] as Label).text = texts[i]
 	_content.modulate.a = 0.0
 	var tween := create_tween()
 	tween.tween_property(_content, "modulate:a", 1.0, FADE_SECONDS)

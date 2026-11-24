@@ -6,6 +6,7 @@ extends RefCounted
 signal hp_changed(old_hp: int, new_hp: int)
 signal mp_changed(new_mp: int)
 signal statuses_changed
+signal shield_changed(shield: int)
 
 enum Side { PARTY, ENEMY }
 
@@ -25,6 +26,22 @@ var party_member: PartyMember
 var sub_action_offers: Array[SubActionOffer] = []
 ## Opportunities earned since the last turn; they become offers on the next turn.
 var pending_sub_action_offers: Array[SubActionOffer] = []
+## Shield pool on top of HP (GDD 05). Damage hits it first. From Ale's Overheal.
+var shield := 0
+## The signature weapon is out of the user's hands (Ale's thrown book). Resets
+## every battle, so the book comes back on its own when the battle ends.
+var weapon_away := false
+## Stun diminishing returns (GDD 05): stuns received in the current chain, and
+## own turns taken free of Stun since the last one.
+var stun_chain := 0
+var stun_free_turns := 0
+## Recruit talk (GDD 18): mood stacks built up this battle, the questions
+## already asked, and whether the critter is too angry to respond. A Battler
+## lives for one battle, so all of this resets when the battle ends.
+var mood := 0
+var talk_closed := false
+var asked_questions: Array[String] = []
+var low_hp_mood_added := false
 
 
 func _init(combatant: CombatantData, battle_side: int) -> void:
@@ -76,14 +93,15 @@ func base_stat(stat: StringName) -> float:
 	return data.stats.get_stat(stat)
 
 
-## Stat after statuses: multipliers first, then flat bonuses.
+## Stat after statuses: multipliers first, then flat bonuses. A status's
+## strength scales how far it moves the stat (Yawn + makes debuffs stronger).
 func get_stat(stat: StringName) -> float:
 	var value := base_stat(stat)
 	var flat := 0.0
 	for status in statuses:
 		if status.data.kind == StatusData.Kind.STAT_MODIFIER and status.data.stat_name() == stat:
-			value *= status.data.multiplier
-			flat += status.data.flat_bonus
+			value *= maxf(1.0 + (status.data.multiplier - 1.0) * status.strength, 0.05)
+			flat += status.data.flat_bonus * status.strength
 	return maxf(value + flat, 0.0)
 
 
@@ -115,6 +133,36 @@ func can_pay(skill: SkillData) -> bool:
 	return mp >= skill.mp_cost
 
 
+## False while the skill is locked: its weapon is away, or it fetches a weapon
+## that is already in hand.
+func is_unlocked(action: ActionData) -> bool:
+	if action.requires_weapon and weapon_away:
+		return false
+	if action.retrieves_weapon and not weapon_away:
+		return false
+	return true
+
+
+func can_use(skill: SkillData) -> bool:
+	return is_unlocked(skill) and can_pay(skill)
+
+
+func set_shield(value: int) -> void:
+	value = maxi(value, 0)
+	if value != shield:
+		shield = value
+		shield_changed.emit(shield)
+
+
+## Takes damage through the Shield first. Returns the part the Shield absorbed.
+func take_damage(amount: int) -> int:
+	var absorbed := mini(shield, amount)
+	if absorbed > 0:
+		set_shield(shield - absorbed)
+	set_hp(hp - (amount - absorbed))
+	return absorbed
+
+
 func has_shield() -> bool:
 	for battle_trait in data.traits:
 		if battle_trait.has_shield(self):
@@ -136,6 +184,21 @@ func has_debuff() -> bool:
 		if active.data.is_debuff:
 			return true
 	return false
+
+
+func find_kind(kind: StatusData.Kind) -> ActiveStatus:
+	for active in statuses:
+		if active.data.kind == kind:
+			return active
+	return null
+
+
+## The one who taunted this battler, while that one still stands (GDD 05).
+func taunter() -> Battler:
+	var taunt := find_kind(StatusData.Kind.TAUNT)
+	if taunt and taunt.source and taunt.source.is_alive() and taunt.source.side != side:
+		return taunt.source
+	return null
 
 
 func add_status(active: ActiveStatus) -> void:

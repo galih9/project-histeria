@@ -5,6 +5,7 @@ extends BattleController
 var log_lines: Array[String] = []
 
 func _player_action(actor: Battler) -> BattleAction:
+	ctx.auto_play = true # recruit answers are picked at random
 	if not actor.sub_action_offers.is_empty():
 		var offer := actor.sub_action_offers[0]
 		actor.sub_action_offers.clear()

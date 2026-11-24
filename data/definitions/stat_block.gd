@@ -13,7 +13,7 @@ const EVASION := &"evasion"
 const CRIT_CHANCE := &"crit_chance"
 const LUCK := &"luck"
 
-## Display names used by the battle text ("Tata's Speed went up!").
+## Display names used by the battle text ("Bo's Speed went up!").
 const DISPLAY_NAMES: Dictionary = {
 	ATTACK: "Attack",
 	DEFENSE: "Defense",

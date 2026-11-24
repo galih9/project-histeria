@@ -1,5 +1,5 @@
 extends Node
-## Dev check: recruiting, Humiliate and recruited monsters fighting for the party.
+## Dev check: the recruit talk, Humiliate and recruited monsters fighting for the party.
 
 const BATTLE := preload("res://battle/battle_scene.tscn")
 
@@ -23,7 +23,7 @@ func _ready() -> void:
 	var f := FileAccess.open("user://feature_log.txt", FileAccess.WRITE)
 	f.store_string("\n".join(all))
 	print("recruits total: ", recruits)
-	for key in ["insulted", "joins the party", "refuses", "sees an opening", "wobbles", "printer", "HA!"]:
+	for key in ["insulted", "joins the party", "refuses", "leaves the battle", "keeps talking", "did not respond", "coins", "heals the party", "can't understand", "nothing to say", "sees an opening"]:
 		print(key, ": ", all.filter(func(l: String) -> bool: return l.contains(key)).size())
 	print("FEATURE DONE")
 	get_tree().quit()

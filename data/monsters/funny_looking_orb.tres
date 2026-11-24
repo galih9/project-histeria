@@ -1,13 +1,13 @@
-[gd_resource type="Resource" script_class="CombatantData" format=3]
+[gd_resource type="Resource" script_class="CombatantData" format=3 uid="uid://bexnmwqfye0pc"]
 
-[ext_resource type="Script" path="res://data/definitions/combatant_data.gd" id="1_o517f"]
-[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="2_rrhm1"]
-[ext_resource type="Resource" path="res://data/skills/orb_weird_glow.tres" id="3_tooj2"]
-[ext_resource type="Resource" path="res://data/skills/orb_droning_hum.tres" id="4_jscmh"]
-[ext_resource type="Resource" path="res://data/skills/orb_long_stare.tres" id="5_u80oo"]
-[ext_resource type="Script" path="res://data/definitions/stat_block.gd" id="6_xgqas"]
-[ext_resource type="Script" path="res://data/definitions/traits/trait_data.gd" id="7_rpyqj"]
-[ext_resource type="Resource" path="res://data/skills/orb_bump.tres" id="8_ypn12"]
+[ext_resource type="Script" uid="uid://c6qrhrqtao5q6" path="res://data/definitions/combatant_data.gd" id="1_o517f"]
+[ext_resource type="Script" uid="uid://mki1fy6466g5" path="res://data/definitions/skill_data.gd" id="2_rrhm1"]
+[ext_resource type="Resource" uid="uid://utxlph8m78oe" path="res://data/skills/orb_weird_glow.tres" id="3_tooj2"]
+[ext_resource type="Resource" uid="uid://b6y8b2qyotpg4" path="res://data/skills/orb_droning_hum.tres" id="4_jscmh"]
+[ext_resource type="Resource" uid="uid://bkfgxpyetqvf1" path="res://data/skills/orb_long_stare.tres" id="5_u80oo"]
+[ext_resource type="Script" uid="uid://brrgoft8wow6" path="res://data/definitions/stat_block.gd" id="6_xgqas"]
+[ext_resource type="Script" uid="uid://fs5pw8c66qwk" path="res://data/definitions/traits/trait_data.gd" id="7_rpyqj"]
+[ext_resource type="Resource" uid="uid://cvp1o5hkruov3" path="res://data/skills/orb_bump.tres" id="8_ypn12"]
 
 [sub_resource type="Resource" id="Resource_hbg6r"]
 script = ExtResource("6_xgqas")
@@ -23,18 +23,14 @@ luck = 8.0
 
 [resource]
 script = ExtResource("1_o517f")
+text_id = &"funny_looking_orb"
 display_name = "Funny Looking Orb"
 short_name = "Orb"
 article = "the "
-races = Array[StringName]([&"Spirits"])
+races = Array[StringName]([&"Souls"])
 stats = SubResource("Resource_hbg6r")
 weapons = Array[ExtResource("2_rrhm1")]([ExtResource("8_ypn12")])
 skills = Array[ExtResource("2_rrhm1")]([ExtResource("3_tooj2"), ExtResource("4_jscmh"), ExtResource("5_u80oo")])
-temperament = 0.15
-negotiation_lines = PackedStringArray("{target} wobbles silently.", "{target} makes no sound at all. Somehow it\'s loud.")
-recruit_success_lines = PackedStringArray("{target} blinks... that\'s a yes?")
-recruit_fail_lines = PackedStringArray("{target} just keeps wobbling.")
-humiliate_lines = PackedStringArray()
 color = Color(0.95686275, 0.94509804, 1, 1)
 placeholder_shape = 1
 battle_size = Vector2i(32, 32)

@@ -1,0 +1,2850 @@
+{
+  "meta": {
+    "title": "Turnbasedgame — Text, Dialogue and Lore Data",
+    "version": "2026-11-23",
+    "source": "Compiled from the 2d-pixel-art-version GDD (files 00–03, 06, 07, 11, 12, 13, 14, 18).",
+    "scope": "Narrative and player-facing text only. No stats, HP, MP costs, power, chances, temperament or sprite sizes.",
+    "status_tags": {
+      "decided": "Decided by Kiki in the GDD",
+      "proposal": "Claude's suggestion in the GDD, still for review",
+      "placeholder": "Prototype placeholder text, free to rewrite"
+    },
+    "text_placeholders": {
+      "{user}": "The one acting",
+      "{target}": "The one hit or asked",
+      "{amount}": "A number",
+      "{action}": "A skill or item name",
+      "{status}": "A status name",
+      "{item}": "A drop",
+      "{name}": "A character name",
+      "{count}": "A count",
+      "{color}": "Drive color",
+      "{tier}": "Drive tier name"
+    },
+    "expression_tags": [
+      "neutral",
+      "happy",
+      "worried",
+      "smug",
+      "surprised",
+      "bored",
+      "angry",
+      "sad",
+      "ridicule"
+    ],
+    "expression_tag_usage": "A line can start with a tag like [happy] to pick the portrait face. No tag means neutral.",
+    "article_rule": "Critter names carry the article 'the ' (\"Bo bonks the Big Frog!\"). The first letter of every sentence is capitalized automatically."
+  },
+  "world": {
+    "pitch": "A story-driven, wacky RPG in 2D pixel art, in the spirit of EarthBound and the early Pokémon games. Bo, a horned girl, sets out with Ale to rescue Kevin, her father figure, who was kidnapped by angels for the gods' yearly tournament on the Great White Peak. Cat-shaped guardians help them along the way, and the runaway prince Willhelm and the outpost builder Len join the party.",
+    "tone": [
+      "Wacky, nonsensical and boldly fun, in the spirit of EarthBound: everyday places with strange things happening in them.",
+      "The rescue plot gives it a heartfelt core, and the Kevin twist gives it a darker turn at the end.",
+      "New characters and critters added later should be weirder and wackier still."
+    ],
+    "heart_of_the_story": "Bo tries to save someone she believes is a good person, and comes to realize that she is one of the lost souls herself, until, by some miracle, she becomes conscious.",
+    "how_lore_reaches_the_player": "Most lore sits in libraries and artefacts found around the world. Reading it is optional: the player never has to read or understand it to follow the game.",
+    "lore_at_a_glance": [
+      "The Godmother created the gods. Gods look like normal humans with magic and a near-immortality, and rule kingdoms from their palaces like kings and queens with praying followers.",
+      "Religions: the Ancient, the Familia (Twin Gods), the Bordella (Six Gods), the Blue Eyes (the Blue Souls) and Mother Nature (the Godmother). Some critters are devout followers.",
+      "The gods come every year to the Lotus Stadium on top of the Great White Peak to watch a tournament that searches for the greatest warriors of all worlds. The Six Gods come mostly for entertainment; the Twin Gods stay away.",
+      "Angels (winged creatures sent by a god) serve that tournament. They are the ones who kidnap Kevin.",
+      "The Terrible Brothers (Karfagath, Gorlomuth, Seelufath, Zomrudath) are the villains. Their followers are ordered to kill Bo.",
+      "Guardians are cat-shaped beings who look after travelers, places and paths. Each guardian is a named side character with a backstory and a personality.",
+      "Sentinels are dog-shaped beings from a far-away land, locked in a long-running conflict with the Guardians. One Sentinel, the husky merchant Meelo, travels in this land.",
+      "Guardians and Sentinels are sacred creatures, older than the Godmother herself. Free spirits who roam the regions and help the innocent or anyone in need. Over time each grew a distinct personality: they still act as saviours, but don't expect too much from them.",
+      "At the tournament, nearly every guardian of the region gathers at the stadium as viewers and referees, making sure the tournament follows the ancient rule.",
+      "Critters are the wild creatures of the world, and the ones the party can recruit.",
+      "Wanderers are lost souls who fell into this reality from other worlds. This explains the strange people the party meets (the Machinist is one). Bo is secretly one of the lost souls.",
+      "Hofflers are a small tribe of knowledge keepers who live mostly in the Tower of Knowledge and in libraries around the world. Ale is a Hoffler.",
+      "The world mixes the everyday with the strange."
+    ]
+  },
+  "religions": [
+    {
+      "id": "the_ancient",
+      "name": "The Ancient",
+      "worships": "One god",
+      "description": "The oldest religion. Their god never appears and never does anything magical in this world."
+    },
+    {
+      "id": "the_familia",
+      "name": "The Familia",
+      "worships": "The Twin Gods",
+      "description": ""
+    },
+    {
+      "id": "the_bordella",
+      "name": "The Bordella",
+      "worships": "The Six Gods",
+      "description": ""
+    },
+    {
+      "id": "the_blue_eyes",
+      "name": "The Blue Eyes",
+      "worships": "The Blue Souls, the King of the Souls",
+      "description": "The King of the Souls built the barrier of the Gray Forest."
+    },
+    {
+      "id": "mother_nature",
+      "name": "Mother Nature",
+      "worships": "The Godmother, the mother of the gods",
+      "description": ""
+    }
+  ],
+  "gods": {
+    "general": [
+      "The Godmother created the gods. Nobody knows how, or where her power comes from.",
+      "A god looks like a normal human, with magic and a near-immortality. Gods live for hundreds of years and build their own kingdoms, with followers who pray to them.",
+      "Each god lives in their own palace, in regions outside the map of this game.",
+      "Other gods exist in the world, but they make no appearance."
+    ],
+    "godmother": {
+      "name": "The Godmother",
+      "role": "Creator of the gods; the true power behind the story.",
+      "power": "God-like. Its source is unknown. She influences the creatures of the world.",
+      "rule": "She sets rules for her gods. Karfagath's forbidden ritual breaks one, and she punishes him for it.",
+      "in_the_story": "Bo confronts her at the Lotus Stadium to bring Kevin back. She controls Kevin's monstrous husk as the final boss, and flees the stadium to another region once Bo is winning.",
+      "sequel": "Bo goes after her to kill her."
+    },
+    "six_gods": {
+      "title": "The Six Gods (the gods of nature)",
+      "description": "Their palace is in another region. They come to the stadium at first just for entertainment. When Bo arrives, all six are keen to fight her fairly in the stadium, one by one, and they are killed in the action.",
+      "religion": "the_bordella",
+      "members": [
+        {
+          "name": "Anabel",
+          "domain": "Purity"
+        },
+        {
+          "name": "Isabel",
+          "domain": "Fortune"
+        },
+        {
+          "name": "Arabel",
+          "domain": "Harmony"
+        },
+        {
+          "name": "Rosabel",
+          "domain": "Hope"
+        },
+        {
+          "name": "Mirabel",
+          "domain": "Will"
+        },
+        {
+          "name": "Clarabel",
+          "domain": "Prosperity"
+        }
+      ]
+    },
+    "twin_gods": {
+      "title": "The Twin Gods",
+      "description": "Absent from the stadium. Their palace is in another region. Worshipped by the Familia. Bo faces them in the sequel.",
+      "religion": "the_familia",
+      "members": [
+        {
+          "name": "",
+          "form": "Girl goddess"
+        },
+        {
+          "name": "",
+          "form": "Boy god"
+        },
+        {
+          "name": "",
+          "form": "Woman goddess"
+        },
+        {
+          "name": "",
+          "form": "Man god"
+        }
+      ]
+    }
+  },
+  "villains": {
+    "terrible_brothers": {
+      "description": "Four brothers, each the symbol of two vices. After the ritual, the remaining brothers and their followers are ordered to kill Bo, and she fights them along the journey.",
+      "members": [
+        {
+          "name": "Karfagath",
+          "symbol_of": "Greed and envy",
+          "role": "The one Bo knows as Kevin. His monstrous husk, controlled by the Godmother, is the final boss."
+        },
+        {
+          "name": "Gorlomuth",
+          "symbol_of": "Lust and rage",
+          "role": "His followers are about to sacrifice Willhelm to him. Bo rescues Willhelm and defeats Gorlomuth."
+        },
+        {
+          "name": "Seelufath",
+          "symbol_of": "Ignorance and betrayal",
+          "role": "Fought along the journey."
+        },
+        {
+          "name": "Zomrudath",
+          "symbol_of": "Sadness and laziness",
+          "role": "Fakes his death. After the Godmother flees the stadium, he shows up and tells Bo the truth about Kevin and the ritual."
+        }
+      ]
+    },
+    "angels": "Winged creatures sent by a god to serve the tournament. They kidnap Kevin."
+  },
+  "regions": [
+    {
+      "id": "meadree_plain",
+      "name": "Meadree Plain",
+      "biome": "The Greens",
+      "where": "Surrounds the Great White Peak; sits in the middle of the map and links the other regions.",
+      "description": "A green plain made mostly of hills. The Tall Sanctuary stands in one corner of it, and outposts dot the roads.",
+      "inhabitants": "Ferrals and the everyday mix of critters."
+    },
+    {
+      "id": "gray_forest",
+      "name": "The Gray Forest",
+      "biome": "Foggy gray forest",
+      "where": "West of Meadree Plain, hidden behind the hills.",
+      "description": "Covered by an everlasting mist and filled with lost and broken souls. Its barrier was built by the King of the Souls (worshipped by the Blue Eyes). A cave links it to Bo's old home.",
+      "inhabitants": "Mostly Souls."
+    },
+    {
+      "id": "the_crags",
+      "name": "The Crags",
+      "name_status": "placeholder",
+      "biome": "Rocky mountain",
+      "where": "Between Meadree Plain and the Great White Peak.",
+      "description": "Rocky slopes that connect the plain to the mountain.",
+      "inhabitants": "Monuments and other rocky critters."
+    },
+    {
+      "id": "great_white_peak",
+      "name": "Great White Peak",
+      "biome": "Winter at the mountain peak",
+      "where": "The snowy mountain at the center of the plain.",
+      "description": "Home of the Lotus Stadium, where the gods watch the yearly tournament. Neo's resort sits at the peak.",
+      "inhabitants": "Tournament challengers and snow critters. Gus guards the stadium; Meelo trades at the resort."
+    },
+    {
+      "id": "hidden_burrows",
+      "name": "Hidden Burrows",
+      "biome": "Underground burrow",
+      "where": "Under the world (exact entrance to be decided).",
+      "description": "A forbidden place. People who enter it want to do something their gods forbid, and the Burrows is the one place where they can do it unseen.",
+      "inhabitants": "Idols, Electronics (proposal) and other strange critters."
+    }
+  ],
+  "places": [
+    {
+      "id": "tall_sanctuary",
+      "name": "Tall Sanctuary",
+      "region": "meadree_plain",
+      "description": "The party's home base and a safe space for any traveler. It is actually a library: once a research facility, abandoned after its research turned up little of use. Ale lives and studies here, and Niko runs recovery, critter merging and upgrades here. Oky brought Len here after rescuing him."
+    },
+    {
+      "id": "outposts",
+      "name": "Outposts",
+      "region": "various",
+      "description": "Fast-travel checkpoints along the regions, built by Len to repay the guardians' kindness. Reen and Dewey wait inside a hut next to each outpost."
+    },
+    {
+      "id": "neos_resort",
+      "name": "Neo's resort",
+      "region": "great_white_peak",
+      "description": "A ski resort at the top of the Great White Peak. Neo's ski route links the peak and the plain. Meelo runs his critter trading stall here."
+    },
+    {
+      "id": "lotus_stadium",
+      "name": "Lotus Stadium",
+      "region": "great_white_peak",
+      "description": "The tournament venue and the end goal. Gus sets the trials the player must clear before entering. The guardians watch and referee here."
+    },
+    {
+      "id": "tower_of_knowledge",
+      "name": "Tower of Knowledge",
+      "region": "to be decided",
+      "description": "Home of the Hofflers, the keepers of knowledge."
+    },
+    {
+      "id": "the_cave",
+      "name": "The cave",
+      "region": "gray_forest",
+      "description": "Between Bo's home and the Gray Forest. Where the story begins: Bo walks against the wind, finds this cave and comes out lost in the forest."
+    },
+    {
+      "id": "graveyards",
+      "name": "Graveyards",
+      "region": "various",
+      "description": "Along with the Gray Forest, the main home of Souls."
+    },
+    {
+      "id": "vending_machines",
+      "name": "Vending machines",
+      "region": "story places",
+      "description": "Where the player pays coins to save. They stand at outposts, the Tall Sanctuary, Neo's resort and the Lotus Stadium.",
+      "sample_line": "The machine hums. It accepts your coins. It looks satisfied.",
+      "sample_line_status": "proposal"
+    }
+  ],
+  "story": {
+    "prologue": [
+      {
+        "step": 1,
+        "title": "Kevin is taken",
+        "text": "Kevin raised Bo for as long as she can remember. Winged creatures kidnap him. His last words to her: pack your things and walk against the direction the wind blows."
+      },
+      {
+        "step": 2,
+        "title": "Lost in the Gray Forest",
+        "text": "Bo follows his words, finds a cave and comes out in the Gray Forest, completely lost. Still trying to process what happened, she breaks down crying."
+      },
+      {
+        "step": 3,
+        "title": "Oky",
+        "text": "The black cat guardian Oky appears, calms her down and leads her out of the forest to the Tall Sanctuary."
+      },
+      {
+        "step": 4,
+        "title": "The Tall Sanctuary",
+        "text": "Bo meets Ale, a young Hoffler girl who has just arrived there and studies the books and the creatures with the guardians' help. At first sight Bo thinks Ale is Kevin's younger sister (Kevin looked like a Hoffler). The two get along well."
+      },
+      {
+        "step": 5,
+        "title": "The goal",
+        "text": "From Ale's knowledge, the creatures that took Kevin are angels sent by a god, and they hold a tournament at the stadium on top of the snowy mountain. Bo resolves to get stronger and gather allies to rescue Kevin."
+      }
+    ],
+    "journey": [
+      "The party starts as Bo and Ale.",
+      "The first boss is the Big Frog. After the boss fight it appears as a normal wild critter in the world.",
+      "Willhelm joins: Bo rescues him from a wild creature just as he is about to be sacrificed to Gorlomuth. Bo defeats Gorlomuth, hears Willhelm's story and decides to help him.",
+      "Len joins: he has been building outposts since Oky rescued him; he knows about the tournament and joins Bo's party just to watch it.",
+      "Along the way they meet more characters and recruit critters to grow the party.",
+      "The remaining Terrible Brothers and their followers, ordered to kill Bo, attack along the journey. Zomrudath seemingly dies.",
+      "The path leads through the rocky slopes and up the Great White Peak: clear Gus's trials, then enter the tournament at the Lotus Stadium."
+    ],
+    "story_order": [
+      "The Greens",
+      "Gray Forest",
+      "Rocky area",
+      "Winter peak",
+      "Hidden Burrows (late, optional dive)"
+    ],
+    "story_order_status": "proposal",
+    "endgame": [
+      {
+        "step": 1,
+        "text": "Bo confronts the Godmother to bring Kevin back."
+      },
+      {
+        "step": 2,
+        "text": "The Six Gods fight Bo fairly, one by one, and fall."
+      },
+      {
+        "step": 3,
+        "text": "Final boss: Kevin's monstrous husk, controlled by the Godmother."
+      },
+      {
+        "step": 4,
+        "text": "Seeing Bo win, the Godmother flees to another region."
+      },
+      {
+        "step": 5,
+        "text": "Zomrudath reveals he faked his death and tells Bo the truth: Kevin is Karfagath, and Bo is the vengeful soul his forbidden ritual brought to him."
+      },
+      {
+        "step": 6,
+        "text": "Ending: Bo decides to go after the Godmother and kill her."
+      }
+    ],
+    "twist_truth_about_kevin": [
+      {
+        "step": 1,
+        "title": "Envy",
+        "text": "Karfagath always felt he was the worst one, the unfavored one, among the people and in the Godmother's eyes. He was always looked down on, and he hated it."
+      },
+      {
+        "step": 2,
+        "title": "The forbidden ritual",
+        "text": "He tries a forbidden ritual that sacrifices his power, hoping to find someone he can love and who will love him back."
+      },
+      {
+        "step": 3,
+        "title": "Bo",
+        "text": "Bo is the result of the ritual: she is one of the vengeful souls, the soul of a schoolgirl who died in a train accident."
+      },
+      {
+        "step": 4,
+        "title": "Kevin",
+        "text": "With the very last of his power, Karfagath transforms himself to look like a Hoffler, the same race as Ale. He raises Bo as Kevin."
+      },
+      {
+        "step": 5,
+        "title": "Ale",
+        "text": "This is why, the first time Bo sees Ale, she thinks Ale is Kevin's younger sister."
+      },
+      {
+        "step": 6,
+        "title": "The punishment",
+        "text": "The ritual broke the Godmother's rule. Karfagath is punished, and only his real monstrous husk of a body remains."
+      }
+    ],
+    "sequel": [
+      "Bo fights the angry followers of the gods (after the Six Gods fall).",
+      "She faces the Twin Gods.",
+      "She confronts the Godmother once again."
+    ]
+  },
+  "races": {
+    "story_races": [
+      {
+        "id": "raiders",
+        "name": "Raiders",
+        "look": "Varies",
+        "description": "The playable characters, with many unique interactions and events. Every story character who joins the party is a Raider. Raiders and Guardians are the only races that talk on their own in battle."
+      },
+      {
+        "id": "guardians",
+        "name": "Guardians",
+        "look": "Cat-shaped",
+        "description": "Sacred, free-spirited creatures, older than the Godmother. Important named side characters, each with a backstory and a personality. Met through the story and services, never in the wild. At the tournament they gather as viewers and referees."
+      },
+      {
+        "id": "sentinels",
+        "name": "Sentinels",
+        "look": "Dog-shaped",
+        "description": "Sacred creatures like the Guardians, also older than the Godmother. Mostly live in a far-away land. Locked in a long-running conflict with the Guardians."
+      },
+      {
+        "id": "hofflers",
+        "name": "Hofflers",
+        "look": "Human-like (Ale's look)",
+        "description": "A small tribe of keepers of knowledge, living in the Tower of Knowledge and libraries around the world. Kevin took a Hoffler's look as his disguise."
+      },
+      {
+        "id": "gods",
+        "name": "Gods",
+        "look": "Normal-looking humans",
+        "description": "Magic and a near-immortality; created by the Godmother. Fought as bosses."
+      }
+    ],
+    "critter_races": [
+      {
+        "id": "ferrals",
+        "name": "Ferrals",
+        "status": "existing",
+        "look": "Ordinary wild animals",
+        "description": "Able to talk, and unfriendly. Rude talkers.",
+        "home": "The Greens"
+      },
+      {
+        "id": "kits",
+        "name": "Kits",
+        "status": "existing",
+        "look": "Various shapes",
+        "description": "Unpredictable. Give extra rewards when defeated, and can be consumed after being recruited.",
+        "home": "Anywhere"
+      },
+      {
+        "id": "wanderers",
+        "name": "Wanderers",
+        "status": "existing",
+        "look": "Like normal humans, but slightly off",
+        "description": "Lost souls who fell into this reality from other worlds.",
+        "home": "Anywhere"
+      },
+      {
+        "id": "souls",
+        "name": "Souls",
+        "status": "existing",
+        "look": "Ghost-like apparitions",
+        "description": "Speak their own language. The player must unlock the Souls language before talking to them.",
+        "home": "Gray Forest, graveyards"
+      },
+      {
+        "id": "monuments",
+        "name": "Monuments",
+        "status": "existing",
+        "look": "Solid concrete: statues, small buildings",
+        "description": "Sturdy, built things that somehow move and fight. How are these things even here?",
+        "home": "Rocky area"
+      },
+      {
+        "id": "electronics",
+        "name": "Electronics",
+        "status": "existing",
+        "look": "Small gadgets",
+        "description": "Speak their own language. The player must unlock the Electronics language before talking to them.",
+        "home": "Hidden Burrows (proposal: old buried machines)"
+      },
+      {
+        "id": "idols",
+        "name": "Idols",
+        "status": "existing",
+        "look": "Cursed objects",
+        "description": "Very hard to recruit. A successful recruit can bring a curse.",
+        "home": "Hidden Burrows"
+      },
+      {
+        "id": "sprouts",
+        "name": "Sprouts",
+        "status": "candidate",
+        "description": "Walking plants, cheerful and nosy.",
+        "home": "The Greens"
+      },
+      {
+        "id": "snacks",
+        "name": "Snacks",
+        "status": "candidate",
+        "description": "Runaway food, scared of being eaten.",
+        "home": "The Greens"
+      },
+      {
+        "id": "mascots",
+        "name": "Mascots",
+        "status": "candidate",
+        "description": "People stuck in costumes, way too upbeat.",
+        "home": "The Greens, stadium"
+      },
+      {
+        "id": "shrooms",
+        "name": "Shrooms",
+        "status": "candidate",
+        "description": "Mushroom folk, sleepy and gossipy.",
+        "home": "Gray Forest"
+      },
+      {
+        "id": "mists",
+        "name": "Mists",
+        "status": "candidate",
+        "description": "Fog that took a shape, shy.",
+        "home": "Gray Forest"
+      },
+      {
+        "id": "bugs",
+        "name": "Bugs",
+        "status": "candidate",
+        "description": "Tiny insects with huge egos.",
+        "home": "Gray Forest, the Greens"
+      },
+      {
+        "id": "rollers",
+        "name": "Rollers",
+        "status": "candidate",
+        "description": "Boulder creatures that only roll downhill.",
+        "home": "Rocky area"
+      },
+      {
+        "id": "diggers",
+        "name": "Diggers",
+        "status": "candidate",
+        "description": "Miners, moles and treasure hunters.",
+        "home": "Rocky area, burrow"
+      },
+      {
+        "id": "birds",
+        "name": "Birds",
+        "status": "candidate",
+        "description": "Proud mountain birds who want to be angels.",
+        "home": "Rocky area, winter peak"
+      },
+      {
+        "id": "frosties",
+        "name": "Frosties",
+        "status": "candidate",
+        "description": "Snow and ice creatures, grumpy when warm.",
+        "home": "Winter peak"
+      },
+      {
+        "id": "athletes",
+        "name": "Athletes",
+        "status": "candidate",
+        "description": "Tournament hopefuls who failed the trials.",
+        "home": "Winter peak"
+      },
+      {
+        "id": "toys",
+        "name": "Toys",
+        "status": "candidate",
+        "description": "Lost toys looking for an owner.",
+        "home": "Anywhere"
+      },
+      {
+        "id": "grubs",
+        "name": "Grubs",
+        "status": "candidate",
+        "description": "Burrow larvae, always hungry.",
+        "home": "Underground burrow"
+      },
+      {
+        "id": "shadows",
+        "name": "Shadows",
+        "status": "candidate",
+        "description": "Shadows that left their owners.",
+        "home": "Underground burrow"
+      },
+      {
+        "id": "fallen",
+        "name": "Fallen",
+        "status": "candidate",
+        "description": "Low-rank angels who quit the job.",
+        "home": "Winter peak, late game"
+      },
+      {
+        "id": "followers",
+        "name": "Followers",
+        "status": "candidate",
+        "description": "Devout cultists of the Terrible Brothers.",
+        "home": "Anywhere, story-driven"
+      }
+    ]
+  },
+  "characters": {
+    "raiders": [
+      {
+        "id": "bo",
+        "name": "Bo",
+        "races": [
+          "Raiders"
+        ],
+        "look": "A young girl with messy short black hair, pale skin and red eyes, with a pair of white horns at the front of her head.",
+        "personality": "Deadpan. She looks tired and uninterested all the time. Underneath, she is fiercely determined to bring Kevin back.",
+        "voice": "Deadpan and tired.",
+        "backstory": "Raised by Kevin since her earliest memory. When angels kidnap him, she follows his last words, walks against the wind, and ends up lost in the Gray Forest, where Oky finds her crying and leads her to the Tall Sanctuary. 'Bo' is the name she goes by; her real name is a mystery.",
+        "secret": "She is the vengeful soul of a schoolgirl who died in a train accident, brought by Karfagath's forbidden ritual. By some miracle, she becomes conscious.",
+        "goal": "Get stronger, gather allies and rescue Kevin from the tournament at the Lotus Stadium. After the ending: kill the Godmother.",
+        "role": "Debuff the enemy, then attack quickly.",
+        "weapon": "Twin Blades",
+        "skill_tree_branches": [
+          {
+            "name": "mischief",
+            "description": "Damage Focused path",
+            "upgrades": [
+              {
+                "name": "Harm +",
+                "description": "Increase Basic Attack Damage"
+              },
+              {
+                "name": "Twin Blades Crit",
+                "description": "Increase the critical chance of the basic attack"
+              },
+              {
+                "name": "Thumbs Down+",
+                "description": "Thumbs Down now also decreases Accuracy"
+              }
+            ]
+          },
+          {
+            "name": "malapert",
+            "description": "Debuff Focused path",
+            "upgrades": [
+              {
+                "name": "Yawn +",
+                "description": "Increase Debuff Effect"
+              },
+              {
+                "name": "Juggle Sword",
+                "description": "Unlock Juggle Sword"
+              },
+              {
+                "name": "Yawn ++",
+                "description": "Increase Debuff Duration"
+              }
+            ]
+          },
+          {
+            "name": "vital",
+            "description": "Basic Focused path",
+            "upgrades": [
+              {
+                "name": "HP +",
+                "description": "Increase Base HP"
+              },
+              {
+                "name": "HP ++",
+                "description": "Increase Base HP"
+              },
+              {
+                "name": "Agile +",
+                "description": "Increase Evasion"
+              }
+            ]
+          }
+        ],
+        "skill_tree_status": "decided",
+        "skills": [
+          {
+            "id": "double_slash",
+            "name": "Double Slash",
+            "equipment": "Twin Blades",
+            "menu": "Attack > Melee",
+            "description": "A spin attack with the twin blades that hits 2 times.",
+            "battle_text": "{user} slashes {target} with twin blades!"
+          },
+          {
+            "id": "thumbs_down",
+            "name": "Thumbs Down",
+            "equipment": "",
+            "menu": "Skill",
+            "description": "Lowers one enemy's Attack.",
+            "battle_text": "{user} points at {target} and gives thumbs down."
+          },
+          {
+            "id": "juggle_sword",
+            "name": "Juggle Sword",
+            "equipment": "Twin Blades",
+            "menu": "Skill",
+            "description": "Lowers all enemies' Defense.",
+            "battle_text": "{user} juggles their weapon."
+          },
+          {
+            "id": "sit_down",
+            "name": "Sit Down",
+            "menu": "Skill",
+            "description": "She sits down and just stares at the enemies, with a chance to taunt one or more of them.",
+            "battle_text": "{user} just sits down.",
+            "battle_text_chances_success": [
+              "{target} is suddenly enraged.",
+              "enemies are enraged."
+            ],
+            "battle_text_chances_failed": [
+              "enemies aren't bothered."
+            ]
+          }
+        ],
+        "defend": {
+          "name": "",
+          "description": "",
+          "battle_text": "",
+          "note": "Unique Defend, to design."
+        },
+        "battle_lines": {
+          "battle_start_player": [
+            "[happy] Got you!",
+            "[happy] Aww, too bad you can't hide"
+          ],
+          "battle_start_enemy": [
+            "Oh great... just great",
+            "Can you just leave me alone, please?"
+          ],
+          "boss_start": [
+            "[smug] It's on!!!",
+            "[smug] Finally, a real challenge"
+          ],
+          "turn_start": [
+            "[worried] Can we stop this?",
+            "[bored] I'm starting to not like this",
+            "[bored] Ugh... I know, I know... fight that thing",
+            "I prefer napping"
+          ],
+          "crit": [
+            "[happy] Did you see that?!?",
+            "[smug] Say less"
+          ],
+          "miss": [
+            "[angry] He's cheating",
+            "[angry] Hey!!"
+          ],
+          "lucky": [
+            "[surprised] Maybe today is the day",
+            "[surprised] Maybe today IS that day"
+          ],
+          "humiliate": [
+            "Clown convention is over there",
+            "[ridicule] WLEEEEE"
+          ],
+          "ally_critter_low_hp": [
+            "Hang in there"
+          ],
+          "ally_critter_downed": [
+            "Too bad"
+          ],
+          "enemy_defeated": [
+            "Stay down",
+            "Stay dead now",
+            "[happy] HAHAHAHAHA"
+          ],
+          "recruit_success": [
+            "... hi."
+          ],
+          "recruit_fail": [
+            "Oh, you will regret that, buddy",
+            "[angry] Hey! That's rude"
+          ]
+        },
+        "humiliate_lines": [
+          "{user} yawns right in {target}'s face.",
+          "{user} just sits."
+        ]
+      },
+      {
+        "id": "ale",
+        "name": "Ale",
+        "races": [
+          "Raiders",
+          "Hofflers"
+        ],
+        "look": "A young girl with short blonde hair and side bangs. A long tuft of front hair resembles an owl's. Green eyes and glasses.",
+        "personality": "Energetic and clumsy. She loves collecting information and fills her notes with it, eager to earn as much credit as possible.",
+        "voice": "Energetic and clumsy.",
+        "backstory": "A Hoffler, from the tribe of knowledge keepers. Newly arrived at the Tall Sanctuary, where she studies the books and the creatures with the guardians' help. Her knowledge identifies Kevin's kidnappers as angels sent by a god. When Bo first sees her, Bo thinks she is Kevin's younger sister.",
+        "role": "Buffs the entire team and handles recovery; can also be played aggressively to deal massive damage.",
+        "weapon": "Spellbook",
+        "story_hook": "Her notes can double as the in-game critter bestiary.",
+        "skill_tree_branches": [
+          {
+            "name": "protector",
+            "description": "Support Focused path",
+            "upgrades": [
+              {
+                "name": "Heal +",
+                "description": "Increase Healing Skills"
+              },
+              {
+                "name": "Overheal",
+                "description": "Enable the Overheal passive: healing beyond max HP turns into a temporary shield"
+              },
+              {
+                "name": "Cheer +",
+                "description": "Unlock the Cheer skill, which increases the Attack of all allies"
+              }
+            ]
+          },
+          {
+            "name": "destroyer",
+            "description": "Magic damage Focused path",
+            "upgrades": [
+              {
+                "name": "Fire +",
+                "description": "Increase Fire Incantation base damage"
+              },
+              {
+                "name": "Electro +",
+                "description": "Add a Paralyze chance to Electro Incantation, which can stop enemies from moving"
+              },
+              {
+                "name": "Frost +",
+                "description": "Make Frost Incantation's stun last longer"
+              }
+            ]
+          },
+          {
+            "name": "vital",
+            "description": "Basic Focused path",
+            "upgrades": [
+              {
+                "name": "HP +",
+                "description": "Increase Base HP"
+              },
+              {
+                "name": "Defense +",
+                "description": "Increase Base Defense"
+              },
+              {
+                "name": "Magic +",
+                "description": "Increase Max MP"
+              }
+            ]
+          }
+        ],
+        "skill_tree_status": "decided",
+        "skills": [
+          {
+            "id": "book_throw",
+            "name": "Book Throw",
+            "equipment": "Spellbook",
+            "menu": "Attack > Throw Book",
+            "description": "Deals light physical damage. The book can't be used afterward.",
+            "battle_text": "{user} throws her book at {target}!"
+          },
+          {
+            "id": "collect_book",
+            "name": "Collect Book",
+            "equipment": "",
+            "menu": "Attack > Collect the book",
+            "description": "Takes the book back.",
+            "battle_text": "{user} gets her book back."
+          },
+          {
+            "id": "fire_incantation",
+            "name": "Fire Incantation",
+            "equipment": "Spellbook",
+            "menu": "Skill",
+            "description": "Deals fire damage to a single enemy.",
+            "battle_text": "{user} throws a fireball at {target}!"
+          },
+          {
+            "id": "electro_incantation",
+            "name": "Electro Incantation",
+            "equipment": "Spellbook",
+            "menu": "Skill",
+            "description": "Deals electric damage to a single enemy.",
+            "battle_text": "{user} calls down lightning on {target}!"
+          },
+          {
+            "id": "frost_incantation",
+            "name": "Frost Incantation",
+            "equipment": "Spellbook",
+            "menu": "Skill",
+            "description": "Deals ice damage to a single enemy and stuns it for 1 turn.",
+            "battle_text": "{user} calls down lightning on {target}!"
+          },
+          {
+            "id": "band_aid",
+            "name": "Band-Aid",
+            "menu": "Skill",
+            "description": "Heals one ally.",
+            "battle_text": "{user} applies a band-aid to {target}."
+          }
+        ],
+        "defend": {
+          "name": "",
+          "description": "",
+          "battle_text": "",
+          "note": "Unique Defend, to design."
+        },
+        "battle_lines": {
+          "battle_start_player": [
+            "[happy] Yesss!",
+            "[happy] Haha, I'm sorry"
+          ],
+          "battle_start_enemy": [
+            "[sad] Ugh...",
+            "[happy] Alright... alright... you got me"
+          ],
+          "boss_start": [
+            "I had a bad feeling about this"
+          ],
+          "turn_start": [
+            "[happy] Behold...",
+            "[happy] Finally!",
+            "[happy] Let's do this!",
+            "[happy] Aha..."
+          ],
+          "crit": [
+            "[happy] EHEHEHEHEH",
+            "[smug] My training paid off!"
+          ],
+          "miss": [
+            "[angry] You little... piece of... things.",
+            "[bored] Wrong book...",
+            "[angry] This is starting to piss me off",
+            "[sad] Calm down, Al, it's not over."
+          ],
+          "lucky": [
+            "[happy] HA! You just got scienced!",
+            "[happy] My lucky charm is working!"
+          ],
+          "humiliate": [
+            "Aww, it's okay, you can try again",
+            "It's quite reasonable to give up now, by the way"
+          ],
+          "ally_critter_low_hp": [
+            "Don't worry, guys, I can heal"
+          ],
+          "ally_critter_downed": [
+            "[angry] I will do something like that to you, but even worse"
+          ],
+          "enemy_defeated": [
+            "[happy] Byeeeee!",
+            "I hope you dropped something valuable",
+            "[happy] I'll tell your friends about it"
+          ],
+          "recruit_success": [
+            "[happy] Everyone, listen! I'm pleased to announce a new member of the team"
+          ],
+          "recruit_fail": [
+            "This is not like anything I read about recruitment",
+            "[angry] Fine!"
+          ]
+        },
+        "humiliate_lines": [
+          "{user} tells {target} 'yo mama' jokes."
+        ],
+        "recruiting_quirk": {
+          "status": "proposal",
+          "text": "Asks critters for their bestiary notes first, and flusters them."
+        }
+      },
+      {
+        "id": "willhelm",
+        "name": "Willhelm",
+        "races": [
+          "Raiders"
+        ],
+        "look": "Dark red hair; very young and skinny. After his betrayals on the road, he looks more like a beggar than a prince.",
+        "personality": "Young and naive at first. Grows more grounded later in the story.",
+        "backstory": "A prince from a far-away kingdom in trouble. He travels to the yearly tournament hoping to win it, bring its wealth home, gain other kingdoms' support and make his father proud. Knowing his chances are small, he makes friends along the way, and is betrayed several times.",
+        "how_he_joins": "Bo rescues him from a wild creature as he is about to be sacrificed to Gorlomuth. After defeating Gorlomuth, Bo hears his story and decides to help him. They learn to fight and gather allies together.",
+        "role": "Magic damage and debuffing the enemy, hitting groups.",
+        "weakness": "Very weak against Taunt and Charmed.",
+        "skill_tree_branches": [
+          {
+            "name": "Arcane",
+            "description": "Magic damage, damage over time"
+          },
+          {
+            "name": "Curse",
+            "description": "Area debuffs"
+          },
+          {
+            "name": "Royal Resolve",
+            "description": "Resistance to Taunt and Charmed"
+          }
+        ],
+        "skill_tree_status": "proposal",
+        "skills": [],
+        "battle_lines": {},
+        "humiliate_lines": [],
+        "recruiting_quirk": {
+          "status": "proposal",
+          "text": "Critters mock or pity the broke prince when he uses Ask for Money."
+        }
+      },
+      {
+        "id": "len",
+        "name": "Len",
+        "races": [
+          "Raiders"
+        ],
+        "look": "White hair and brown skin, tanned from his work outdoors.",
+        "personality": "Self-doubting, but grows along the journey. Enjoys being alone, gets bored of it and tries to get along with everyone. Terrible at talking, great strength.",
+        "voice": "Talks badly: his battle lines can be awkward, cut short or misfire, which grows less over the journey as he opens up.",
+        "backstory": "A young crew member of a pirate ship destroyed by a sea monster. He woke on the shore, where Oky found him and brought him to the Tall Sanctuary. To repay the guardians, he started building the outposts where travelers can rest.",
+        "how_he_joins": "He knows about the tournament and joins Bo's party, just to watch it.",
+        "role": "Tank: takes the damage and gives massive physical buffs.",
+        "skill_tree_branches": [
+          {
+            "name": "Bulwark",
+            "description": "Tanking, damage taken for allies"
+          },
+          {
+            "name": "Rally",
+            "description": "Physical buffs"
+          },
+          {
+            "name": "Brawler",
+            "description": "Heavy physical hits"
+          }
+        ],
+        "skill_tree_status": "proposal",
+        "skills": [],
+        "battle_lines": {},
+        "humiliate_lines": [],
+        "recruiting_quirk": {
+          "status": "proposal",
+          "text": "His awkward talking makes the recruit questions go strangely, for better or worse."
+        }
+      }
+    ],
+    "story_characters": [
+      {
+        "id": "kevin",
+        "name": "Kevin",
+        "races": [
+          "Hofflers (a disguise)"
+        ],
+        "true_identity": "Karfagath, one of the Terrible Brothers",
+        "look": "A Hoffler (a disguise).",
+        "role": "Bo's father figure, the one who raised her.",
+        "story": "Kidnapped by angels at the start of the game. His last words send Bo on her journey.",
+        "last_words": "Pack your things and walk against the direction the wind blows.",
+        "secret": "He is Karfagath, the Terrible Brother of greed and envy, who used his last power to take a Hoffler's form. Punished by the Godmother, only his monstrous husk remains: the final boss."
+      }
+    ],
+    "guardians": [
+      {
+        "id": "oky",
+        "name": "Oky",
+        "cat": "Black cat",
+        "where": "Wanders anywhere",
+        "job": "Saved Bo in the Gray Forest, and Len on the shore. Joins and leaves the party at random, and hands Bo items along the journey.",
+        "personality": "Free spirit who goes wherever and whenever he likes. Sometimes refuses an order and licks himself instead.",
+        "talks_in_battle": true,
+        "battle_line_style": "Lazy, aloof remarks.",
+        "sample_lines": [
+          "Oky is busy licking himself."
+        ],
+        "recruiting_quirk": {
+          "status": "proposal",
+          "text": "Some critters join just to be near the cat."
+        }
+      },
+      {
+        "id": "niko",
+        "name": "Niko",
+        "cat": "Tuxedo cat",
+        "where": "Tall Sanctuary",
+        "job": "Recovery, critter merging, weapon and gear upgrades.",
+        "personality": "The sanctuary's resident cat and the party's reliable helper.",
+        "talks_in_battle": false
+      },
+      {
+        "id": "kiki",
+        "name": "Kiki",
+        "cat": "Siamese cat",
+        "where": "Appears at certain spots",
+        "job": "Last-second hero: after enough game overs, he appears whenever a battle hits the game over condition and forces the win. Recruitable after finishing his side quest.",
+        "personality": "Quiet and cool: speaks almost entirely in \"...\". A safety net for players who keep hitting game over.",
+        "talks_in_battle": true,
+        "battle_line_style": "Mostly dots, with a rare short word saved for big moments, like his last-second rescue. Dot length and punctuation carry his mood; the portrait expression does the rest.",
+        "dot_moods": {
+          "...": "calm",
+          "...!": "alert",
+          "......": "unimpressed"
+        },
+        "sample_lines": [
+          "...",
+          "......",
+          "...!"
+        ],
+        "reactions_from_others": [
+          "Was that a yes?"
+        ],
+        "rescue_line": "",
+        "rescue_line_note": "The big moment where Kiki says one of his rare real words. Not written yet.",
+        "rescue_attack": {
+          "name": "",
+          "battle_text": "",
+          "note": "Strong attack that ends a rescued battle fast. Not written yet."
+        }
+      },
+      {
+        "id": "neo",
+        "name": "Neo",
+        "cat": "Pallas's cat",
+        "where": "Resort at the top of the Great White Peak",
+        "job": "Fast travel between the peak and the plain via her ski equipment and route.",
+        "personality": "Owner of the resort. Very polite, polite enough to host Meelo, a Sentinel, at her resort.",
+        "talks_in_battle": false
+      },
+      {
+        "id": "gus",
+        "name": "Gus",
+        "cat": "Ginger cat",
+        "where": "Lotus Stadium",
+        "job": "Sets the trials the player must clear before entering the tournament.",
+        "personality": "Guardian of the stadium. A cat of few words: short, blunt words.",
+        "talks_in_battle": false
+      },
+      {
+        "id": "reen",
+        "name": "Reen",
+        "cat": "White cat",
+        "where": "The hut next to each outpost",
+        "job": "Rest and healing.",
+        "personality": "Moody: sometimes she heals only one specific character.",
+        "talks_in_battle": false
+      },
+      {
+        "id": "yoon",
+        "name": "Yoon",
+        "cat": "Calico (three-colored) cat",
+        "where": "Wanders across regions",
+        "job": "Traveling merchant of sketchy items, sometimes at a great deal. Sells books that unlock language barriers and talking skills (negotiation, ask for money, ask for donation, ask for item, bluffing, influencing).",
+        "personality": "A shady seller with the occasional bargain.",
+        "talks_in_battle": false
+      },
+      {
+        "id": "dewey",
+        "name": "Dewey",
+        "cat": "Tabby cat",
+        "where": "The hut next to each outpost",
+        "job": "Advanced weapon and gear upgrades beyond Niko's.",
+        "personality": "Sometimes hikes his prices, and the player can complain to get a fair one.",
+        "talks_in_battle": false
+      }
+    ],
+    "sentinels": [
+      {
+        "id": "meelo",
+        "name": "Meelo",
+        "dog": "Husky",
+        "where": "Neo's ski resort, top of the Great White Peak",
+        "job": "Critter trader: buys recruited critters and sells locked critters.",
+        "personality": "A traveler and merchant from the Sentinels' far-away land. Refuses to trade while a Guardian is in the active party.",
+        "guardian_refusal_lines": [],
+        "guardian_refusal_note": "Proposal: a few unique lines when the player arrives with a Guardian (Meelo and Oky trading glares; Kiki answering with \"......\")."
+      }
+    ]
+  },
+  "critters": [
+    {
+      "id": "big_frog",
+      "name": "the Big Frog",
+      "race": "Ferrals",
+      "role": "First boss, later a wild critter.",
+      "description": "A huge frog with a very strong poison attack. As a Ferral, it talks, rudely.",
+      "battle_intro": "{target} hops out of the pond! The ground shakes!",
+      "moves": [
+        {
+          "id": "tongue_lash",
+          "name": "Tongue Lash",
+          "battle_text": "{user} lashes {target} with a sticky tongue!"
+        },
+        {
+          "id": "toxic_spit",
+          "name": "Toxic Spit",
+          "battle_text": "{user} hocks a glob of toxic spit at {target}!"
+        },
+        {
+          "id": "belly_flop",
+          "name": "Belly Flop",
+          "battle_text": "{user} belly flops! The ground jiggles!"
+        }
+      ],
+      "traits": [],
+      "item_request_example": "The Big Frog looks nervous. It asks for a Bug Snack!"
+    },
+    {
+      "id": "laughing_mannequin",
+      "name": "the Laughing Mannequin",
+      "race": "Idols",
+      "role": "The most basic enemy.",
+      "description": "A mannequin that won't stop laughing. Gets pumped up when it humiliates its opponent.",
+      "moves": [
+        {
+          "id": "slap",
+          "name": "Slap",
+          "battle_text": "{user} slaps {target} with a stiff plastic hand!"
+        },
+        {
+          "id": "point_and_laugh",
+          "name": "Point and Laugh",
+          "battle_text": "{user} points at {target} and laughs. And laughs."
+        }
+      ],
+      "traits": [
+        {
+          "id": "laugh_boost",
+          "name": "Laugh Boost",
+          "description": "Gets pumped up after landing a debuff.",
+          "battle_text": "{user} laughs so hard it gets pumped up!"
+        }
+      ],
+      "unique_interaction_example": "Which one of us is the real one?"
+    },
+    {
+      "id": "flying_stone_thing",
+      "name": "the Flying Stone Thing",
+      "race": "Monuments",
+      "role": "One of the stronger enemies.",
+      "description": "A floating chunk of stone with a tough shell that cracks once it's worn down.",
+      "moves": [
+        {
+          "id": "hover_bonk",
+          "name": "Hover Bonk",
+          "battle_text": "{user} floats into {target}. Hard."
+        },
+        {
+          "id": "pebble_storm",
+          "name": "Pebble Storm",
+          "battle_text": "{user} sheds a storm of pebbles!"
+        }
+      ],
+      "traits": [
+        {
+          "id": "stone_skin",
+          "name": "Stone Skin",
+          "description": "Tough against Physical and Magical damage above 50% HP.",
+          "battle_text": "{target}'s stony shell cracks! It looks squishy now!"
+        }
+      ]
+    },
+    {
+      "id": "funny_looking_orb",
+      "name": "the Funny Looking Orb",
+      "race": "Souls",
+      "role": "Debuffer.",
+      "description": "A floating white orb that speaks the Souls language. Nobody knows what it wants.",
+      "moves": [
+        {
+          "id": "bump",
+          "name": "Bump",
+          "battle_text": "{user} bumps into {target}."
+        },
+        {
+          "id": "weird_glow",
+          "name": "Weird Glow",
+          "battle_text": "{user} glows in a way that feels illegal."
+        },
+        {
+          "id": "droning_hum",
+          "name": "Droning Hum",
+          "battle_text": "{user} hums one very long note."
+        },
+        {
+          "id": "long_stare",
+          "name": "Long Stare",
+          "battle_text": "{user} stares without blinking. It has no eyelids."
+        }
+      ],
+      "traits": [],
+      "note": "Before the Souls language unlock, its lines should show as unreadable glyphs."
+    },
+    {
+      "id": "machinist",
+      "name": "the Machinist",
+      "race": "Wanderers",
+      "role": "Support.",
+      "description": "A random dude pulled in from another world. Cheers up the party and cleans away bad vibes. Just wants to go home.",
+      "moves": [
+        {
+          "id": "wrench_tap",
+          "name": "Wrench Tap",
+          "battle_text": "{user} taps {target} with a wrench. Apologetically."
+        },
+        {
+          "id": "pep_rally",
+          "name": "Pep Rally",
+          "battle_text": "{user} cheers everyone on! \"Go team! Whoever you are!\""
+        },
+        {
+          "id": "tidy_up",
+          "name": "Tidy Up",
+          "battle_text": "{user} tidies up everyone's bad vibes."
+        }
+      ],
+      "traits": []
+    },
+    {
+      "id": "floppy",
+      "name": "Floppy",
+      "name_status": "proposal",
+      "race": "Kits",
+      "role": "The save-anywhere critter.",
+      "description": "A floppy-disk-shaped critter. Consuming it saves the game on the spot. Common in the wild.",
+      "moves": [],
+      "traits": []
+    }
+  ],
+  "encounters": [
+    {
+      "id": "mannequin",
+      "name": "Mannequin",
+      "enemies": [
+        "laughing_mannequin"
+      ]
+    },
+    {
+      "id": "mannequin_pair",
+      "name": "MannequinPair",
+      "enemies": [
+        "laughing_mannequin",
+        "laughing_mannequin"
+      ]
+    },
+    {
+      "id": "orb_gang",
+      "name": "OrbGang",
+      "enemies": [
+        "funny_looking_orb",
+        "laughing_mannequin"
+      ]
+    },
+    {
+      "id": "stone_thing",
+      "name": "StoneThing",
+      "enemies": [
+        "flying_stone_thing"
+      ]
+    },
+    {
+      "id": "machinist_crew",
+      "name": "MachinistCrew",
+      "enemies": [
+        "machinist",
+        "laughing_mannequin"
+      ]
+    },
+    {
+      "id": "big_frog_boss",
+      "name": "BigFrog (boss)",
+      "enemies": [
+        "big_frog"
+      ]
+    }
+  ],
+  "recruiting": {
+    "actions": [
+      {
+        "name": "Recruit",
+        "description": "Starts the recruit talk."
+      },
+      {
+        "name": "Call In",
+        "description": "Brings a reserve member into an empty slot, or swaps one in.",
+        "status": "proposal"
+      },
+      {
+        "name": "Taunt",
+        "description": "Gives the target the Taunt status, so it attacks the taunter."
+      },
+      {
+        "name": "Ask for Money",
+        "description": "The critter may hand over coins, get annoyed, or laugh at the party. In non-boss battles it can end the battle."
+      },
+      {
+        "name": "Give Money",
+        "description": "Pays coins to a critter. Some critters leave the battle happily."
+      },
+      {
+        "name": "Give Item",
+        "description": "Hands an item to a critter; some critters want specific items."
+      }
+    ],
+    "action_candidates": [
+      "Compliment",
+      "Apologize",
+      "Dance",
+      "Ask for Directions"
+    ],
+    "talking_skills": {
+      "_about": "Yoon sells books that unlock language barriers and talking skills (decided Nov 22). Everything except negotiation works in non-boss battles only.",
+      "skills": [
+        "Negotiation",
+        "Ask for money",
+        "Ask for donation (lying)",
+        "Ask for item",
+        "Bluffing",
+        "Influencing (ends the battle)"
+      ]
+    },
+    "negotiation": {
+      "_about": "The recruit talk (decided Nov 22). The critter picks a random question (at most 3 per talk), the player picks an answer, and the critter's race reacts with a line and an outcome. An outcome either ends the talk or sends it back to another question. Races can share a reaction set. Mood is a stack on the critter that changes its reactions and closes the talk when the critter is too angry. A high Luck can soften a hostile reaction and adds a mood stack. Details in file 18.",
+      "outcomes": {
+        "join": "The critter joins the party.",
+        "attack": "The critter attacks immediately.",
+        "leave": "The critter leaves the battle.",
+        "ask_again": "The critter asks another question.",
+        "give_money": "The critter gives money.",
+        "give_item": "The critter gives an item.",
+        "heal_party": "The critter heals all active party members."
+      },
+      "too_angry_text": "The critter did not respond.",
+      "too_angry_text_status": "placeholder",
+      "questions": [
+        {
+          "id": "soulmate",
+          "text": "Would you find me a soulmate?",
+          "answers": {
+            "A": "Of course",
+            "B": "I can't guarantee",
+            "C": "Nope"
+          },
+          "reaction_sets": {
+            "idols": {
+              "A": {
+                "line": "What? You're lying, aren't you? I can see through your lies. Prepare to die!",
+                "outcome": "attack"
+              },
+              "B": {
+                "line": "You are realistic, I respect that. See you around then.",
+                "outcome": "leave"
+              },
+              "C": {
+                "line": "Huh, you say no? You have some balls, I liked that, fine I will join you.",
+                "outcome": "join"
+              }
+            },
+            "kits": {
+              "A": {
+                "line": "Yaaay, you're really kind.",
+                "outcome": "join"
+              },
+              "B": {
+                "line": "Aww.",
+                "outcome": "ask_again"
+              },
+              "C": {
+                "line": "You are really rude.",
+                "outcome": "attack"
+              }
+            },
+            "monuments": {
+              "A": {
+                "line": "Hmmm, this answer does not sit well with me.",
+                "outcome": "ask_again"
+              },
+              "B": {
+                "line": "I liked thou honesty, word of advice, stay away from beauty, only look for honesty.",
+                "outcome": "give_money"
+              },
+              "C": {
+                "line": "Hmm, exactly as I thought.",
+                "outcome": "leave"
+              }
+            },
+            "ferrals": {
+              "A": {
+                "line": "Don't play with me, fool.",
+                "outcome": "attack"
+              },
+              "B": {
+                "line": "Don't give me false hope.",
+                "outcome": "attack"
+              },
+              "C": {
+                "line": "Alright, fair.",
+                "outcome": "ask_again"
+              }
+            },
+            "souls": {
+              "A": {
+                "line": "Ah, you're so kind, but I'm not really longing for one, here as a token of friendship.",
+                "outcome": "give_item"
+              },
+              "B": {
+                "line": "I respect your answer, here is a small deed I can do as a reward for your honesty.",
+                "outcome": "heal_party"
+              },
+              "C": {
+                "line": "How cruel.",
+                "outcome": "leave"
+              }
+            }
+          },
+          "race_set": {
+            "idols": "idols",
+            "kits": "kits",
+            "monuments": "monuments",
+            "ferrals": "ferrals",
+            "souls": "souls"
+          }
+        },
+        {
+          "id": "sandwich",
+          "text": "Do I look like a sandwich?",
+          "answers": {
+            "A": "Yes, a tasty one",
+            "B": "Only from the left side",
+            "C": "You look like a critter"
+          },
+          "reaction_sets": {
+            "idols": {
+              "A": {
+                "line": "Tasty? Bold of you. Say that again closer.",
+                "outcome": "attack"
+              },
+              "B": {
+                "line": "The left side? Hah, you notice details. I'm in.",
+                "outcome": "join"
+              },
+              "C": {
+                "line": "Boring answer. Goodbye.",
+                "outcome": "leave"
+              }
+            },
+            "kits": {
+              "A": {
+                "line": "A sandwich! Yaaay!",
+                "outcome": "ask_again"
+              },
+              "B": {
+                "line": "Ooooh, which side is the left?",
+                "outcome": "give_item"
+              },
+              "C": {
+                "line": "I'm a critter! You get me!",
+                "outcome": "join"
+              }
+            },
+            "monuments": {
+              "A": {
+                "line": "Thou speakest of eating? Curious.",
+                "outcome": "ask_again"
+              },
+              "B": {
+                "line": "A precise eye. Take this for it.",
+                "outcome": "give_money"
+              },
+              "C": {
+                "line": "Simple and true.",
+                "outcome": "join"
+              }
+            },
+            "ferrals": {
+              "A": {
+                "line": "Yeah? Then hold still.",
+                "outcome": "attack"
+              },
+              "B": {
+                "line": "Left, right, who cares. Next.",
+                "outcome": "ask_again"
+              },
+              "C": {
+                "line": "Straight talk. Here, now hush.",
+                "outcome": "give_money"
+              }
+            },
+            "souls": {
+              "A": {
+                "line": "Oh my, I am only a little ghost.",
+                "outcome": "ask_again"
+              },
+              "B": {
+                "line": "How thoughtful of you to look.",
+                "outcome": "heal_party"
+              },
+              "C": {
+                "line": "A critter. Yes. That is nice to hear.",
+                "outcome": "join"
+              }
+            }
+          },
+          "race_set": {
+            "idols": "idols",
+            "kits": "kits",
+            "monuments": "monuments",
+            "ferrals": "ferrals",
+            "souls": "souls"
+          }
+        },
+        {
+          "id": "carry_me",
+          "text": "Would you carry me if I got tired?",
+          "answers": {
+            "A": "Anytime",
+            "B": "Only for a snack",
+            "C": "Walk it off"
+          },
+          "reaction_sets": {
+            "idols": {
+              "A": {
+                "line": "Big words. Come back when you mean them.",
+                "outcome": "leave"
+              },
+              "B": {
+                "line": "A price? Now we're talking.",
+                "outcome": "join"
+              },
+              "C": {
+                "line": "Hah, tough love. Keep talking.",
+                "outcome": "ask_again"
+              }
+            },
+            "kits": {
+              "A": {
+                "line": "Yaaay, free rides!",
+                "outcome": "join"
+              },
+              "B": {
+                "line": "A snack fee is fair.",
+                "outcome": "ask_again"
+              },
+              "C": {
+                "line": "Waaah, so mean!",
+                "outcome": "attack"
+              }
+            },
+            "monuments": {
+              "A": {
+                "line": "Thou promisest much. I weigh a ton.",
+                "outcome": "ask_again"
+              },
+              "B": {
+                "line": "An honest trade. I respect it.",
+                "outcome": "give_money"
+              },
+              "C": {
+                "line": "Stern and fair. I shall walk beside thee.",
+                "outcome": "join"
+              }
+            },
+            "ferrals": {
+              "A": {
+                "line": "Pfft, liar. Nobody carries nobody.",
+                "outcome": "attack"
+              },
+              "B": {
+                "line": "At least you admit you're cheap.",
+                "outcome": "ask_again"
+              },
+              "C": {
+                "line": "Ha! Finally some sense.",
+                "outcome": "join"
+              }
+            },
+            "souls": {
+              "A": {
+                "line": "Anytime? I would love to travel with you.",
+                "outcome": "join"
+              },
+              "B": {
+                "line": "A fair trade, friend.",
+                "outcome": "heal_party"
+              },
+              "C": {
+                "line": "Oh... perhaps you are right.",
+                "outcome": "ask_again"
+              }
+            }
+          },
+          "race_set": {
+            "idols": "idols",
+            "kits": "kits",
+            "monuments": "monuments",
+            "ferrals": "ferrals",
+            "souls": "souls"
+          }
+        },
+        {
+          "id": "morning_night",
+          "text": "Morning or night?",
+          "answers": {
+            "A": "Morning",
+            "B": "Night"
+          },
+          "reaction_sets": {
+            "idols": {
+              "A": {
+                "line": "Light shows my cracks. Farewell.",
+                "outcome": "leave"
+              },
+              "B": {
+                "line": "Night is my stage. Let's go!",
+                "outcome": "join"
+              }
+            },
+            "kits": {
+              "A": {
+                "line": "Sunshine! Let's go!",
+                "outcome": "join"
+              },
+              "B": {
+                "line": "Night is spooky... but cool!",
+                "outcome": "ask_again"
+              }
+            },
+            "monuments": {
+              "A": {
+                "line": "A fine hour to stand still.",
+                "outcome": "give_money"
+              },
+              "B": {
+                "line": "Moonlight suits stone well.",
+                "outcome": "ask_again"
+              }
+            },
+            "ferrals": {
+              "A": {
+                "line": "Morning people are annoying.",
+                "outcome": "attack"
+              },
+              "B": {
+                "line": "Night. Finally, someone with taste.",
+                "outcome": "ask_again"
+              }
+            },
+            "souls": {
+              "A": {
+                "line": "The sun makes me sleepy, yet you are kind.",
+                "outcome": "leave"
+              },
+              "B": {
+                "line": "Night! Oh, we will get along.",
+                "outcome": "join"
+              }
+            }
+          },
+          "race_set": {
+            "idols": "idols",
+            "kits": "kits",
+            "monuments": "monuments",
+            "ferrals": "ferrals",
+            "souls": "souls"
+          }
+        },
+        {
+          "id": "pebble",
+          "text": "I lost my favorite pebble. Help me look?",
+          "answers": {
+            "A": "Let's search together",
+            "B": "Describe it first",
+            "C": "A pebble is a pebble"
+          },
+          "reaction_sets": {
+            "idols": {
+              "A": {
+                "line": "You'd help a cursed thing? Suspicious.",
+                "outcome": "ask_again"
+              },
+              "B": {
+                "line": "A planner. Finally.",
+                "outcome": "join"
+              },
+              "C": {
+                "line": "A PEBBLE?! Prepare to be ground to dust!",
+                "outcome": "attack"
+              }
+            },
+            "kits": {
+              "A": {
+                "line": "Treasure hunt! Yaaay!",
+                "outcome": "give_item"
+              },
+              "B": {
+                "line": "It's round! And gray! And special!",
+                "outcome": "ask_again"
+              },
+              "C": {
+                "line": "How could you!",
+                "outcome": "leave"
+              }
+            },
+            "monuments": {
+              "A": {
+                "line": "A noble quest. Thy kindness is noted.",
+                "outcome": "join"
+              },
+              "B": {
+                "line": "Wise. Details prevent hasty searching.",
+                "outcome": "give_money"
+              },
+              "C": {
+                "line": "Truth, spoken coldly.",
+                "outcome": "ask_again"
+              }
+            },
+            "ferrals": {
+              "A": {
+                "line": "Fine, but I'm carrying nothing.",
+                "outcome": "ask_again"
+              },
+              "B": {
+                "line": "Stop asking and look!",
+                "outcome": "attack"
+              },
+              "C": {
+                "line": "Ha. True. Whatever.",
+                "outcome": "leave"
+              }
+            },
+            "souls": {
+              "A": {
+                "line": "You would? Thank you, friend.",
+                "outcome": "heal_party"
+              },
+              "B": {
+                "line": "Such care. It is small and smooth.",
+                "outcome": "give_item"
+              },
+              "C": {
+                "line": "Ah... I suppose it is.",
+                "outcome": "leave"
+              }
+            }
+          },
+          "race_set": {
+            "idols": "idols",
+            "kits": "kits",
+            "monuments": "monuments",
+            "ferrals": "ferrals",
+            "souls": "souls"
+          }
+        },
+        {
+          "id": "scary",
+          "text": "Am I scary?",
+          "answers": {
+            "A": "Terrifying",
+            "B": "Slightly",
+            "C": "Adorable"
+          },
+          "reaction_sets": {
+            "idols": {
+              "A": {
+                "line": "HAHA. Yes! Finally, respect.",
+                "outcome": "join"
+              },
+              "B": {
+                "line": "Slightly? I'll fix that.",
+                "outcome": "attack"
+              },
+              "C": {
+                "line": "Adorable? Disgusting. I'm leaving.",
+                "outcome": "leave"
+              }
+            },
+            "kits": {
+              "A": {
+                "line": "Eeek! Really?",
+                "outcome": "ask_again"
+              },
+              "B": {
+                "line": "Slightly is okay! Here, a gift.",
+                "outcome": "give_item"
+              },
+              "C": {
+                "line": "Yaaay!!",
+                "outcome": "join"
+              }
+            },
+            "monuments": {
+              "A": {
+                "line": "I merely stand here.",
+                "outcome": "ask_again"
+              },
+              "B": {
+                "line": "An honest measure. Take this.",
+                "outcome": "give_money"
+              },
+              "C": {
+                "line": "Stone is never adorable. Farewell.",
+                "outcome": "leave"
+              }
+            },
+            "ferrals": {
+              "A": {
+                "line": "Damn right I am.",
+                "outcome": "join"
+              },
+              "B": {
+                "line": "Slightly. Hmph. We'll see.",
+                "outcome": "ask_again"
+              },
+              "C": {
+                "line": "Say that again, I dare you.",
+                "outcome": "attack"
+              }
+            },
+            "souls": {
+              "A": {
+                "line": "Oh dear, I never meant to be.",
+                "outcome": "heal_party"
+              },
+              "B": {
+                "line": "Fair. I try to be gentle.",
+                "outcome": "give_item"
+              },
+              "C": {
+                "line": "Adorable? Oh, you are sweet.",
+                "outcome": "join"
+              }
+            }
+          },
+          "race_set": {
+            "idols": "idols",
+            "kits": "kits",
+            "monuments": "monuments",
+            "ferrals": "ferrals",
+            "souls": "souls"
+          }
+        },
+        {
+          "id": "secret",
+          "text": "Will you keep a secret?",
+          "answers": {
+            "A": "Always",
+            "B": "Depends on the secret"
+          },
+          "reaction_sets": {
+            "idols": {
+              "A": {
+                "line": "Everyone says that. Liar.",
+                "outcome": "attack"
+              },
+              "B": {
+                "line": "Honest. Fine, listen closely...",
+                "outcome": "join"
+              }
+            },
+            "kits": {
+              "A": {
+                "line": "Yaaay! Okay, I like cookies.",
+                "outcome": "join"
+              },
+              "B": {
+                "line": "Aww, that's okay.",
+                "outcome": "ask_again"
+              }
+            },
+            "monuments": {
+              "A": {
+                "line": "A vow, then. Keep it well.",
+                "outcome": "ask_again"
+              },
+              "B": {
+                "line": "Wise. Secrets deserve judgment.",
+                "outcome": "give_money"
+              }
+            },
+            "ferrals": {
+              "A": {
+                "line": "Sure you will.",
+                "outcome": "attack"
+              },
+              "B": {
+                "line": "Honest. I'll tell you anyway.",
+                "outcome": "ask_again"
+              }
+            },
+            "souls": {
+              "A": {
+                "line": "I will trust you, friend.",
+                "outcome": "heal_party"
+              },
+              "B": {
+                "line": "A careful answer. I appreciate it.",
+                "outcome": "give_item"
+              }
+            }
+          },
+          "race_set": {
+            "idols": "idols",
+            "kits": "kits",
+            "monuments": "monuments",
+            "ferrals": "ferrals",
+            "souls": "souls"
+          }
+        },
+        {
+          "id": "snore",
+          "text": "My friend says I snore. Do I?",
+          "answers": {
+            "A": "Like a thunderstorm",
+            "B": "Like a kitten",
+            "C": "I wasn't listening"
+          },
+          "reaction_sets": {
+            "idols": {
+              "A": {
+                "line": "A storm... you listened? Creepy.",
+                "outcome": "ask_again"
+              },
+              "B": {
+                "line": "Kitten?! An insult!",
+                "outcome": "attack"
+              },
+              "C": {
+                "line": "Rude. I respect it.",
+                "outcome": "join"
+              }
+            },
+            "kits": {
+              "A": {
+                "line": "Thunderstorm! Wooo!",
+                "outcome": "give_item"
+              },
+              "B": {
+                "line": "Kitten?! Aww, thank you!",
+                "outcome": "join"
+              },
+              "C": {
+                "line": "Hmm? Hello?",
+                "outcome": "ask_again"
+              }
+            },
+            "monuments": {
+              "A": {
+                "line": "Honest. Even stone rumbles.",
+                "outcome": "give_money"
+              },
+              "B": {
+                "line": "A gentle lie. Tempting, yet false.",
+                "outcome": "leave"
+              },
+              "C": {
+                "line": "Silence says much.",
+                "outcome": "ask_again"
+              }
+            },
+            "ferrals": {
+              "A": {
+                "line": "I said I don't snore, idiot.",
+                "outcome": "attack"
+              },
+              "B": {
+                "line": "Quit lying.",
+                "outcome": "attack"
+              },
+              "C": {
+                "line": "Ha, you mind your own business.",
+                "outcome": "join"
+              }
+            },
+            "souls": {
+              "A": {
+                "line": "Oh no. Perhaps ghosts snore.",
+                "outcome": "heal_party"
+              },
+              "B": {
+                "line": "How sweet.",
+                "outcome": "ask_again"
+              },
+              "C": {
+                "line": "That is polite of you.",
+                "outcome": "give_item"
+              }
+            }
+          },
+          "race_set": {
+            "idols": "idols",
+            "kits": "kits",
+            "monuments": "monuments",
+            "ferrals": "ferrals",
+            "souls": "souls"
+          }
+        },
+        {
+          "id": "fight_for_me",
+          "text": "Would you fight for me?",
+          "answers": {
+            "A": "To the end",
+            "B": "If it pays",
+            "C": "Fight yourself"
+          },
+          "reaction_sets": {
+            "idols": {
+              "A": {
+                "line": "Big promise. Keep going.",
+                "outcome": "ask_again"
+              },
+              "B": {
+                "line": "Honest greed. Come, then.",
+                "outcome": "join"
+              },
+              "C": {
+                "line": "Coward. Goodbye.",
+                "outcome": "leave"
+              }
+            },
+            "kits": {
+              "A": {
+                "line": "Yaaay, my hero!",
+                "outcome": "join"
+              },
+              "B": {
+                "line": "Money is fun too!",
+                "outcome": "give_money"
+              },
+              "C": {
+                "line": "Waaah!",
+                "outcome": "leave"
+              }
+            },
+            "monuments": {
+              "A": {
+                "line": "Thou swearest much. Steady, then.",
+                "outcome": "ask_again"
+              },
+              "B": {
+                "line": "An honest contract. Thou hast my stone.",
+                "outcome": "join"
+              },
+              "C": {
+                "line": "Then fight alone. Farewell.",
+                "outcome": "leave"
+              }
+            },
+            "ferrals": {
+              "A": {
+                "line": "Everyone says that. Prove it.",
+                "outcome": "ask_again"
+              },
+              "B": {
+                "line": "Money talks. Good.",
+                "outcome": "join"
+              },
+              "C": {
+                "line": "Ha! Then I'll fight you.",
+                "outcome": "attack"
+              }
+            },
+            "souls": {
+              "A": {
+                "line": "To the end... I felt warmth.",
+                "outcome": "join"
+              },
+              "B": {
+                "line": "Coin means little, yet I understand.",
+                "outcome": "give_item"
+              },
+              "C": {
+                "line": "Oh. That is sad.",
+                "outcome": "leave"
+              }
+            }
+          },
+          "race_set": {
+            "idols": "idols",
+            "kits": "kits",
+            "monuments": "monuments",
+            "ferrals": "ferrals",
+            "souls": "souls"
+          }
+        },
+        {
+          "id": "luck",
+          "text": "Do you believe in luck?",
+          "answers": {
+            "A": "Luck is everything",
+            "B": "Luck is what you make",
+            "C": "Luck is nonsense"
+          },
+          "reaction_sets": {
+            "idols": {
+              "A": {
+                "line": "Then I'm the unluckiest thing here.",
+                "outcome": "ask_again"
+              },
+              "B": {
+                "line": "Make your own? Good. I'm in.",
+                "outcome": "join"
+              },
+              "C": {
+                "line": "I am living proof of bad luck!",
+                "outcome": "leave"
+              }
+            },
+            "kits": {
+              "A": {
+                "line": "Wheee, lucky me!",
+                "outcome": "give_item"
+              },
+              "B": {
+                "line": "Ooh, wise!",
+                "outcome": "ask_again"
+              },
+              "C": {
+                "line": "Boo!",
+                "outcome": "attack"
+              }
+            },
+            "monuments": {
+              "A": {
+                "line": "Stone stands on no luck.",
+                "outcome": "leave"
+              },
+              "B": {
+                "line": "Wise. Effort builds walls.",
+                "outcome": "join"
+              },
+              "C": {
+                "line": "Truth. Chisels shape stone.",
+                "outcome": "give_money"
+              }
+            },
+            "ferrals": {
+              "A": {
+                "line": "Tell that to my last meal.",
+                "outcome": "attack"
+              },
+              "B": {
+                "line": "Preachy. But fine.",
+                "outcome": "ask_again"
+              },
+              "C": {
+                "line": "Ha. True. Fine.",
+                "outcome": "join"
+              }
+            },
+            "souls": {
+              "A": {
+                "line": "Oh, I hope so.",
+                "outcome": "heal_party"
+              },
+              "B": {
+                "line": "How wise.",
+                "outcome": "give_item"
+              },
+              "C": {
+                "line": "A cold view, friend.",
+                "outcome": "leave"
+              }
+            }
+          },
+          "race_set": {
+            "idols": "idols",
+            "kits": "kits",
+            "monuments": "monuments",
+            "ferrals": "ferrals",
+            "souls": "souls"
+          }
+        }
+      ],
+      "races_without_reactions_yet": [
+        "wanderers",
+        "electronics"
+      ],
+      "note": "A race missing from a question's race_set has no reaction written yet. Two races pointing at the same reaction set share their reactions."
+    },
+    "unique_interactions": [
+      {
+        "trigger": "Same species in the party",
+        "example": "The wild Mannequin sees its twin and joins at once, or asks \"Which one of us is the real one?\""
+      },
+      {
+        "trigger": "Same race in the party",
+        "example": "A Frostie in the party vouches for the wild Frostie."
+      },
+      {
+        "trigger": "Ale recruits anything",
+        "example": "She asks for its bestiary notes first, and the critter gets flustered."
+      },
+      {
+        "trigger": "Willhelm uses Ask for Money",
+        "example": "The critter mocks the broke prince, or pities him and pays."
+      },
+      {
+        "trigger": "Len recruits",
+        "example": "His awkward talking makes the questions go strangely."
+      },
+      {
+        "trigger": "Oky in the party",
+        "example": "Some critters join just to be near the cat."
+      }
+    ],
+    "item_request": {
+      "ask": "The Big Frog looks nervous. It asks for a Bug Snack!",
+      "on_give": "The critter is grateful: it joins the party, or leaves the battle and drops a reward.",
+      "on_refuse": "The battle carries on, and the critter gets a little spiteful."
+    },
+    "idol_curses": [
+      "Losing money",
+      "A party member becoming downed"
+    ],
+    "unique_interactions_status": "proposal"
+  },
+  "items": [
+    {
+      "id": "cookie",
+      "name": "Cookie",
+      "description": "Heals 30 HP. Slightly crumbly.",
+      "battle_text": "{user} uses the {action}!"
+    },
+    {
+      "id": "fizzy_pop",
+      "name": "Fizzy Pop",
+      "description": "Restores 15 MP. Very fizzy.",
+      "battle_text": "{user} uses the {action}!"
+    },
+    {
+      "id": "mystery_sandwich",
+      "name": "Mystery Sandwich",
+      "description": "Heals the whole party 25 HP. Don't ask what's inside.",
+      "battle_text": "{user} hands out the {action}. Nobody asks."
+    },
+    {
+      "id": "bug_snack",
+      "name": "Bug Snack",
+      "description": "",
+      "battle_text": "",
+      "note": "Named in the item request example; not designed yet."
+    }
+  ],
+  "drive_names": {
+    "format": "{color} {tier}",
+    "colors": [
+      "Red",
+      "Blue",
+      "Yellow"
+    ],
+    "tiers": [
+      "Floppy Disk",
+      "Compact Disk",
+      "USB Drive",
+      "SSD",
+      "Quantum Core"
+    ],
+    "example": "The party found a Blue Floppy Disk!"
+  },
+  "statuses": [
+    {
+      "id": "attack_up",
+      "name": "Attack Up",
+      "apply": "{target}'s Attack went up!",
+      "tick": "",
+      "expire": "{target}'s Attack is back to normal."
+    },
+    {
+      "id": "defense_up",
+      "name": "Defense Up",
+      "apply": "{target}'s Defense went up!",
+      "tick": "",
+      "expire": "{target}'s Defense is back to normal."
+    },
+    {
+      "id": "speed_up",
+      "name": "Speed Up",
+      "apply": "{target}'s Speed went up!",
+      "tick": "",
+      "expire": "{target}'s Speed is back to normal."
+    },
+    {
+      "id": "attack_down",
+      "name": "Attack Down",
+      "apply": "{target}'s Attack went down!",
+      "tick": "",
+      "expire": "{target}'s Attack is back to normal."
+    },
+    {
+      "id": "defense_down",
+      "name": "Defense Down",
+      "apply": "{target}'s Defense went down!",
+      "tick": "",
+      "expire": "{target}'s Defense is back to normal."
+    },
+    {
+      "id": "resistance_down",
+      "name": "Resistance Down",
+      "apply": "{target}'s Resistance went down!",
+      "tick": "",
+      "expire": "{target}'s Resistance is back to normal."
+    },
+    {
+      "id": "speed_down",
+      "name": "Speed Down",
+      "apply": "{target}'s Speed went down!",
+      "tick": "",
+      "expire": "{target}'s Speed is back to normal."
+    },
+    {
+      "id": "accuracy_down",
+      "name": "Accuracy Down",
+      "apply": "{target}'s Accuracy went down!",
+      "tick": "",
+      "expire": "{target}'s Accuracy is back to normal."
+    },
+    {
+      "id": "evasion_down",
+      "name": "Evasion Down",
+      "apply": "{target}'s Evasion went down!",
+      "tick": "",
+      "expire": "{target}'s Evasion is back to normal."
+    },
+    {
+      "id": "critical_down",
+      "name": "Critical Down",
+      "apply": "{target}'s Critical chance went down!",
+      "tick": "",
+      "expire": "{target}'s Critical chance is back to normal."
+    },
+    {
+      "id": "poison",
+      "name": "Poison",
+      "apply": "{target} is poisoned! Gross!",
+      "tick": "{target} takes {amount} poison damage!",
+      "expire": "{target} isn't poisoned anymore."
+    },
+    {
+      "id": "taunt",
+      "name": "Taunt",
+      "apply": "",
+      "tick": "",
+      "expire": "",
+      "note": "Text to write."
+    },
+    {
+      "id": "charmed",
+      "name": "Charmed",
+      "apply": "",
+      "tick": "",
+      "expire": "",
+      "note": "Text to write."
+    },
+    {
+      "id": "stun",
+      "name": "Stun",
+      "apply": "",
+      "tick": "",
+      "expire": "",
+      "resisted": "",
+      "note": "Text to write. 'resisted' shows when diminishing returns cut a stun to 0."
+    },
+    {
+      "id": "paralyze",
+      "name": "Paralyze",
+      "apply": "",
+      "tick": "",
+      "expire": "",
+      "note": "Text to write. 'tick' shows when the character loses its turn."
+    },
+    {
+      "id": "shield",
+      "name": "Shield",
+      "apply": "",
+      "tick": "",
+      "expire": "",
+      "note": "Text to write. 'tick' shows when the Shield absorbs damage."
+    }
+  ],
+  "sub_actions": [
+    {
+      "id": "humiliate",
+      "name": "Humiliate",
+      "opening": "{user} sees an opening! (Humiliate)",
+      "taunt_fallback": "{user} makes a rude face at {target}!",
+      "enemy_reaction": "{target} feels deeply insulted!",
+      "note": "Each Raider's own taunts are in their humiliate_lines."
+    }
+  ],
+  "sub_action_candidates": [
+    {
+      "name": "Cheer on",
+      "description": "After an ally lands a critical hit, grant that ally a small buff."
+    },
+    {
+      "name": "Shrug it off",
+      "description": "After a Lucky Guard or Lucky Dodge, remove one debuff from the character."
+    },
+    {
+      "name": "Gloat",
+      "description": "After the character lands a critical hit, lower the target's Accuracy."
+    }
+  ],
+  "battle_dialogue_events": {
+    "note": "Event keys used by Raider and party Guardian battle_lines.",
+    "keys": {
+      "battle_start": "A normal battle starts",
+      "battle_start_player": "A battle starts with a party first strike",
+      "battle_start_enemy": "A battle starts with an enemy first strike",
+      "boss_start": "A boss battle starts",
+      "turn_start": "The speaker's turn starts",
+      "crit": "The speaker lands a critical hit",
+      "miss": "The speaker's attack misses",
+      "lucky": "A LUCKY! roll happens for the speaker",
+      "humiliate": "The speaker uses Humiliate",
+      "ally_low_hp": "An ally drops to low HP",
+      "ally_downed": "An ally is downed",
+      "ally_critter_low_hp": "A critter ally drops to low HP",
+      "ally_critter_downed": "A critter ally is downed",
+      "enemy_defeated": "An enemy goes down",
+      "recruit_success": "A recruit works",
+      "recruit_fail": "A recruit fails",
+      "item_request": "A critter asks for an item (proposal, no lines yet)"
+    }
+  },
+  "conversations": {
+    "_about": "Multi-line exchanges between Raiders (and party Guardians) that play when a battle event happens and the conditions are met. When a conversation fires, it plays instead of the speaker's single battle_lines for that event. Several entries can share the same event and conditions; one of them is picked at random, so add more entries to keep a moment fresh.",
+    "_fields": {
+      "id": "Unique name for the conversation.",
+      "event": "A key from battle_dialogue_events (recruit_fail, miss, crit, ally_downed ...).",
+      "conditions.actor": "Who caused the event (the one who failed the recruit, missed, landed the crit). null = anyone.",
+      "conditions.target": "Who the event happened to, when it matters (the ally who got downed, the critter being recruited). Use a character id, a critter id, or a race like \"race:souls\". null = anyone.",
+      "conditions.requires_in_active_party": "Everyone listed must be in the active party and not downed.",
+      "conditions.excludes_in_active_party": "None of these can be in the active party.",
+      "conditions.story_flag": "Only plays after a story point (for example \"willhelm_joined\"). null = always.",
+      "once": "true = plays only once per save file.",
+      "lines": "Played in order. Each line has a speaker (character id) and text. Text can start with an expression tag like [smug]. Optional \"style\": \"speech\" (default) or \"thought\"."
+    },
+    "_template": {
+      "id": "",
+      "event": "",
+      "conditions": {
+        "actor": null,
+        "target": null,
+        "requires_in_active_party": [],
+        "excludes_in_active_party": [],
+        "story_flag": null
+      },
+      "once": false,
+      "lines": [
+        {
+          "speaker": "",
+          "text": ""
+        }
+      ]
+    },
+    "entries": [
+      {
+        "id": "ale_recruit_fail_bo_mocks",
+        "event": "recruit_fail",
+        "conditions": {
+          "actor": "ale",
+          "target": null,
+          "requires_in_active_party": [
+            "bo",
+            "ale"
+          ],
+          "excludes_in_active_party": [],
+          "story_flag": null
+        },
+        "once": false,
+        "lines": [
+          {
+            "speaker": "bo",
+            "text": "Wow."
+          },
+          {
+            "speaker": "bo",
+            "text": "[smug] Even the critter has standards."
+          },
+          {
+            "speaker": "ale",
+            "text": "[worried] It asked me a trick question! I panicked!"
+          },
+          {
+            "speaker": "bo",
+            "text": "It asked your name."
+          }
+        ]
+      },
+      {
+        "id": "ale_recruit_fail_bo_mocks_2",
+        "event": "recruit_fail",
+        "conditions": {
+          "actor": "ale",
+          "target": null,
+          "requires_in_active_party": [
+            "bo",
+            "ale"
+          ],
+          "excludes_in_active_party": [],
+          "story_flag": null
+        },
+        "once": false,
+        "lines": [
+          {
+            "speaker": "bo",
+            "text": "Rejected again."
+          },
+          {
+            "speaker": "bo",
+            "text": "Maybe stop reading it facts about itself."
+          },
+          {
+            "speaker": "ale",
+            "text": "[surprised] But they were INTERESTING facts!"
+          }
+        ]
+      },
+      {
+        "id": "bo_miss_ale_teases",
+        "event": "miss",
+        "conditions": {
+          "actor": "bo",
+          "target": null,
+          "requires_in_active_party": [
+            "bo",
+            "ale"
+          ],
+          "excludes_in_active_party": [],
+          "story_flag": null
+        },
+        "once": false,
+        "lines": [
+          {
+            "speaker": "ale",
+            "text": "[happy] Bo! You missed! I'm writing that down!"
+          },
+          {
+            "speaker": "bo",
+            "text": "Don't."
+          }
+        ]
+      },
+      {
+        "id": "ale_crit_wants_praise",
+        "event": "crit",
+        "conditions": {
+          "actor": "ale",
+          "target": null,
+          "requires_in_active_party": [
+            "bo",
+            "ale"
+          ],
+          "excludes_in_active_party": [],
+          "story_flag": null
+        },
+        "once": false,
+        "lines": [
+          {
+            "speaker": "ale",
+            "text": "[happy] Did you see that? Did you SEE that?!"
+          },
+          {
+            "speaker": "bo",
+            "text": "I saw it."
+          },
+          {
+            "speaker": "ale",
+            "text": "[happy] Say it was cool!"
+          },
+          {
+            "speaker": "bo",
+            "text": "...It was fine."
+          }
+        ]
+      }
+    ]
+  },
+  "battle_narration": {
+    "BATTLE_START": "{target} blocks the way!",
+    "BATTLE_START_MANY": "{target} and friends block the way!",
+    "BOSS_START": "{target} looms over everyone!",
+    "FIRST_STRIKE_PARTY": "You got the jump on them! The party feels speedy!",
+    "FIRST_STRIKE_ENEMY": "Yikes! You got ambushed from behind!",
+    "MISS": "{target} dodged it!",
+    "DAMAGE": "{target} takes {amount} damage!",
+    "CRIT": "SMAAAASH!!",
+    "CRIT_BLOCKED": "{target}'s guard stops a critical hit!",
+    "LUCKY_STRIKE": "LUCKY! The attack still lands!",
+    "LUCKY_DODGE": "LUCKY! {target} slips out of the way!",
+    "LUCKY_CRIT": "LUCKY! A wild critical hit!",
+    "LUCKY_GUARD": "LUCKY! {target} shrugs off half of it!",
+    "DEFEATED_ENEMY": "{target} is defeated!",
+    "DEFEATED_PARTY": "{target} is downed!",
+    "HEAL": "{target} recovers {amount} HP!",
+    "REVIVE": "{target} is back on their feet!",
+    "HEAL_NOTHING": "Nothing happens...",
+    "MP_RESTORE": "{target} recovers {amount} MP!",
+    "CLEANSE": "{target}'s debuffs vanish!",
+    "CLEANSE_NOTHING": "{target} feels extra tidy.",
+    "STATUS_MAXED": "{target}'s {status} can't stack any higher!",
+    "DEFEND": "{user} gets ready to block!",
+    "NOT_ENOUGH_MP": "{user} tries, but runs out of MP!",
+    "RECRUIT_ASK": "{user} asks {target} to join the party.",
+    "RECRUIT_JOIN": "{target} joins the party!",
+    "RECRUIT_REFUSE": "{target} refuses!",
+    "RECRUIT_NO_ROOM": "The party is full! There's no room for {target}.",
+    "RECRUIT_TO_RESERVE": "",
+    "CALL_IN": "",
+    "KIKI_RESCUE": "",
+    "RUN_TRY": "{user} tries to run away...",
+    "RUN_SUCCESS": "The party escaped!",
+    "RUN_FAIL": "...but got blocked!",
+    "RUN_BOSS": "There is no escaping {target}!",
+    "VICTORY": "YOU WON!",
+    "DEFEAT": "The party blacked out...",
+    "DROP": "The party found a {item}!",
+    "SUB_ACTION_OPEN": "{user} sees an opening! ({action})",
+    "DEFAULT_SKILL_USE": "{user} uses {action}!"
+  },
+  "ui_text": {
+    "popups": {
+      "miss": "MISS",
+      "lucky": "LUCKY!",
+      "heal": "+{amount}",
+      "heal_zero": "Fresh!",
+      "mp_restore": "+{amount} MP"
+    },
+    "battle_menu": [
+      "Attack",
+      "Skill",
+      "Action",
+      "Item",
+      "Run"
+    ],
+    "battle_menu_attack_with_sub_action": "Attack!",
+    "attack_submenu": [
+      "Melee",
+      "Throw Book",
+      "Collect the book",
+      "Humiliate"
+    ],
+    "action_submenu": [
+      "Recruit",
+      "Call In",
+      "Taunt",
+      "Ask for Money",
+      "Give Money",
+      "Give Item"
+    ],
+    "skill_submenu_last_entry": "Defend",
+    "cancel_entry": "Cancel",
+    "target_picker": {
+      "single": "To {target}",
+      "all_enemies": "To everyone over there!",
+      "all_party": "To the whole party!"
+    },
+    "party_window_downed": "DOWN",
+    "pause_menu": [
+      "Resume",
+      "Party",
+      "Title"
+    ],
+    "party_screen_row": "{name}   HP x/y   MP x/y",
+    "party_screen_drives": "Drives found: {count}",
+    "difficulties": [
+      "Easy",
+      "Normal",
+      "Hard"
+    ]
+  },
+  "overworld": {
+    "signs": [
+      {
+        "id": "welcome_sign",
+        "pages": [
+          "WELCOME TO THE PLAYTEST ZONE.",
+          "Holograms chase you when you get close. Touch one to fight it.",
+          "Press Z near one to bonk it first. A first strike makes the party speedy!",
+          "Get caught from behind and THEY get the jump on you. Rude."
+        ]
+      },
+      {
+        "id": "snack_stand",
+        "pages": [
+          "Hot Dog Stand: \"Free hot dogs for brave weirdos!\"",
+          "The party munches. HP and MP are fully restored!"
+        ]
+      },
+      {
+        "id": "frog_sign",
+        "pages": [
+          "DANGER: BIG FROG AHEAD. PROBABLY A FROG.",
+          "Please do not lick the frog."
+        ]
+      }
+    ],
+    "after_defeat": [
+      "...You wake up at the start, feeling weirdly refreshed."
+    ]
+  },
+  "boot_and_title": {
+    "splash": [
+      "a game by",
+      "KIKI",
+      "made with Godot"
+    ],
+    "title": {
+      "game_title": "TURNBASED",
+      "subtitle": "a wacky little prototype",
+      "controls_hint": "Arrows/WASD move   Z/Enter OK   X back"
+    },
+    "title_menu": [
+      "Play",
+      "Text speed",
+      "Damage numbers",
+      "Quit"
+    ],
+    "text_speed_options": [
+      "Slow",
+      "Normal",
+      "Fast",
+      "Instant"
+    ],
+    "damage_number_options": [
+      "On",
+      "Off"
+    ],
+    "loading": {
+      "label": "Loading...",
+      "tip_prefix": "Tip"
+    },
+    "loading_tips": [
+      "Tip: The Big Frog is probably not a frog.",
+      "Tip: Holograms hate being bonked first.",
+      "Tip: Laughing Mannequins laugh. That's the whole tip.",
+      "Tip: Nobody knows what the Funny Looking Orb wants.",
+      "Tip: Missed attacks can be very humiliating.",
+      "Tip: The Machinist just wants to go home.",
+      "Tip: Luck is unreliable. Like a cat."
+    ]
+  },
+  "open_lore_questions": [
+    "Bo's real name, and where her white horns come from (do they tie to Karfagath's power or the ritual?).",
+    "When and how Bo learns she is a lost soul, and what the miracle that makes her conscious is.",
+    "Who sent the angels that took Kevin: the Godmother (as his punishment), or one of the gods? What do the gods gain from the tournament?",
+    "What the tournament's ancient rule is.",
+    "What the Tall Sanctuary's old research was about.",
+    "Where the Hidden Burrows' entrance and the Tower of Knowledge are, and when the party goes there.",
+    "The name and story of the rocky region between the plain and the peak (placeholder: the Crags).",
+    "The roots of the Guardian–Sentinel conflict, why Meelo travels so far from his homeland, and why Neo lets him trade at her resort.",
+    "The Twin Gods list has four members (girl, boy, woman, man): two pairs of twins, one god in two ages, or a different word than 'twin'? Their names.",
+    "Seelufath's fight: where, and what his followers are like.",
+    "How Zomrudath fakes his death, and where the player sees it.",
+    "The Blue Souls, the King of the Souls, and how the Gray Forest barrier ties to the Souls race and the Blue Eyes.",
+    "Which religions show up in gameplay (lines, recruiting reactions, followers as enemies)."
+  ]
+}

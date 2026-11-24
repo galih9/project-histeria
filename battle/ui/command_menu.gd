@@ -1,17 +1,19 @@
 class_name CommandMenu
 extends Control
 ## The party member's turn menu (GDD 03, "Menus"):
-##   Attack -> weapon types, sub actions (highlighted), Recruit
+##   Attack -> weapon attacks (Melee, Throw Book / Collect the book) and sub actions (highlighted)
 ##   Skill  -> skills with MP costs, Defend at the bottom
+##   Action -> Recruit (Call In and the other Actions come in later blocks)
 ##   Item   -> the bag
 ##   Run
+## Weapon-bound entries grey out while the weapon is away (Ale's thrown book).
 ## Cancel steps back one level: target selection -> list -> main menu.
+## Every label comes from ui_text in game_text.json.
 
-enum Main { ATTACK, SKILL, ITEM, RUN }
+enum Main { ATTACK, SKILL, ACTION, ITEM, RUN }
 
-const MAIN_LABELS: Array[String] = ["Attack", "Skill", "Item", "Run"]
-const RECRUIT_LABEL := "Recruit"
-const DEFEND_LABEL := "Defend"
+const MAIN_FALLBACK: Array[String] = ["Attack", "Skill", "Action", "Item", "Run"]
+const RECRUIT := &"recruit"
 const RECRUIT_COLOR := Color("8fe3ff")
 
 @onready var _main_list: MenuList = %MainList
@@ -47,6 +49,8 @@ func choose(ctx: BattleContext, actor: Battler) -> BattleAction:
 				action = await _choose_attack(ctx, actor)
 			Main.SKILL:
 				action = await _choose_skill(ctx, actor)
+			Main.ACTION:
+				action = await _choose_action(ctx, actor)
 			Main.ITEM:
 				action = await _choose_item(ctx, actor)
 			Main.RUN:
@@ -61,12 +65,15 @@ func choose(ctx: BattleContext, actor: Battler) -> BattleAction:
 
 func _main_entries(ctx: BattleContext, actor: Battler) -> Array[MenuEntry]:
 	var has_items := ctx.inventory != null and not ctx.inventory.is_empty()
-	var labels := MAIN_LABELS.duplicate()
+	var labels: Array[String] = []
+	for i in MAIN_FALLBACK.size():
+		labels.append(GameText.list_item("ui_text.battle_menu", i, MAIN_FALLBACK[i]))
 	if not actor.sub_action_offers.is_empty():
-		labels[Main.ATTACK] = "Attack!"
+		labels[Main.ATTACK] = GameText.text("ui_text.battle_menu_attack_with_sub_action", labels[Main.ATTACK] + "!")
 	return [
 		MenuEntry.new(labels[Main.ATTACK], Main.ATTACK),
 		MenuEntry.new(labels[Main.SKILL], Main.SKILL),
+		MenuEntry.new(labels[Main.ACTION], Main.ACTION),
 		MenuEntry.new(labels[Main.ITEM], Main.ITEM, "", not has_items),
 		MenuEntry.new(labels[Main.RUN], Main.RUN, "", ctx.is_boss_battle()),
 	]
@@ -75,11 +82,11 @@ func _main_entries(ctx: BattleContext, actor: Battler) -> Array[MenuEntry]:
 func _choose_attack(ctx: BattleContext, actor: Battler) -> BattleAction:
 	var entries: Array[MenuEntry] = []
 	for weapon in actor.data.weapons:
-		entries.append(MenuEntry.new(weapon.get_menu_label(), weapon))
+		if weapon.retrieves_weapon and not actor.weapon_away:
+			continue # "Collect the book" shows only while the book is on the ground
+		entries.append(MenuEntry.new(weapon.get_menu_label(), weapon, "", not actor.can_use(weapon)))
 	for offer in actor.sub_action_offers:
 		entries.append(MenuEntry.new(offer.data.display_name, offer, "", false, offer.data.highlight_color))
-	var can_recruit := ctx.has_party_room() and not ctx.recruitable_enemies().is_empty()
-	entries.append(MenuEntry.new(RECRUIT_LABEL, RECRUIT_LABEL, "", not can_recruit, RECRUIT_COLOR))
 
 	var index := 0
 	while true:
@@ -93,18 +100,14 @@ func _choose_attack(ctx: BattleContext, actor: Battler) -> BattleAction:
 				return AbilityAction.new(actor, payload, targets)
 		elif payload is SubActionOffer:
 			return HumiliateAction.new(actor, payload)
-		elif payload is String and payload == RECRUIT_LABEL:
-			var picked := await _view.select_targets(ctx.recruitable_enemies(), false)
-			if not picked.is_empty():
-				return RecruitAction.new(actor, picked)
 	return null
 
 
 func _choose_skill(ctx: BattleContext, actor: Battler) -> BattleAction:
 	var entries: Array[MenuEntry] = []
 	for skill in actor.data.skills:
-		entries.append(MenuEntry.new(skill.get_menu_label(), skill, "%dMP" % skill.mp_cost, not actor.can_pay(skill)))
-	entries.append(MenuEntry.new(DEFEND_LABEL, DEFEND_LABEL))
+		entries.append(MenuEntry.new(skill.get_menu_label(), skill, "%dMP" % skill.mp_cost, not actor.can_use(skill)))
+	entries.append(MenuEntry.new(GameText.text("ui_text.skill_submenu_last_entry", "Defend"), &"defend"))
 
 	var index := 0
 	while true:
@@ -118,6 +121,34 @@ func _choose_skill(ctx: BattleContext, actor: Battler) -> BattleAction:
 				return AbilityAction.new(actor, payload, targets)
 		else:
 			return DefendAction.new(actor)
+	return null
+
+
+func _choose_action(ctx: BattleContext, actor: Battler) -> BattleAction:
+	var can_recruit := ctx.has_party_room() and not ctx.recruitable_enemies().is_empty()
+	var entries: Array[MenuEntry] = [
+		MenuEntry.new(GameText.list_item("ui_text.action_submenu", 0, "Recruit"), RECRUIT, "", not can_recruit, RECRUIT_COLOR),
+	]
+	var index := 0
+	while true:
+		index = await _sub_list.choose(entries, index)
+		if index < 0:
+			return null
+		if entries[index].payload == RECRUIT:
+			var picked := await _view.select_targets(ctx.recruitable_enemies(), false)
+			if picked.is_empty():
+				continue
+			# A talk that can't open yet (language lock, no questions for the race)
+			# says why and keeps the turn.
+			var blocked := RecruitAction.blocker(picked[0])
+			if not blocked.is_empty():
+				hide()
+				await _view.say(BattleText.fill(BattleText.line(blocked), {"target": picked[0].label()}))
+				_view.text_box.clear()
+				_view.text_box.hide()
+				show()
+				continue
+			return RecruitAction.new(actor, picked)
 	return null
 
 

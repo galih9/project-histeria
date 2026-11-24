@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="SkillData" format=3]
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://cmcvn0abca5si"]
 
-[ext_resource type="Script" path="res://data/definitions/effects/effect_data.gd" id="1_rwk07"]
-[ext_resource type="Script" path="res://data/definitions/effects/apply_status_effect.gd" id="2_2gpbj"]
+[ext_resource type="Script" uid="uid://cph3hjy53p3i8" path="res://data/definitions/effects/effect_data.gd" id="1_rwk07"]
+[ext_resource type="Script" uid="uid://b2l52ilfr5t4b" path="res://data/definitions/effects/apply_status_effect.gd" id="2_2gpbj"]
 [ext_resource type="Resource" path="res://data/statuses/defense_down.tres" id="3_kh07n"]
-[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="4_sbiua"]
+[ext_resource type="Script" uid="uid://mki1fy6466g5" path="res://data/definitions/skill_data.gd" id="4_sbiua"]
 
 [sub_resource type="Resource" id="Resource_ue8dc"]
 script = ExtResource("2_2gpbj")
@@ -12,9 +12,8 @@ stacks = 2
 
 [resource]
 script = ExtResource("4_sbiua")
+text_id = &"point_and_laugh"
 mp_cost = 2
 display_name = "Point and Laugh"
-description = "Lowers Defense."
 effects = Array[ExtResource("1_rwk07")]([SubResource("Resource_ue8dc")])
-use_text = "{user} points at {target} and laughs. And laughs."
 ai_hint = 3

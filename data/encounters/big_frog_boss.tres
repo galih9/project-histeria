@@ -10,5 +10,4 @@ script = ExtResource("4_gdku7")
 enemies = Array[ExtResource("2_xnv5x")]([ExtResource("3_8todk")])
 is_boss = true
 background = ExtResource("1_leocu")
-intro_text = "{target} hops out of the pond! The ground shakes!"
 drive_drop_chance = 1.0

@@ -12,6 +12,11 @@ const HEAL_COLOR := Color("8be36b")
 const MP_COLOR := Color("7ec8ff")
 const MISS_COLOR := Color("c9c3d9")
 const LUCKY_COLOR := Color("ffd84a")
+const MOOD_COLOR := Color("ff7a6b")
+const COIN_COLOR := Color("ffe08a")
+## Recruit talk answer list: under the text box, at the left.
+const ANSWER_LIST_POSITION := Vector2(6, 58)
+const ANSWER_LIST_WIDTH := 200.0
 
 ## Every battle text line, for logs and tests.
 signal narrated(text: String)
@@ -28,6 +33,7 @@ signal _target_input(command: StringName)
 var _enemy_sprites: Dictionary = {} # Battler -> EnemySprite
 var _party_windows: Dictionary = {} # Battler -> PartyWindow
 var _selecting := false
+var _answer_list: MenuList
 
 
 func setup(ctx: BattleContext) -> void:
@@ -39,6 +45,7 @@ func setup(ctx: BattleContext) -> void:
 	_layout_enemies(false)
 	for battler in ctx.party(false):
 		_add_party_window(battler)
+	_build_answer_list()
 	text_box.clear()
 
 
@@ -63,15 +70,50 @@ func set_active(actor: Battler) -> void:
 		_party_windows[battler].set_active(battler == actor)
 
 
-func show_dialogue(speaker: Battler, text: String, expression: StringName, as_thought: bool, priority: int) -> void:
+## Shows one Raider line. With `wait`, returns once the line has closed
+## (conversations play their lines one after another).
+func show_dialogue(speaker: Battler, text: String, expression: StringName, as_thought: bool,
+		priority: int, wait := false) -> void:
 	var anchor := Vector2(size.x / 2.0, 150.0)
 	if _party_windows.has(speaker):
 		anchor = _party_windows[speaker].top_center()
-	_dialogue.present(speaker, text, expression, as_thought, anchor, priority, text_box)
+	if wait:
+		await _dialogue.present(speaker, text, expression, as_thought, anchor, priority, text_box, true)
+	else:
+		_dialogue.present(speaker, text, expression, as_thought, anchor, priority, text_box)
 
 
-func dismiss_dialogue() -> void:
-	_dialogue.dismiss()
+## A new action closes a single line; `force` also ends a conversation line.
+func dismiss_dialogue(force := false) -> void:
+	_dialogue.dismiss(force)
+
+
+# --- Recruit talk -------------------------------------------------------------
+
+## Shows the answers under the question in the text box and waits for a pick.
+## The talk always needs an answer, so Cancel does nothing here.
+func choose_answer(answers: Array[String]) -> int:
+	var entries: Array[MenuEntry] = []
+	for answer in answers:
+		entries.append(MenuEntry.new(answer))
+	text_box.show()
+	_answer_list.reset_size.call_deferred() # fit 2 or 3 answers
+	var index := -1
+	while index < 0:
+		index = await _answer_list.choose(entries)
+	return index
+
+
+func _build_answer_list() -> void:
+	if _answer_list:
+		return
+	_answer_list = MenuList.new()
+	_answer_list.add_cancel_entry = false
+	_answer_list.allow_cancel = false
+	_answer_list.max_visible_rows = 3
+	_answer_list.custom_minimum_size = Vector2(ANSWER_LIST_WIDTH, 0)
+	_answer_list.position = ANSWER_LIST_POSITION
+	add_child(_answer_list)
 
 
 # --- Target selection --------------------------------------------------------
@@ -147,8 +189,10 @@ func _highlight(candidates: Array, index: int, all_at_once: bool) -> void:
 
 func _target_caption(candidates: Array[Battler], index: int, all_at_once: bool) -> String:
 	if all_at_once:
-		return "To everyone over there!" if candidates[0].side == Battler.Side.ENEMY else "To the whole party!"
-	return "To %s" % candidates[index].label()
+		if candidates[0].side == Battler.Side.ENEMY:
+			return GameText.text("ui_text.target_picker.all_enemies", "All enemies")
+		return GameText.text("ui_text.target_picker.all_party", "The whole party")
+	return BattleText.fill(GameText.text("ui_text.target_picker.single", "{target}"), {"target": candidates[index].label()})
 
 
 # --- Effects -----------------------------------------------------------------
@@ -164,13 +208,13 @@ func play_attack(_user: Battler, target: Battler, result: HitResult, effect: Dam
 	if not result.hit:
 		if _enemy_sprites.has(target):
 			_enemy_sprites[target].dodge()
-		PopupText.spawn(_fx_layer, "MISS", at + Vector2(0, -10), MISS_COLOR)
+		PopupText.spawn(_fx_layer, _popup("miss", "MISS"), at + Vector2(0, -10), MISS_COLOR)
 		if result.lucky_dodge:
 			_lucky_popup(at)
 		await _wait(0.3)
 		return
 
-	HitFx.spawn(_fx_layer, at, effect.hit_fx, result.crit)
+	HitFx.spawn(_fx_layer, at, effect.fx_kind(), result.crit)
 	await _wait(0.05)
 	_impact(target)
 	if UserSettings.show_damage_numbers:
@@ -192,12 +236,23 @@ func play_status_tick(target: Battler, status: StatusData, amount: int) -> void:
 
 
 func play_heal(target: Battler, amount: int) -> void:
-	var text := "+%d" % amount if amount > 0 else "Fresh!"
+	var text := _popup("heal", "+{amount}", amount) if amount > 0 else _popup("heal_zero", "+0")
 	PopupText.spawn(_fx_layer, text, _anchor(target) + Vector2(0, -8), HEAL_COLOR)
 
 
 func play_mp(target: Battler, amount: int) -> void:
-	PopupText.spawn(_fx_layer, "+%d MP" % amount, _anchor(target) + Vector2(0, -8), MP_COLOR)
+	PopupText.spawn(_fx_layer, _popup("mp_restore", "+{amount} MP", amount), _anchor(target) + Vector2(0, -8), MP_COLOR)
+
+
+## The recruit talk added a mood stack to the critter.
+func play_mood(target: Battler) -> void:
+	PopupText.spawn(_fx_layer, _popup("mood_up", "MOOD +1"), _anchor(target) + Vector2(0, -20), MOOD_COLOR)
+	if _enemy_sprites.has(target):
+		_enemy_sprites[target].wiggle()
+
+
+func play_coins(source: Battler, amount: int) -> void:
+	PopupText.spawn(_fx_layer, _popup("coins", "+{amount} coins", amount), _anchor(source) + Vector2(0, -14), COIN_COLOR)
 
 
 func play_react(target: Battler) -> void:
@@ -220,17 +275,23 @@ func refresh_battler(battler: Battler) -> void:
 
 ## Recruit: the enemy sprite fades out and a party window pops in.
 func move_to_party(battler: Battler) -> void:
-	if _enemy_sprites.has(battler):
-		var sprite: EnemySprite = _enemy_sprites[battler]
-		await sprite.dissolve()
-		_enemy_sprites.erase(battler)
-		sprite.queue_free()
-		_layout_enemies(true)
+	await remove_enemy(battler)
 	var window := _add_party_window(battler)
 	window.modulate.a = 0.0
 	var tween := create_tween()
 	tween.tween_property(window, "modulate:a", 1.0, 0.25)
 	await tween.finished
+
+
+## The enemy sprite fades out and the others close the gap (recruit, or leaving the battle).
+func remove_enemy(battler: Battler) -> void:
+	if not _enemy_sprites.has(battler):
+		return
+	var sprite: EnemySprite = _enemy_sprites[battler]
+	await sprite.dissolve()
+	_enemy_sprites.erase(battler)
+	sprite.queue_free()
+	_layout_enemies(true)
 
 
 # --- Building ----------------------------------------------------------------
@@ -284,7 +345,7 @@ func _impact(target: Battler) -> void:
 
 
 func _lucky_popup(at: Vector2) -> void:
-	PopupText.spawn(_fx_layer, "LUCKY!", at + Vector2(0, -22), LUCKY_COLOR)
+	PopupText.spawn(_fx_layer, _popup("lucky", "LUCKY!"), at + Vector2(0, -22), LUCKY_COLOR)
 	for i in 4:
 		HitFx.spawn(_fx_layer, at + Vector2(randf_range(-14, 14), randf_range(-18, 6)), DamageEffect.HitFx.MAGIC)
 
@@ -300,6 +361,11 @@ func _hit_stop(critical: bool) -> void:
 		Engine.time_scale = BattleRules.CRIT_SLOWMO_SCALE
 		await get_tree().create_timer(BattleRules.CRIT_SLOWMO_SECONDS, true, false, true).timeout
 		Engine.time_scale = 1.0
+
+
+## Pop-up text from game_text.json ui_text.popups.
+func _popup(key: String, fallback: String, amount := 0) -> String:
+	return GameText.text("ui_text.popups." + key, fallback).format({"amount": amount})
 
 
 func _wait(seconds: float) -> void:

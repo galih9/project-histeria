@@ -5,6 +5,9 @@ extends PanelContainer
 ## waits for the battle text to finish typing before it appears.
 
 const SHOW_SECONDS := 2.6
+## Conversation lines stay up for a time that grows with their length.
+const CONVERSATION_MIN_SECONDS := 1.6
+const CONVERSATION_SECONDS_PER_CHAR := 0.045
 const TEXT_WIDTH := 120.0
 const SCREEN_MARGIN := 4.0
 
@@ -12,6 +15,7 @@ var _portrait: Portrait
 var _label: Label
 var _priority := 0
 var _serial := 0
+var _locked := false
 
 
 func _ready() -> void:
@@ -32,10 +36,12 @@ func _ready() -> void:
 
 
 ## anchor: for thoughts, the top center of the speaker's party window.
+## `in_conversation` keeps the line up when a new action closes single lines.
 func present(speaker: Battler, text: String, expression: StringName, as_thought: bool,
-		anchor: Vector2, priority: int, text_box: TextBox) -> void:
+		anchor: Vector2, priority: int, text_box: TextBox, in_conversation := false) -> void:
 	if visible and priority < _priority:
 		return
+	_locked = in_conversation
 	_serial += 1
 	var serial := _serial
 	_priority = priority
@@ -59,12 +65,18 @@ func present(speaker: Battler, text: String, expression: StringName, as_thought:
 	show()
 	create_tween().tween_property(self, "modulate:a", 1.0, 0.1)
 
-	await get_tree().create_timer(SHOW_SECONDS, true, false, true).timeout
+	var seconds := SHOW_SECONDS
+	if in_conversation:
+		seconds = maxf(CONVERSATION_MIN_SECONDS, 0.9 + text.length() * CONVERSATION_SECONDS_PER_CHAR)
+	await get_tree().create_timer(seconds, true, false, true).timeout
 	if serial == _serial:
-		dismiss()
+		dismiss(true)
 
 
-func dismiss() -> void:
+func dismiss(force := false) -> void:
+	if _locked and not force:
+		return
+	_locked = false
 	_serial += 1
 	_priority = 0
 	hide()

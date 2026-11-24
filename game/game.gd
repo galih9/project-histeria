@@ -6,9 +6,6 @@ extends Node
 const BATTLE_SCENE := preload("res://battle/battle_scene.tscn")
 const ESCAPE_INVULNERABLE_SECONDS := 2.0
 const ESCAPE_STUN_SECONDS := 2.5
-const DEFEAT_LINES: PackedStringArray = [
-	"...You wake up at the start, feeling weirdly refreshed.",
-]
 
 @onready var _world_root: Node2D = %WorldRoot
 @onready var _battle_layer: CanvasLayer = %BattleLayer
@@ -57,7 +54,7 @@ func _on_encounter_requested(hologram: Node, advantage: int) -> void:
 	_hud.set_enabled(true)
 	_set_world_active(true)
 	if result.outcome == BattleResult.Outcome.DEFEAT:
-		_hud.show_message(DEFEAT_LINES)
+		_hud.show_message(GameText.lines("overworld.after_defeat"))
 
 
 func _apply_result(result: BattleResult, hologram: Hologram) -> void:
@@ -66,6 +63,7 @@ func _apply_result(result: BattleResult, hologram: Hologram) -> void:
 		member.hp = battler.hp
 		member.mp = battler.mp
 	GameState.drives.append_array(result.drives)
+	GameState.coins += result.coins
 
 	match result.outcome:
 		BattleResult.Outcome.VICTORY:

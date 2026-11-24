@@ -11,7 +11,7 @@ func choose(ctx: BattleContext, actor: Battler) -> BattleAction:
 	var options: Array[SkillData] = []
 	var weights: Array[float] = []
 	for skill in actor.data.weapons + actor.data.skills:
-		if skill.ai_weight <= 0.0 or not actor.can_pay(skill):
+		if skill.ai_weight <= 0.0 or not actor.can_use(skill):
 			continue
 		if _pick_targets(ctx, actor, skill).is_empty():
 			continue

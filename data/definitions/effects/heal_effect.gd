@@ -1,6 +1,6 @@
 class_name HealEffect
 extends EffectData
-## Restores HP. Healing a KO'd character only works with revive switched on.
+## Restores HP. Healing a downed character only works with revive switched on.
 
 @export var amount := 30
 ## Adds a share of the user's Attack, so Ale's heals grow with her buffs.
@@ -10,4 +10,4 @@ extends EffectData
 
 func apply(ctx: BattleContext, user: Battler, target: Battler) -> void:
 	var total := amount + roundi(user.get_stat(StatBlock.ATTACK) * attack_scaling)
-	await ctx.heal(target, total, revive)
+	await ctx.heal(target, total, revive, user)

@@ -1,12 +1,13 @@
 class_name PartyWindow
 extends Control
 ## One party member's window (GDD 03): name, HP and MP only. Rises a few pixels
-## on that character's turn, flashes and wiggles when hit, darkens on KO.
+## on that character's turn, flashes and wiggles when hit, darkens when downed.
+## A Shield (Ale's Overheal) shows as a second color next to the HP number.
 ## HP uses a rolling counter (EarthBound's signature); switch it off with rolling_hp.
 
 const RISE_PIXELS := 6.0
 const ROLL_SPEED := 45.0 # HP per second
-const KO_MODULATE := Color(0.45, 0.42, 0.5)
+const DOWN_MODULATE := Color(0.45, 0.42, 0.5)
 const LOW_HP_COLOR := Color("ff8f61")
 
 @export var rolling_hp := true
@@ -21,6 +22,7 @@ var _blink := 0.0
 @onready var _name_label: Label = %NameLabel
 @onready var _hp_label: Label = %HpLabel
 @onready var _mp_label: Label = %MpLabel
+@onready var _shield_label: Label = %ShieldLabel
 @onready var _pips: Control = %StatusPips
 
 
@@ -35,6 +37,7 @@ func bind(target: Battler) -> void:
 	battler.hp_changed.connect(func(_old: int, _new: int) -> void: _refresh())
 	battler.mp_changed.connect(func(_mp: int) -> void: _refresh())
 	battler.statuses_changed.connect(_pips.queue_redraw)
+	battler.shield_changed.connect(func(_shield: int) -> void: _refresh())
 	_refresh()
 
 
@@ -89,14 +92,15 @@ func _refresh() -> void:
 	var hp_shown := ceili(_shown_hp)
 	_hp_label.text = "HP %3d" % hp_shown
 	_mp_label.text = "MP %3d" % battler.mp
+	_shield_label.text = "+%d" % battler.shield if battler.shield > 0 else ""
 	var low := battler.hp_ratio() < 0.3
 	if low:
 		_hp_label.add_theme_color_override("font_color", LOW_HP_COLOR)
 	else:
 		_hp_label.remove_theme_color_override("font_color")
-	var knocked_out := not battler.is_alive() and hp_shown <= 0
-	modulate = KO_MODULATE if knocked_out else Color.WHITE
-	_name_label.text = battler.window_name() + (" KO" if knocked_out else "")
+	var downed := not battler.is_alive() and hp_shown <= 0
+	modulate = DOWN_MODULATE if downed else Color.WHITE
+	_name_label.text = battler.window_name() + (" " + GameText.text("ui_text.party_window_downed", "DOWN") if downed else "")
 
 
 ## Tiny status pips in the corner (GDD 03 proposal): one dot per active status.

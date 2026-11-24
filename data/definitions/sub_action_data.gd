@@ -2,6 +2,8 @@ class_name SubActionData
 extends Resource
 ## Settings for a sub action (GDD 06): a free, Luck-gated flourish.
 
+## Matches the sub action "id" in game_text.json.
+@export var text_id: StringName = &"humiliate"
 @export var display_name := "Humiliate"
 ## Allowed in boss battles.
 @export var boss_safe := false
@@ -17,6 +19,10 @@ extends Resource
 @export var debuff_pool: Array[StatusData] = []
 @export_range(1, 5) var stacks := 2
 @export var react_text := "{target} feels deeply insulted!"
+## Shown when the opening appears. Filled from game_text.json.
+var open_text := ""
+## Used when the Raider has no humiliate_lines.
+var fallback_text := "{user} makes a rude face at {target}!"
 
 
 func availability_chance(luck: float) -> float:

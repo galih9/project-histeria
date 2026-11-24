@@ -30,7 +30,7 @@ func hold_seconds() -> float:
 
 
 func text_speed_name() -> String:
-	return TEXT_SPEED_NAMES[text_speed]
+	return GameText.list_item("boot_and_title.text_speed_options", text_speed, TEXT_SPEED_NAMES[text_speed])
 
 
 func cycle_text_speed() -> void:

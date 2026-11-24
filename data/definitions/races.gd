@@ -1,19 +1,21 @@
 class_name Races
 extends RefCounted
-## The six races from GDD 02. For now a race is a label with a description.
+## Race labels (GDD 02 and game_text.json "races"). Descriptions live in the JSON.
 
 const RAIDERS := &"Raiders"
-const LOOK_HUMAN := &"Look-Human"
-const FERRAL := &"Ferral"
-const MONUMENT := &"Monument"
-const SPIRITS := &"Spirits"
-const WARES := &"Wares"
+const GUARDIANS := &"Guardians"
+const HOFFLERS := &"Hofflers"
+const FERRALS := &"Ferrals"
+const KITS := &"Kits"
+const WANDERERS := &"Wanderers"
+const SOULS := &"Souls"
+const MONUMENTS := &"Monuments"
+const ELECTRONICS := &"Electronics"
+const IDOLS := &"Idols"
 
-const DESCRIPTIONS: Dictionary = {
-	RAIDERS: "The playable characters. The only race that talks on its own in battle.",
-	LOOK_HUMAN: "They look like humans, but slightly off.",
-	FERRAL: "Basically wild animals.",
-	MONUMENT: "How are these things even here?",
-	SPIRITS: "They are transparent.",
-	WARES: "Things that should belong in a warehouse.",
-}
+## Races with their own language: the recruit talk opens only after its unlock.
+const OWN_LANGUAGE: Array[StringName] = [SOULS, ELECTRONICS]
+
+
+static func description(race: StringName) -> String:
+	return GameText.race_description(race)

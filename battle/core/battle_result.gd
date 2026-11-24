@@ -10,3 +10,5 @@ var party: Array[Battler] = []
 ## Monsters that joined during the fight.
 var recruited: Array[Battler] = []
 var drives: Array[DriveData] = []
+## Coins critters handed over in the recruit talk.
+var coins := 0

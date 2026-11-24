@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="StatusData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/status_data.gd" id="1_status"]
+
+[resource]
+script = ExtResource("1_status")
+id = &"taunt"
+display_name = "Taunt"
+kind = 2
+is_debuff = true
+max_stacks = 3
+color = Color(1, 0.43529412, 0.36862746, 1)

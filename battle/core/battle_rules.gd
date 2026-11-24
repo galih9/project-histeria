@@ -31,16 +31,36 @@ const MAX_HIT_CHANCE := 1.0
 const LUCK_PER_POINT := 0.005
 const LUCK_CAP := 0.25
 
-## Recruiting (GDD 02 proposal): chance from temperament, missing HP and Luck.
-## chance = temperament x (FULL_HP_SHARE + (1 - FULL_HP_SHARE) x missing HP) + Luck x LUCK_PER_POINT
-const RECRUIT_FULL_HP_SHARE := 0.25
-const RECRUIT_LUCK_PER_POINT := 0.003
-const RECRUIT_MIN_CHANCE := 0.05
-const RECRUIT_MAX_CHANCE := 0.9
+## Recruit talk (GDD 18). The answers pick the outcome; these numbers are
+## placeholders until Kiki sets the detailed rules.
+## Questions in one talk.
+const TALK_MAX_QUESTIONS := 3
+## Mood stacks that make a critter too angry to respond for the rest of the battle.
+const TALK_TOO_ANGRY_STACKS := 3
+## Luck softening a hostile reaction: the recruiter needs this much Luck, then
+## each answer rolls Luck x TALK_SOFTEN_PER_LUCK (capped). Each mood stack on
+## the critter takes TALK_SOFTEN_MOOD_PENALTY off the chance.
+const TALK_SOFTEN_LUCK_THRESHOLD := 10.0
+const TALK_SOFTEN_PER_LUCK := 0.02
+const TALK_SOFTEN_MAX_CHANCE := 0.5
+const TALK_SOFTEN_MOOD_PENALTY := 0.1
+## A critter at or below this share of HP starts the talk with one mood stack.
+const TALK_LOW_HP_RATIO := 0.3
+## "Gives money" and "heals the active party" scale with the critter's level.
+const TALK_MONEY_BASE := 10
+const TALK_MONEY_PER_LEVEL := 5
+const TALK_HEAL_BASE := 12
+const TALK_HEAL_PER_LEVEL := 4
 
 ## Run: base chance plus a bonus for being faster than the enemies.
 const RUN_BASE_CHANCE := 0.55
 const RUN_SPEED_FACTOR := 0.03
+
+## Paralyze (GDD 05): chance to lose the turn on each own turn.
+const PARALYZE_LOSE_TURN_CHANCE := 0.5
+## Stun diminishing returns (GDD 05): every new stun in a chain loses 1 stack per
+## stun already in the chain; the chain resets after this many own turns free of Stun.
+const STUN_CHAIN_RESET_TURNS := 2
 
 ## Hit feel (GDD 03): hit-stop freeze and the random slow-mo on critical hits.
 const HIT_STOP_SECONDS := 0.07

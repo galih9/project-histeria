@@ -21,7 +21,7 @@ func execute(ctx: BattleContext) -> void:
 	if not target.is_alive() or config.debuff_pool.is_empty():
 		return
 	var names := {"user": user.label(), "target": target.label()}
-	var taunt := BattleText.pick(user.data.humiliate_lines, ctx.rng, "{user} makes a rude face at {target}!")
+	var taunt := BattleText.pick(user.data.humiliate_lines, ctx.rng, config.fallback_text)
 	await ctx.say(BattleText.fill(taunt, names))
 	ctx.view.play_react(target)
 	await ctx.say(BattleText.fill(config.react_text, names))

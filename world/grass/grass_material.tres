@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://world/grass/grass_sway.gdshader" id="1_sway"]
+
+[resource]
+shader = ExtResource("1_sway")

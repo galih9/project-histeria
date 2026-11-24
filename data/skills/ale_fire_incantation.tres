@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/effects/effect_data.gd" id="1_effect"]
+[ext_resource type="Script" path="res://data/definitions/effects/damage_effect.gd" id="2_damage"]
+[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="3_skill"]
+
+[sub_resource type="Resource" id="Resource_spell"]
+script = ExtResource("2_damage")
+damage_type = 1
+power = 16.0
+hit_fx = 2
+element = 1
+
+[resource]
+script = ExtResource("3_skill")
+mp_cost = 5
+text_id = &"fire_incantation"
+display_name = "Fire Incantation"
+effects = Array[ExtResource("1_effect")]([SubResource("Resource_spell")])
+requires_weapon = true

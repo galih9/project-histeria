@@ -1,12 +1,12 @@
-[gd_resource type="Resource" script_class="CombatantData" format=3]
+[gd_resource type="Resource" script_class="CombatantData" format=3 uid="uid://bpckmjly6u43h"]
 
-[ext_resource type="Script" path="res://data/definitions/combatant_data.gd" id="1_7y117"]
-[ext_resource type="Script" path="res://data/definitions/skill_data.gd" id="2_12u1p"]
-[ext_resource type="Resource" path="res://data/skills/machinist_pep_rally.tres" id="3_0r027"]
-[ext_resource type="Resource" path="res://data/skills/machinist_tidy_up.tres" id="4_gn008"]
-[ext_resource type="Script" path="res://data/definitions/stat_block.gd" id="5_dmngt"]
-[ext_resource type="Script" path="res://data/definitions/traits/trait_data.gd" id="6_o2h16"]
-[ext_resource type="Resource" path="res://data/skills/machinist_wrench_tap.tres" id="7_kwo8p"]
+[ext_resource type="Script" uid="uid://c6qrhrqtao5q6" path="res://data/definitions/combatant_data.gd" id="1_7y117"]
+[ext_resource type="Script" uid="uid://mki1fy6466g5" path="res://data/definitions/skill_data.gd" id="2_12u1p"]
+[ext_resource type="Resource" uid="uid://dlgjcbfypwqkd" path="res://data/skills/machinist_pep_rally.tres" id="3_0r027"]
+[ext_resource type="Resource" uid="uid://drvw8kunw1o1n" path="res://data/skills/machinist_tidy_up.tres" id="4_gn008"]
+[ext_resource type="Script" uid="uid://brrgoft8wow6" path="res://data/definitions/stat_block.gd" id="5_dmngt"]
+[ext_resource type="Script" uid="uid://fs5pw8c66qwk" path="res://data/definitions/traits/trait_data.gd" id="6_o2h16"]
+[ext_resource type="Resource" uid="uid://dn3xmp2oqu6mv" path="res://data/skills/machinist_wrench_tap.tres" id="7_kwo8p"]
 
 [sub_resource type="Resource" id="Resource_ebky5"]
 script = ExtResource("5_dmngt")
@@ -22,17 +22,13 @@ luck = 10.0
 
 [resource]
 script = ExtResource("1_7y117")
+text_id = &"machinist"
 display_name = "Machinist"
 short_name = "Machinist"
 article = "the "
-races = Array[StringName]([&"Look-Human"])
+races = Array[StringName]([&"Wanderers"])
 stats = SubResource("Resource_ebky5")
 weapons = Array[ExtResource("2_12u1p")]([ExtResource("7_kwo8p")])
 skills = Array[ExtResource("2_12u1p")]([ExtResource("3_0r027"), ExtResource("4_gn008")])
-temperament = 0.6
-negotiation_lines = PackedStringArray("\"Uh, hi. I was fixing a printer and then... all this.\"", "\"Is this a job interview? Do you have dental?\"")
-recruit_success_lines = PackedStringArray("\"Sure, why not. Got snacks?\"")
-recruit_fail_lines = PackedStringArray("\"Nah. I\'m still on the clock.\"")
-humiliate_lines = PackedStringArray()
 color = Color(0.8784314, 0.54509807, 0.22745098, 1)
 battle_size = Vector2i(32, 64)

@@ -12,7 +12,7 @@ script = ExtResource("1_script")
 unique_name_in_owner = true
 offset_left = 6.0
 offset_top = 170.0
-offset_right = 250.0
+offset_right = 394.0
 offset_bottom = 218.0
 script = ExtResource("2_text")
 wait_for_confirm = true
@@ -30,7 +30,7 @@ script = ExtResource("3_list")
 unique_name_in_owner = true
 offset_left = 82.0
 offset_top = 6.0
-offset_right = 250.0
+offset_right = 394.0
 offset_bottom = 46.0
 
 [node name="StatusLabel" type="Label" parent="StatusPanel"]

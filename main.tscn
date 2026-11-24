@@ -1,24 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://d033xga0cjqq"]
+[gd_scene format=3 uid="uid://d033xga0cjqq"]
 
-[ext_resource type="Script" path="res://game/game.gd" id="1_game"]
+[ext_resource type="Script" uid="uid://c7irkd8xxn7dk" path="res://game/game.gd" id="1_game"]
 [ext_resource type="PackedScene" path="res://world/maps/playtest_map.tscn" id="2_map"]
 [ext_resource type="PackedScene" path="res://world/ui/world_hud.tscn" id="3_hud"]
 [ext_resource type="PackedScene" path="res://world/ui/encounter_transition.tscn" id="4_transition"]
+[ext_resource type="Script" uid="uid://bjxbeurfw2g4v" path="res://ui/dev/dev_menu.gd" id="5_dev"]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" unique_id=771920382]
 script = ExtResource("1_game")
 
-[node name="WorldRoot" type="Node2D" parent="."]
+[node name="WorldRoot" type="Node2D" parent="." unique_id=1042685096]
 unique_name_in_owner = true
 
-[node name="PlaytestMap" parent="WorldRoot" instance=ExtResource("2_map")]
+[node name="PlaytestMap" parent="WorldRoot" unique_id=1804931555 instance=ExtResource("2_map")]
 
-[node name="BattleLayer" type="CanvasLayer" parent="."]
+[node name="BattleLayer" type="CanvasLayer" parent="." unique_id=1791418132]
 unique_name_in_owner = true
 layer = 5
 
-[node name="WorldHud" parent="." instance=ExtResource("3_hud")]
+[node name="WorldHud" parent="." unique_id=849758049 instance=ExtResource("3_hud")]
 unique_name_in_owner = true
 
-[node name="Transition" parent="." instance=ExtResource("4_transition")]
+[node name="Transition" parent="." unique_id=2109512090 instance=ExtResource("4_transition")]
 unique_name_in_owner = true
+
+[node name="DevMenu" type="CanvasLayer" parent="." unique_id=1298411791]
+layer = 50
+script = ExtResource("5_dev")

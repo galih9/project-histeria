@@ -13,3 +13,8 @@ func after_status_inflicted(ctx: BattleContext, owner: Battler, target: Battler,
 		return
 	await ctx.say(BattleText.fill(boost_text, {"user": owner.label()}))
 	await ctx.apply_status(owner, owner, boost, stacks, false)
+
+
+func set_battle_text(text: String) -> void:
+	if not text.is_empty():
+		boost_text = text

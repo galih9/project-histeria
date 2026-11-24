@@ -4,7 +4,7 @@ extends PanelContainer
 ## one character at a time; a confirm press finishes the line, and a second
 ## press skips the short hold. Old lines scroll up and out.
 ##
-## Usage:  await text_box.say("Tata attacks!")
+## Usage:  await text_box.say("Bo attacks!")
 
 signal line_finished
 
